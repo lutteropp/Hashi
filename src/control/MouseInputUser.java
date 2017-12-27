@@ -61,10 +61,6 @@ public class MouseInputUser extends MouseAdapter {
 					if (lastSelectedNode.isNeighborOf(node)) {
 						// toggle the connection
 						node.getLinkToNeighbor(lastSelectedNode).toggle();
-						if (myBoard.getMyBoard().hasWon()) {
-							myBoard.setBackground(Color.GREEN);
-							System.out.println("The game has been won.");
-						}
 					}
 					lastSelectedNode.setSelected(false);
 					lastSelectedNode = null;
@@ -83,6 +79,10 @@ public class MouseInputUser extends MouseAdapter {
 				// fill the whole node with connections
 				node.fillNode();
 			}
+		}
+		if (myBoard.getMyBoard().hasWon()) {
+			myBoard.setBackground(Color.GREEN);
+			System.out.println("The game has been won.");
 		}
 		myBoard.repaint();
 	}

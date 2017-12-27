@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -20,8 +21,9 @@ public class Main {
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be invoked
 	 * from the event-dispatching thread.
+	 * @throws IOException 
 	 */
-	private void createAndShowGUI() {
+	private void createAndShowGUI() throws IOException {
 		JFrame frame = new JFrame("");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -31,6 +33,8 @@ public class Main {
 		int height = 5;
 		// ArrayList<GridNode> nodes = LevelGenerator.getFixedLevelWidth15Height5();
 		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height);
+		
+		Assets.loadAssets();
 		
 		GameBoard board = new GameBoard(width, height, nodes);
 		drawingBoard = new DrawingBoard(board);
@@ -48,7 +52,12 @@ public class Main {
 		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new Main().createAndShowGUI();
+				try {
+					new Main().createAndShowGUI();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

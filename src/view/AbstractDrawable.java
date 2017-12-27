@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.IOException;
 
 /** An abstract base class for all drawable objects.
  * It contains methods to draw an (highlighted) object
@@ -63,7 +64,8 @@ public abstract class AbstractDrawable {
 	/** Draws the object.
 	 * @param g The canvas to draw the object on.
 	 * @param cellSize The size of the cells on the board.
+	 * @throws IOException 
 	 */
 	// Graphics can always be casted to Graphics2D
-	public abstract void draw(final Graphics2D g, int cellSize);
+	public abstract void draw(final Graphics2D g, int cellSize) throws IOException;
 }

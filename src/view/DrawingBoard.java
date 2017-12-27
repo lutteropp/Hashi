@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -23,7 +24,7 @@ public class DrawingBoard extends JPanel {
 	private int rows;
 	private int cols;
 	private final int preferredCellSize = 10;
-	private boolean showGrid = true;
+	private boolean showGrid = false;
 	private int cellSize;
 	
 	private GameBoard myBoard;
@@ -115,6 +116,17 @@ public class DrawingBoard extends JPanel {
 		cellSize = Math.min(this.getWidth() / cols, this.getHeight() / rows);
 		int xStart = 0;
 		int yStart = 0;
+		for (VisualLink link : links) {
+			link.draw((Graphics2D) g, cellSize);
+		}
+		for (VisualGridNode node : nodes) {
+			try {
+				node.draw((Graphics2D) g, cellSize);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if (showGrid) {
 			// draw the grid
 			for (int i = 0; i < cols; ++i) {
@@ -124,12 +136,6 @@ public class DrawingBoard extends JPanel {
 					g.drawRect(x, y, cellSize, cellSize);
 				}
 			}
-		}
-		for (VisualLink link : links) {
-			link.draw((Graphics2D) g, cellSize);
-		}
-		for (VisualGridNode node : nodes) {
-			node.draw((Graphics2D) g, cellSize);
 		}
 	}
 }
