@@ -91,16 +91,16 @@ public class VisualGridNode extends AbstractDrawable {
 			parts.add(Assets.hotBorder);
 		}
 		if (myGridNode.getLink(Direction.EAST) != null) {
-			parts.add(Assets.eastPins);
+			parts.add(Assets.eastPins.get(myGridNode.getLink(Direction.EAST).getThickness()));
 		}
 		if (myGridNode.getLink(Direction.WEST) != null) {
-			parts.add(Assets.westPins);
+			parts.add(Assets.westPins.get(myGridNode.getLink(Direction.WEST).getThickness()));
 		}
 		if (myGridNode.getLink(Direction.NORTH) != null) {
-			parts.add(Assets.northPins);
+			parts.add(Assets.northPins.get(myGridNode.getLink(Direction.NORTH).getThickness()));
 		}
 		if (myGridNode.getLink(Direction.SOUTH) != null) {
-			parts.add(Assets.southPins);
+			parts.add(Assets.southPins.get(myGridNode.getLink(Direction.SOUTH).getThickness()));
 		}
 		parts.add(Assets.goal.get(myGridNode.getGoal()));
 		
