@@ -119,8 +119,16 @@ public class VisualGridNode extends AbstractDrawable {
 		int x = myGridNode.getX() * cellSize;
 		int y = myGridNode.getY() * cellSize;
 
+		if (this.isSelected) {
+			g.setColor(Color.YELLOW);
+			g.fillOval(myGridNode.getX() * cellSize, myGridNode.getY() * cellSize, cellSize, cellSize);
+		} else if (this.isHighlighted) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillOval(myGridNode.getX() * cellSize, myGridNode.getY() * cellSize, cellSize, cellSize);
+		}
 		BufferedImage bi = assembleNodeImage(cellSize);
-		g.drawImage(bi, x, y, cellSize, cellSize, g.getBackground(), null);
+		g.drawImage(bi, x, y, cellSize, cellSize, null);
+		
 
 		/*
 		 * if (this.isSelected) { g.setColor(Color.DARK_GRAY); } else if
