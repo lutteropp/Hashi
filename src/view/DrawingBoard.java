@@ -28,7 +28,7 @@ public class DrawingBoard extends JPanel {
 	private final int preferredCellSize = 10;
 	private boolean showGrid = false;
 	private int cellSize;
-	
+
 	private GameBoard myBoard;
 
 	public DrawingBoard(GameBoard gameBoard) {
@@ -47,7 +47,7 @@ public class DrawingBoard extends JPanel {
 			linksMap.put(realLink, visualLink);
 			links.add(visualLink);
 		}
-		
+
 		for (GridNode node : realNodes) {
 			VisualGridNode visualNode = new VisualGridNode(node);
 			for (Direction dir : Direction.values()) {
@@ -57,7 +57,7 @@ public class DrawingBoard extends JPanel {
 			}
 			nodes.add(visualNode);
 		}
-		
+
 		MouseInputUser myListener = new MouseInputUser(this);
 		addMouseListener(myListener);
 		addMouseMotionListener(myListener);
@@ -68,7 +68,7 @@ public class DrawingBoard extends JPanel {
 	public GameBoard getMyBoard() {
 		return myBoard;
 	}
-	
+
 	/**
 	 * Gets the nearest Drawable item.
 	 *
@@ -89,7 +89,7 @@ public class DrawingBoard extends JPanel {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets the nearest VisualGridNode.
 	 *
@@ -105,7 +105,7 @@ public class DrawingBoard extends JPanel {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets the nearest VisualLink.
 	 *

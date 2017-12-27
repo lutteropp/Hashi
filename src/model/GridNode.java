@@ -230,7 +230,7 @@ public class GridNode {
 	 */
 	@Override
 	public String toString() {
-		return "GridNode [x=" + x + ", y=" + y + ", connections=" + connections + ", goal=" + goal + "]";
+		return "GridNode [x=" + x + ", y=" + y + ", goal=" + goal + "]";
 	}
 
 	/**

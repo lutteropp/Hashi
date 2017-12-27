@@ -31,7 +31,6 @@ public class LevelGenerator {
 		nodes.add(new GridNode(1, 1, 2));
 		nodes.add(new GridNode(9, 1, 4));
 		nodes.add(new GridNode(11, 1, 3));
-		nodes.add(new GridNode(2, 2, 3));
 		nodes.add(new GridNode(6, 2, 2));
 		nodes.add(new GridNode(2, 2, 3));
 		nodes.add(new GridNode(12, 2, 2));
