@@ -6,10 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 
 import control.MouseInputUser;
+import model.Direction;
 import model.GameBoard;
 import model.GridNode;
 import model.Link;
@@ -36,14 +38,24 @@ public class DrawingBoard extends JPanel {
 		rows = gameBoard.getHeight();
 		nodes = new ArrayList<VisualGridNode>();
 		ArrayList<GridNode> realNodes = gameBoard.getAllNodes();
-		for (GridNode node : realNodes) {
-			nodes.add(new VisualGridNode(node));
-		}
 
+		HashMap<Link, VisualLink> linksMap = new HashMap<Link, VisualLink>();
 		links = new ArrayList<VisualLink>();
 		ArrayList<Link> realLinks = gameBoard.getAllLinks();
-		for (Link link : realLinks) {
-			links.add(new VisualLink(link));
+		for (Link realLink : realLinks) {
+			VisualLink visualLink = new VisualLink(realLink);
+			linksMap.put(realLink, visualLink);
+			links.add(visualLink);
+		}
+		
+		for (GridNode node : realNodes) {
+			VisualGridNode visualNode = new VisualGridNode(node);
+			for (Direction dir : Direction.values()) {
+				Link realLink = visualNode.getMyGridNode().getLink(dir);
+				VisualLink visualLink = linksMap.get(realLink);
+				visualNode.setVisualLink(dir, visualLink);
+			}
+			nodes.add(visualNode);
 		}
 		
 		MouseInputUser myListener = new MouseInputUser(this);

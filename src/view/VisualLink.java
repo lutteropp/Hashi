@@ -1,10 +1,10 @@
 package view;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
+import model.Direction;
 import model.Link;
 
 public class VisualLink extends AbstractDrawable {
@@ -13,6 +13,7 @@ public class VisualLink extends AbstractDrawable {
 	private int maxX;
 	private int minY;
 	private int maxY;
+	private boolean isVertical;
 
 	public VisualLink(Link link) {
 		if (link == null) {
@@ -23,6 +24,11 @@ public class VisualLink extends AbstractDrawable {
 		maxX = Math.max(myLink.getNode1().getX(), myLink.getNode2().getX());
 		minY = Math.min(myLink.getNode1().getY(), myLink.getNode2().getY());
 		maxY = Math.max(myLink.getNode1().getY(), myLink.getNode2().getY());
+		if (minX == maxX) {
+			isVertical = true;
+		} else {
+			isVertical = false;
+		}
 	}
 	
 	public void clear() {
@@ -56,19 +62,23 @@ public class VisualLink extends AbstractDrawable {
 	@Override
 	public void draw(Graphics2D g, int cellSize) {
 		if (myLink.getThickness() > 0) {
-			if (this.isHighlighted) {
-				g.setColor(Color.GRAY);
+			BufferedImage wireImage;
+			if (isVertical) {
+				wireImage = Assets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.isHighlighted);
 			} else {
-				g.setColor(Color.BLACK);
+				wireImage = Assets.getWireImage(Direction.EAST, myLink.getThickness(), this.isHighlighted);
 			}
-			if (myLink.getThickness() == 1) {
-				g.setStroke(new BasicStroke(5));
-			} else { // thickness = 2
-				g.setStroke(new BasicStroke(10));
+			if (isVertical) {
+				int x = minX;
+				for (int y = minY + 1; y < maxY; ++y) {
+					g.drawImage(wireImage, x * cellSize, y * cellSize, cellSize, cellSize, null);
+				}
+			} else {
+				int y = minY;
+				for (int x = minX + 1; x < maxX; ++x) {
+					g.drawImage(wireImage, x * cellSize, y * cellSize, cellSize, cellSize, null);
+				}
 			}
-			g.drawLine(minX * cellSize + cellSize / 2, minY * cellSize + cellSize / 2, maxX * cellSize + cellSize / 2,
-					maxY * cellSize + cellSize / 2);
-			g.setStroke(new BasicStroke(1));
 		}
 	}
 

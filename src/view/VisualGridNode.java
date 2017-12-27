@@ -5,11 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
+import java.util.HashMap;
 
 import model.Direction;
 import model.GridNode;
@@ -17,12 +15,22 @@ import model.Link;
 
 public class VisualGridNode extends AbstractDrawable {
 	private GridNode myGridNode;
+	private HashMap<Direction, VisualLink> myLinks;
 
+	public GridNode getMyGridNode() {
+		return myGridNode;
+	}
+	
 	public VisualGridNode(GridNode node) {
 		if (node == null) {
 			throw new IllegalArgumentException("The given node is null");
 		}
 		this.myGridNode = node;
+		myLinks = new HashMap<Direction, VisualLink>();
+	}
+	
+	public void setVisualLink(Direction dir, VisualLink link) {
+		myLinks.put(dir, link);
 	}
 
 	/**
@@ -83,34 +91,21 @@ public class VisualGridNode extends AbstractDrawable {
 
 	private BufferedImage assembleNodeImage(int cellSize) throws IOException {
 		ArrayList<BufferedImage> parts = new ArrayList<BufferedImage>();
-		if (myGridNode.getDegree() < myGridNode.getGoal()) {
-			parts.add(Assets.coldBorder);
-		} else if (myGridNode.getDegree() == myGridNode.getGoal()) {
-			parts.add(Assets.warmBorder);
-		} else { // hot
-			parts.add(Assets.hotBorder);
+		parts.add(Assets.getBorderImage(myGridNode.getDegree(), myGridNode.getGoal()));
+		for (Direction dir : Direction.values()) {
+			Link link = myGridNode.getLink(dir);
+			if (link != null) {
+				parts.add(Assets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
+			}
 		}
-		if (myGridNode.getLink(Direction.EAST) != null) {
-			parts.add(Assets.eastPins.get(myGridNode.getLink(Direction.EAST).getThickness()));
-		}
-		if (myGridNode.getLink(Direction.WEST) != null) {
-			parts.add(Assets.westPins.get(myGridNode.getLink(Direction.WEST).getThickness()));
-		}
-		if (myGridNode.getLink(Direction.NORTH) != null) {
-			parts.add(Assets.northPins.get(myGridNode.getLink(Direction.NORTH).getThickness()));
-		}
-		if (myGridNode.getLink(Direction.SOUTH) != null) {
-			parts.add(Assets.southPins.get(myGridNode.getLink(Direction.SOUTH).getThickness()));
-		}
-		parts.add(Assets.goal.get(myGridNode.getGoal()));
-		
+		parts.add(Assets.getGoalImage(myGridNode.getGoal()));
 		BufferedImage bi = new BufferedImage(cellSize, cellSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics biGraphics = bi.getGraphics();
 		for (BufferedImage part : parts) {
 			biGraphics.drawImage(part, 0, 0, cellSize, cellSize, null);
 		}
 		biGraphics.dispose();
-		
+
 		return bi;
 	}
 
@@ -128,7 +123,6 @@ public class VisualGridNode extends AbstractDrawable {
 		}
 		BufferedImage bi = assembleNodeImage(cellSize);
 		g.drawImage(bi, x, y, cellSize, cellSize, null);
-		
 
 		/*
 		 * if (this.isSelected) { g.setColor(Color.DARK_GRAY); } else if

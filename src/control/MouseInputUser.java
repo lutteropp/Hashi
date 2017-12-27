@@ -81,7 +81,7 @@ public class MouseInputUser extends MouseAdapter {
 			}
 		}
 		if (myBoard.getMyBoard().hasWon()) {
-			myBoard.setBackground(Color.GREEN);
+			myBoard.setBackground(Color.WHITE);
 			System.out.println("The game has been won.");
 		}
 		myBoard.repaint();

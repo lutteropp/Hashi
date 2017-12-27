@@ -29,7 +29,7 @@ public class Main {
 
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout());
-		int width = 20;
+		int width = 10;
 		int height = 5;
 		// ArrayList<GridNode> nodes = LevelGenerator.getFixedLevelWidth15Height5();
 		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height);
