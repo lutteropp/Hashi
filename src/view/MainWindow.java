@@ -37,6 +37,7 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void showFixedGameWindow() {
+		titleScreenGUI.stopMusic();
 		ArrayList<GridNode> nodes = LevelGenerator.getFixedLevelWidth15Height5();
 		GameBoard board = new GameBoard(15, 5, nodes);
 		gameBoardGUI = new GameBoardGUI(board);
@@ -48,6 +49,7 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void showRandomGameWindow(int width, int height) {
+		titleScreenGUI.stopMusic();
 		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height);
 		GameBoard board = new GameBoard(width, height, nodes);
 		gameBoardGUI = new GameBoardGUI(board);
