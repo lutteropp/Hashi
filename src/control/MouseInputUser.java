@@ -20,11 +20,6 @@ public class MouseInputUser extends MouseAdapter {
 	private DrawingBoard myBoard;
 
 	/**
-	 * The last mouse position when dragging.
-	 */
-	private Point lastMousePos;
-
-	/**
 	 * The last highlighted node or link.
 	 */
 	private AbstractDrawable lastHighlighted;
@@ -76,7 +71,7 @@ public class MouseInputUser extends MouseAdapter {
 				lastSelectedNode.setSelected(false);
 			}
 			lastSelectedNode = null;
-			
+
 			if (node != null) {
 				// fill the whole node with connections
 				node.getMyGridNode().fillNode();
@@ -87,13 +82,6 @@ public class MouseInputUser extends MouseAdapter {
 			System.out.println("The game has been won.");
 		}
 		myBoard.repaint();
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		this.myBoard.requestFocus();
-		Point newPoint = e.getPoint();
-		this.lastMousePos = newPoint;
 	}
 
 	@Override
@@ -108,15 +96,5 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		lastHighlighted = drawable;
 		myBoard.repaint();
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		this.lastMousePos = e.getPoint();
-		myBoard.repaint();
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
 	}
 }
