@@ -72,7 +72,7 @@ public class Link {
 	/**
 	 * Toggles the number of connections. 0->1, 1->2, or 2->0.
 	 */
-	public void toggle() {
+	protected void toggle() {
 		thickness = (thickness + 1) % 3;
 	}
 	
@@ -80,7 +80,7 @@ public class Link {
 	 * Try to decrease the number of connections by one.
 	 * @return {@value true}, if and only if the number of connections has been decreased.
 	 */
-	public boolean decreaseThickness() {
+	protected boolean decreaseThickness() {
 		if (thickness == 0) {
 			return false;
 		} else {
@@ -93,7 +93,7 @@ public class Link {
 	 * Try to increase the the number of connections by one.
 	 * @return {@value true}, if and only if the number of connections has been increased.
 	 */
-	public boolean increaseThickness() {
+	protected boolean increaseThickness() {
 		if (thickness == 2) {
 			return false;
 		} else {
@@ -108,7 +108,7 @@ public class Link {
 	 * @param thickness
 	 *            The number of connections. Has to be either 0, 1, or 2.
 	 */
-	public void setThickness(final int thickness) {
+	protected void setThickness(final int thickness) {
 		if (thickness < 0 || thickness > 2) {
 			throw new IllegalArgumentException("Thickness must be 0, 1, or 2");
 		}
