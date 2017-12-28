@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import control.title.ContinueGameButtonListener;
 import control.title.ExitButtonListener;
 import control.title.NewFixedGameButtonListener;
 import control.title.NewRandomGameButtonListener;
@@ -37,6 +38,7 @@ public class TitleScreenGUI extends JPanel {
 
 	private ArrayList<JButton> buttons;
 
+	private JButton continueGameButton;
 	private JButton newFixedGameButton;
 	private JButton newRandomGameButton;
 	private JButton optionsButton;
@@ -54,6 +56,14 @@ public class TitleScreenGUI extends JPanel {
 	}
 
 	/**
+	 * Set whether the continue game button should be enabled or disabled.
+	 * @param enabled Is the continue game button enabled?
+	 */
+	public void setContinueGameButtonEnabled(boolean enabled) {
+		continueGameButton.setEnabled(enabled);
+	}
+	
+	/**
 	 * Create the title screen.
 	 */
 	public TitleScreenGUI(MainWindow mainWindow) {
@@ -70,6 +80,10 @@ public class TitleScreenGUI extends JPanel {
 		JPanel bottomBorder = new JPanel();
 		buttonPane = new JPanel();
 
+		continueGameButton = new JButton("Continue game");
+		continueGameButton.addActionListener(new ContinueGameButtonListener(mainWindow));
+		continueGameButton.setEnabled(false);
+		buttons.add(continueGameButton);
 		newFixedGameButton = new JButton("New fixed game");
 		newFixedGameButton.addActionListener(new NewFixedGameButtonListener(mainWindow));
 		buttons.add(newFixedGameButton);

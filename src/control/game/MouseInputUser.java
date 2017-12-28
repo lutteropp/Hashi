@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import jaco.mp3.player.MP3Player;
+import view.MainWindow;
 import view.game.AbstractDrawable;
 import view.game.GameBoardGUI;
 import view.game.VisualGridNode;
@@ -20,8 +21,13 @@ public class MouseInputUser extends MouseAdapter {
 	/**
 	 * The DrawingBoard to listen on.
 	 */
-	private GameBoardGUI myBoard;
+	private GameBoardGUI gameBoardGUI;
 
+	/**
+	 * The main window.
+	 */
+	private MainWindow mainWindow;
+	
 	/**
 	 * The last highlighted node or link.
 	 */
@@ -42,8 +48,9 @@ public class MouseInputUser extends MouseAdapter {
 	 * @param board
 	 *            The DrawingBoard to operate on.
 	 */
-	public MouseInputUser(final GameBoardGUI board) {
-		this.myBoard = board;
+	public MouseInputUser(final GameBoardGUI board, MainWindow mainWindow) {
+		this.gameBoardGUI = board;
+		this.mainWindow = mainWindow;
 		gameHasEnded = false;
 		connectSound = new MP3Player(new File("assets/button-20.mp3"));
 		disconnectSound = new MP3Player(new File("assets/button-46.mp3"));
@@ -55,7 +62,7 @@ public class MouseInputUser extends MouseAdapter {
 			return;
 		}
 
-		VisualGridNode node = myBoard.getNearestNode(e.getPoint());
+		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
 		if (e.getClickCount() == 1) {
 			if (node == null) {
 				if (lastSelectedNode != null) {
@@ -63,9 +70,9 @@ public class MouseInputUser extends MouseAdapter {
 					lastSelectedNode = null;
 				}
 				// could still be a selected link
-				VisualLink link = myBoard.getNearestLink(e.getPoint());
+				VisualLink link = gameBoardGUI.getNearestLink(e.getPoint());
 				if (link != null) { // decrease the connection
-					boolean disconnected = myBoard.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
+					boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
 							link.getMyLink().getNode2());
 					if (disconnected) {
 						disconnectSound.play();
@@ -75,7 +82,7 @@ public class MouseInputUser extends MouseAdapter {
 				if (lastSelectedNode != null) {
 					if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
 						// toggle the connection
-						boolean increased = myBoard.getMyBoard().increaseConnection(node.getMyGridNode(),
+						boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
 								lastSelectedNode.getMyGridNode());
 						if (increased) {
 							connectSound.play();
@@ -96,14 +103,14 @@ public class MouseInputUser extends MouseAdapter {
 
 			if (node != null) {
 				// fill the whole node with connections
-				boolean connected = myBoard.getMyBoard().fillNode(node.getMyGridNode());
+				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
 				if (connected) {
 					connectSound.play();
 				}
 			}
 		}
-		if (myBoard.getMyBoard().hasWon()) {
-			myBoard.setBackground(Color.WHITE);
+		if (gameBoardGUI.getMyBoard().hasWon()) {
+			gameBoardGUI.setBackground(Color.WHITE);
 			gameHasEnded = true;
 			if (lastSelectedNode != null) {
 				lastSelectedNode.setSelected(false);
@@ -113,9 +120,10 @@ public class MouseInputUser extends MouseAdapter {
 				lastHighlighted.setHighlighted(false);
 				lastHighlighted = null;
 			}
+			mainWindow.showGameFinishedWindow();
 			System.out.println("Congratulations! You won the game.");
 		}
-		myBoard.repaint();
+		gameBoardGUI.repaint();
 	}
 
 	@Override
@@ -125,7 +133,7 @@ public class MouseInputUser extends MouseAdapter {
 		}
 
 		AbstractDrawable drawable = null;
-		drawable = myBoard.getNearestDrawableItem(e.getPoint());
+		drawable = gameBoardGUI.getNearestDrawableItem(e.getPoint());
 		if (lastHighlighted != null) {
 			lastHighlighted.setHighlighted(false);
 		}
@@ -133,6 +141,6 @@ public class MouseInputUser extends MouseAdapter {
 			drawable.setHighlighted(true);
 		}
 		lastHighlighted = drawable;
-		myBoard.repaint();
+		gameBoardGUI.repaint();
 	}
 }

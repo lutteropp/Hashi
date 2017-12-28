@@ -10,12 +10,14 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import control.game.KeyInputUser;
 import control.game.MouseInputUser;
 import jaco.mp3.player.MP3Player;
 import model.base.Direction;
 import model.base.GameBoard;
 import model.base.GridNode;
 import model.base.Link;
+import view.MainWindow;
 
 /**
  * The visual representation of the board where the game is played.
@@ -64,7 +66,7 @@ public class GameBoardGUI extends JPanel {
 	 * Create the main Hashiwokakero game board GUI.
 	 * @param gameBoard The game board.
 	 */
-	public GameBoardGUI(GameBoard gameBoard) {
+	public GameBoardGUI(GameBoard gameBoard, MainWindow mainWindow) {
 		player = new MP3Player(new File("assets/DST-DayBreak.mp3"));
 		myBoard = gameBoard;
 		setOpaque(true);
@@ -92,9 +94,10 @@ public class GameBoardGUI extends JPanel {
 			nodes.add(visualNode);
 		}
 
-		MouseInputUser myListener = new MouseInputUser(this);
+		MouseInputUser myListener = new MouseInputUser(this, mainWindow);
 		addMouseListener(myListener);
 		addMouseMotionListener(myListener);
+		addKeyListener(new KeyInputUser(mainWindow));
 		this.setPreferredSize(new Dimension(cols * preferredCellSize, rows * preferredCellSize));
 		this.requestFocus();
 	}
