@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import control.game.KeyInputUser;
+import control.title.KeyInputUser;
 import model.base.GameBoard;
 import model.base.GridNode;
 import model.generator.LevelGenerator;
 import view.game.GameBoardGUI;
+import view.generator.GeneratorGUI;
+import view.options.OptionsGUI;
 import view.title.TitleScreenGUI;
 
 public class MainWindow extends JFrame {
@@ -22,12 +24,31 @@ public class MainWindow extends JFrame {
 	 * The title screen.
 	 */
 	private TitleScreenGUI titleScreenGUI;
+	/**
+	 * The random level generator.
+	 */
+	private GeneratorGUI generatorGUI;
+	/**
+	 * The options screen.
+	 */
+	private OptionsGUI optionsGUI;
+	/**
+	 * Listener that returns to the title screen when the Escape key is released.
+	 */
+	private KeyInputUser keyInput;
 
 	public MainWindow() {
 		setTitle("Hashiwokakero");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationByPlatform(true);
 		titleScreenGUI = new TitleScreenGUI(this);
+		generatorGUI = new GeneratorGUI(this);
+		optionsGUI = new OptionsGUI(this);
+		keyInput = new KeyInputUser(this);
+		
+		titleScreenGUI.addKeyListener(keyInput);
+		generatorGUI.addKeyListener(keyInput);
+		optionsGUI.addKeyListener(keyInput);
 	}
 
 	public void showTitleWindow() {
@@ -51,6 +72,7 @@ public class MainWindow extends JFrame {
 		ArrayList<GridNode> nodes = LevelGenerator.getFixedLevelWidth15Height5();
 		GameBoard board = new GameBoard(15, 5, nodes);
 		gameBoardGUI = new GameBoardGUI(board, this);
+		gameBoardGUI.addKeyListener(keyInput);
 		gameBoardGUI.loopMusic();
 
 		setContentPane(gameBoardGUI);
@@ -68,6 +90,7 @@ public class MainWindow extends JFrame {
 		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height);
 		GameBoard board = new GameBoard(width, height, nodes);
 		gameBoardGUI = new GameBoardGUI(board, this);
+		gameBoardGUI.addKeyListener(keyInput);
 
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);
@@ -76,7 +99,7 @@ public class MainWindow extends JFrame {
 		gameBoardGUI.requestFocus();
 		setVisible(true);
 	}
-	
+
 	public void showRunningGameWindow() {
 		if (gameBoardGUI == null) {
 			throw new RuntimeException("There is no currently running game");
@@ -85,7 +108,7 @@ public class MainWindow extends JFrame {
 			titleScreenGUI.stopMusic();
 			titleScreenGUI.setContinueGameButtonEnabled(true);
 		}
-		
+
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);
 		pack();
@@ -95,12 +118,24 @@ public class MainWindow extends JFrame {
 	}
 
 	public void showOptionsWindow() {
-
+		setContentPane(optionsGUI);
+		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		optionsGUI.requestFocus();
+		setVisible(true);
 	}
 
 	public void showGameFinishedWindow() {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
+	}
+
+	public void showGeneratorWindow() {
+		setContentPane(generatorGUI);
+		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		generatorGUI.requestFocus();
+		setVisible(true);
 	}
 }

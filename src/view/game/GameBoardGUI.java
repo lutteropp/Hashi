@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import control.game.KeyInputUser;
 import control.game.MouseInputUser;
+import control.title.KeyInputUser;
 import jaco.mp3.player.MP3Player;
 import model.base.Direction;
 import model.base.GameBoard;
@@ -97,7 +97,6 @@ public class GameBoardGUI extends JPanel {
 		MouseInputUser myListener = new MouseInputUser(this, mainWindow);
 		addMouseListener(myListener);
 		addMouseMotionListener(myListener);
-		addKeyListener(new KeyInputUser(mainWindow));
 		this.setPreferredSize(new Dimension(cols * preferredCellSize, rows * preferredCellSize));
 		this.requestFocus();
 	}

@@ -1,5 +1,5 @@
 /**
- * The GUI for setting the level generator options.
+ * The GUI for setting the level generator parameters.
  *
  * @since 1.0
  * @author Sarah Lutteropp

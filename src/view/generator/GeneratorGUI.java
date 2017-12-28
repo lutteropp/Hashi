@@ -7,6 +7,11 @@ import javax.swing.JSlider;
 
 import view.MainWindow;
 
+/**
+ * The GUI for setting the level generator parameters.
+ * 
+ * @author Sarah Lutteropp
+ */
 public class GeneratorGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 4753107236165358560L;
