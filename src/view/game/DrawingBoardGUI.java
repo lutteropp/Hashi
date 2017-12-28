@@ -1,4 +1,4 @@
-package view;
+package view.game;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,10 +16,10 @@ import model.base.GridNode;
 import model.base.Link;
 
 /**
- * The board where the game is played.
+ * The visual representation of the board where the game is played.
  * @author Sarah Lutteropp
  */
-public class DrawingBoard extends JPanel {
+public class DrawingBoardGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 8249093357328115400L;
 	/** The VisualGridNodes to draw */
@@ -44,7 +44,7 @@ public class DrawingBoard extends JPanel {
 	 * Create the main Hashiwokakero game board GUI.
 	 * @param gameBoard The game board.
 	 */
-	public DrawingBoard(GameBoard gameBoard) {
+	public DrawingBoardGUI(GameBoard gameBoard) {
 		myBoard = gameBoard;
 		setOpaque(true);
 		cols = gameBoard.getWidth();

@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import model.base.GameBoard;
 import model.base.GridNode;
 import model.generator.LevelGenerator;
+import view.game.Assets;
+import view.game.DrawingBoardGUI;
 
 /**
  * The main class, responsible for creating and showing the GUI.
@@ -19,7 +21,7 @@ public class Main {
 	/**
 	 * The game field.
 	 */
-	private DrawingBoard drawingBoard;
+	private DrawingBoardGUI drawingBoard;
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be invoked
@@ -39,7 +41,7 @@ public class Main {
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout());
 		GameBoard board = new GameBoard(width, height, nodes);
-		drawingBoard = new DrawingBoard(board);
+		drawingBoard = new DrawingBoardGUI(board);
 		contentPane.add(drawingBoard, BorderLayout.CENTER);
 
 		frame.setContentPane(contentPane);
