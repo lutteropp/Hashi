@@ -9,15 +9,33 @@ import javax.imageio.ImageIO;
 
 import model.base.Direction;
 
+/**
+ * A class for managing the medial assets of the Hashiwokakero game.
+ * @author Sarah Lutteropp
+ */
 public class Assets {
-	public static BufferedImage coldBorder, warmBorder, hotBorder;
-	public static HashMap<Integer, BufferedImage> numbers;
-	public static HashMap<Integer, BufferedImage> eastPins, westPins, northPins, southPins;
-	public static HashMap<Integer, BufferedImage> eastPinsHighlighted, westPinsHighlighted, northPinsHighlighted, southPinsHighlighted;
-	public static HashMap<Integer, BufferedImage> verticalWire, horizontalWire;
-	public static HashMap<Integer, BufferedImage> verticalWireHighlighted, horizontalWireHighlighted;
+	/** The different node bodies. */
+	private static BufferedImage coldBody, warmBody, hotBody;
+	/** The different node goals. These are numbers from 1 to 8. */
+	private static HashMap<Integer, BufferedImage> numbers;
+	/** The different node pins, non-highlighted version. There are 1-pin images and 2-pin images. */
+	private static HashMap<Integer, BufferedImage> eastPins, westPins, northPins, southPins;
+	/** The different node pins, highlighted version. There are 1-pin images and 2-pin images. */
+	private static HashMap<Integer, BufferedImage> eastPinsHighlighted, westPinsHighlighted, northPinsHighlighted,
+			southPinsHighlighted;
+	/** The different wires, non-highlighted version. There are 1-wire images and 2-wire images.*/
+	private static HashMap<Integer, BufferedImage> verticalWire, horizontalWire;
+	/** The different wires, highlighted version. There are 1-wire images and 2-wire images.*/
+	private static HashMap<Integer, BufferedImage> verticalWireHighlighted, horizontalWireHighlighted;
 
-	public static BufferedImage getPinImage(Direction dir, int thickness, boolean highlighted) {
+	/**
+	 * Get the image for the node's pins in the given direction.
+	 * @param dir The direction. Can be EAST, WEST, NORTH, or SOUTH.
+	 * @param thickness The thickness of the link in this direction from the node.
+	 * @param highlighted Is the link attached to the node in this direction highlighted?
+	 * @return The image for the node's pins in the given direction.
+	 */
+	public static BufferedImage getPinImage(final Direction dir, final int thickness, final boolean highlighted) {
 		if (dir == Direction.EAST) {
 			if (highlighted && thickness > 0) {
 				return eastPinsHighlighted.get(thickness);
@@ -44,8 +62,18 @@ public class Assets {
 			}
 		}
 	}
-	
-	public static BufferedImage getWireImage(Direction dir, int thickness, boolean highlighted) {
+
+	/**
+	 * Get the image representing a connection wire.
+	 * 
+	 * @param dir
+	 *            The direction of the wire. Can be EAST, WEST, SOUTH, or NORTH. But
+	 *            we only care whether it is horizontal or vertical.
+	 * @param thickness The thickness of the link.
+	 * @param highlighted Is the link highlighted?
+	 * @return An image representing a connection wire.
+	 */
+	public static BufferedImage getWireImage(final Direction dir, final int thickness, final boolean highlighted) {
 		if (dir == Direction.EAST || dir == Direction.WEST) {
 			if (highlighted) {
 				return horizontalWireHighlighted.get(thickness);
@@ -60,25 +88,53 @@ public class Assets {
 			}
 		}
 	}
-	
-	public static BufferedImage getBorderImage(int degree, int goal) {
+
+	/**
+	 * Get the body image of a node.
+	 * 
+	 * @param degree
+	 *            The current degree of the node. Can be 0, 1, 2, 3, 4, 5, 6, 7, or
+	 *            8.
+	 * @param goal
+	 *            The goal of the node. Can be 1, 2, 3, 4, 5, 6, 7, or 8.
+	 * @return The image representing the body of the node.
+	 */
+	public static BufferedImage getBodyImage(final int degree, final int goal) {
+		if (degree < 0 || degree > 8) {
+			throw new IllegalArgumentException("Invalid degree");
+		}
+		if (goal < 1 || goal > 8) {
+			throw new IllegalArgumentException("Invalid goal");
+		}
 		if (degree < goal) {
-			return coldBorder;
+			return coldBody;
 		} else if (degree > goal) {
-			return hotBorder;
+			return hotBody;
 		} else {
-			return warmBorder;
+			return warmBody;
 		}
 	}
-	
-	public static BufferedImage getGoalImage(int goal) {
+
+	/**
+	 * Get the goal image.
+	 * 
+	 * @param goal
+	 *            The goal of the node. Can be 1, 2, 3, 4, 5, 6, 7, or 8.
+	 * @return The image representing the nodes goal.
+	 */
+	public static BufferedImage getGoalImage(final int goal) {
 		return numbers.get(goal);
 	}
-	
+
+	/**
+	 * Load all the image files.
+	 * 
+	 * @throws IOException
+	 */
 	public static void loadAssets() throws IOException {
-		coldBorder = ImageIO.read(new File("assets/ColdBorder.png"));
-		warmBorder = ImageIO.read(new File("assets/WarmBorder.png"));
-		hotBorder = ImageIO.read(new File("assets/HotBorder.png"));
+		coldBody = ImageIO.read(new File("assets/ColdBorder.png"));
+		warmBody = ImageIO.read(new File("assets/WarmBorder.png"));
+		hotBody = ImageIO.read(new File("assets/HotBorder.png"));
 		eastPins = new HashMap<Integer, BufferedImage>();
 		eastPins.put(0, ImageIO.read(new File("assets/RightConnections_0.png")));
 		eastPins.put(1, ImageIO.read(new File("assets/RightConnections_1.png")));
@@ -119,7 +175,7 @@ public class Assets {
 		horizontalWireHighlighted = new HashMap<Integer, BufferedImage>();
 		horizontalWireHighlighted.put(1, ImageIO.read(new File("assets/HorizontalConnection_1_Highlighted.png")));
 		horizontalWireHighlighted.put(2, ImageIO.read(new File("assets/HorizontalConnection_2_Highlighted.png")));
-		
+
 		numbers = new HashMap<Integer, BufferedImage>();
 		numbers.put(1, ImageIO.read(new File("assets/1.png")));
 		numbers.put(2, ImageIO.read(new File("assets/2.png")));

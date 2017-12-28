@@ -60,9 +60,9 @@ public class MouseInputUser extends MouseAdapter {
 				}
 			} else {
 				if (lastSelectedNode != null) {
-					if (lastSelectedNode.isNeighborOf(node)) {
+					if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
 						// toggle the connection
-						node.getLinkToNeighbor(lastSelectedNode).toggle();
+						node.getMyGridNode().getLinkToNeighbor(lastSelectedNode.getMyGridNode()).toggle();
 					}
 					lastSelectedNode.setSelected(false);
 					lastSelectedNode = null;
@@ -79,7 +79,7 @@ public class MouseInputUser extends MouseAdapter {
 			
 			if (node != null) {
 				// fill the whole node with connections
-				node.fillNode();
+				node.getMyGridNode().fillNode();
 			}
 		}
 		if (myBoard.getMyBoard().hasWon()) {

@@ -7,14 +7,28 @@ import java.awt.image.BufferedImage;
 import model.base.Direction;
 import model.base.Link;
 
+/**
+ * The visual representation of a Link.
+ * @author Sarah Lutteropp
+ */
 public class VisualLink extends AbstractDrawable {
+	/** The actual link */
 	private Link myLink;
+	/** The smaller x-coordinate of the connected nodes */
 	private int minX;
+	/** The larger x-coordinate of the connected nodes */
 	private int maxX;
+	/** The smaller y-coordinate of the connected nodes */
 	private int minY;
+	/** The larger y-coordinate of the connected nodes */
 	private int maxY;
+	/** Is the link vertical or horizontal? */
 	private boolean isVertical;
 
+	/**
+	 * Create a visual representation of a Link.
+	 * @param link The actual link.
+	 */
 	public VisualLink(Link link) {
 		if (link == null) {
 			throw new IllegalArgumentException("The given link is null");
@@ -31,12 +45,11 @@ public class VisualLink extends AbstractDrawable {
 		}
 	}
 	
+	/**
+	 * @return The actual link.
+	 */
 	public Link getMyLink() {
 		return myLink;
-	}
-	
-	public void clear() {
-		myLink.setThickness(0);
 	}
 
 	@Override
@@ -49,7 +62,7 @@ public class VisualLink extends AbstractDrawable {
 	}
 
 	@Override
-	public boolean isLocatedInPosition(Point position, int cellSize) {
+	public boolean isLocatedInPosition(final Point position, final int cellSize) {
 		boolean located = false;
 		if (myLink.getThickness() > 0) {
 			int delta = cellSize / 6;
@@ -64,13 +77,13 @@ public class VisualLink extends AbstractDrawable {
 	}
 
 	@Override
-	public void draw(Graphics2D g, int cellSize) {
+	public void draw(Graphics2D g, final int cellSize) {
 		if (myLink.getThickness() > 0) {
 			BufferedImage wireImage;
 			if (isVertical) {
-				wireImage = Assets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.isHighlighted);
+				wireImage = Assets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.highlighted);
 			} else {
-				wireImage = Assets.getWireImage(Direction.EAST, myLink.getThickness(), this.isHighlighted);
+				wireImage = Assets.getWireImage(Direction.EAST, myLink.getThickness(), this.highlighted);
 			}
 			if (isVertical) {
 				int x = minX;

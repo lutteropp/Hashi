@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,14 +12,27 @@ import model.base.Direction;
 import model.base.GridNode;
 import model.base.Link;
 
+/**
+ * The visual representation of a GridNode.
+ * @author Sarah Lutteropp
+ */
 public class VisualGridNode extends AbstractDrawable {
+	/** The actual GridNode */
 	private GridNode myGridNode;
+	/** The VisualLinks connected to this node */
 	private HashMap<Direction, VisualLink> myLinks;
 
+	/**
+	 * @return The actual GridNode.
+	 */
 	public GridNode getMyGridNode() {
 		return myGridNode;
 	}
 	
+	/**
+	 * Create a visual representation of a GridNode.
+	 * @param node The actual GridNode.
+	 */
 	public VisualGridNode(GridNode node) {
 		if (node == null) {
 			throw new IllegalArgumentException("The given node is null");
@@ -29,42 +41,13 @@ public class VisualGridNode extends AbstractDrawable {
 		myLinks = new HashMap<Direction, VisualLink>();
 	}
 	
-	public void setVisualLink(Direction dir, VisualLink link) {
+	/**
+	 * Set the VisualLink into the given direction.
+	 * @param dir The direction. Can be EAST, WEST, NORTH, or SOUTH.
+	 * @param link The VisualLink.
+	 */
+	public void setVisualLink(final Direction dir, final VisualLink link) {
 		myLinks.put(dir, link);
-	}
-
-	/**
-	 * Get the link to the specified neighbor.
-	 * 
-	 * @param target
-	 *            The neighbor.
-	 * @return The link.
-	 */
-	public Link getLinkToNeighbor(VisualGridNode target) {
-		return myGridNode.getLinkToNeighbor(target.myGridNode);
-	}
-
-	/**
-	 * @param node
-	 *            The node in question
-	 * @return True, if and only if the node in question is a neighbor of this node.
-	 */
-	public boolean isNeighborOf(VisualGridNode node) {
-		return myGridNode.isNeighborOf(node.myGridNode);
-	}
-
-	/**
-	 * @return True, if and only if the node's goal is to be fully connected.
-	 */
-	public boolean goalIsFullNode() {
-		return myGridNode.goalIsFullNode();
-	}
-
-	/**
-	 * Fill ALL possible connections of the node.
-	 */
-	public void fillNode() {
-		myGridNode.fillNode();
 	}
 
 	@Override
@@ -73,7 +56,7 @@ public class VisualGridNode extends AbstractDrawable {
 	}
 
 	@Override
-	public boolean isLocatedInPosition(Point position, int cellSize) {
+	public boolean isLocatedInPosition(final Point position, final int cellSize) {
 		int centerX = myGridNode.getX() * cellSize + cellSize / 2;
 		int centerY = myGridNode.getY() * cellSize + cellSize / 2;
 		double radius = (double) cellSize / 2;
@@ -89,9 +72,14 @@ public class VisualGridNode extends AbstractDrawable {
 		}
 	}
 
-	private BufferedImage assembleNodeImage(int cellSize) throws IOException {
+	/**
+	 * Put together the current image of the node.
+	 * @param cellSize The size of a grid cell.
+	 * @return The image representing the node.
+	 */
+	private BufferedImage assembleNodeImage(final int cellSize) {
 		ArrayList<BufferedImage> parts = new ArrayList<BufferedImage>();
-		parts.add(Assets.getBorderImage(myGridNode.getDegree(), myGridNode.getGoal()));
+		parts.add(Assets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
 		for (Direction dir : Direction.values()) {
 			Link link = myGridNode.getLink(dir);
 			if (link != null) {
@@ -110,33 +98,18 @@ public class VisualGridNode extends AbstractDrawable {
 	}
 
 	@Override
-	public void draw(Graphics2D g, int cellSize) throws IOException {
-		int x = myGridNode.getX() * cellSize;
-		int y = myGridNode.getY() * cellSize;
+	public void draw(Graphics2D g, final int cellSize) {
+		final int x = myGridNode.getX() * cellSize;
+		final int y = myGridNode.getY() * cellSize;
 
-		if (this.isSelected) {
+		if (this.selected) {
 			g.setColor(Color.YELLOW);
 			g.fillOval(myGridNode.getX() * cellSize, myGridNode.getY() * cellSize, cellSize, cellSize);
-		} else if (this.isHighlighted) {
+		} else if (this.highlighted) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillOval(myGridNode.getX() * cellSize, myGridNode.getY() * cellSize, cellSize, cellSize);
 		}
 		BufferedImage bi = assembleNodeImage(cellSize);
 		g.drawImage(bi, x, y, cellSize, cellSize, null);
-
-		/*
-		 * if (this.isSelected) { g.setColor(Color.DARK_GRAY); } else if
-		 * (this.isHighlighted) { g.setColor(Color.LIGHT_GRAY); } else {
-		 * g.setColor(Color.WHITE); } g.fillOval(myGridNode.getX() * cellSize,
-		 * myGridNode.getY() * cellSize, cellSize, cellSize);
-		 * 
-		 * g.setColor(Color.BLACK); g.drawOval(myGridNode.getX() * cellSize,
-		 * myGridNode.getY() * cellSize, cellSize, cellSize);
-		 * 
-		 * g.setColor(Color.MAGENTA); int centerX = myGridNode.getX() * cellSize +
-		 * cellSize / 2; int centerY = myGridNode.getY() * cellSize + cellSize / 2;
-		 * g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		 * g.drawString(Integer.toString(myGridNode.getGoal()), centerX, centerY);
-		 */
 	}
 }

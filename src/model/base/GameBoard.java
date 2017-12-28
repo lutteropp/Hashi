@@ -166,7 +166,7 @@ public class GameBoard {
 	 *            The first node to be connected.
 	 * @param node2
 	 *            The second node to be connected.
-	 * @return True, if and only if the nodes can be connected.
+	 * @return {@value true}, if and only if the nodes can be connected.
 	 */
 	public boolean unblockedConnection(final GridNode node1, final GridNode node2) {
 		if (!node1.getAllNeighbors().contains(node2)) {
@@ -209,7 +209,7 @@ public class GameBoard {
 	 *            The first node.
 	 * @param node2
 	 *            The second node.
-	 * @return True, if and only if the connection could be toggled.
+	 * @return {@value true}, if and only if the connection could be toggled.
 	 */
 	public boolean toggleConnection(final GridNode node1, final GridNode node2) {
 		Link link1 = node1.getLinkToNeighbor(node2);
@@ -249,7 +249,7 @@ public class GameBoard {
 	 * 
 	 * @param nodes
 	 *            The nodes.
-	 * @return True, if and only if the nodes form a connected graph.
+	 * @return {@value true}, if and only if the nodes form a connected graph.
 	 */
 	public boolean checkAllNodesConnected() {
 		HashSet<GridNode> visited = new HashSet<GridNode>(nodes.size());
@@ -280,7 +280,7 @@ public class GameBoard {
 	 * Check whether the game has been won. This is the case, if and only if the degree of all
 	 * nodes matches their goal and all nodes form a connected graph.
 	 * 
-	 * @return True, if the game has been won.
+	 * @return {@value true}, if the game has been won.
 	 */
 	public boolean hasWon() {
 		if (this.getUnfinishedNodes().isEmpty() && this.checkAllNodesConnected()) {

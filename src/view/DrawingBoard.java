@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,21 +15,35 @@ import model.base.GameBoard;
 import model.base.GridNode;
 import model.base.Link;
 
+/**
+ * The board where the game is played.
+ * @author Sarah Lutteropp
+ */
 public class DrawingBoard extends JPanel {
-	/**
-	 * The serialVersionUID that caused a warning when it was missing.
-	 */
+	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 8249093357328115400L;
+	/** The VisualGridNodes to draw */
 	private ArrayList<VisualGridNode> nodes;
+	/** The VisualLinks to draw. */
 	private ArrayList<VisualLink> links;
+	/** Number of rows in the game grid. This is the same as the height of the grid. */
 	private int rows;
+	/** Number of columns in the game grid. This is the same as the width of the grid. */
 	private int cols;
-	private final int preferredCellSize = 10;
-	private boolean showGrid = false;
+	/** The preferred size of a cell on the grid. */
+	private final int preferredCellSize = 100;
+	/** * Draw the grid or not. */
+	private final boolean showGrid = false;
+	/** The actual size of a cell on the grid. */
 	private int cellSize;
 
+	/** The actual game logic. */
 	private GameBoard myBoard;
 
+	/**
+	 * Create the main Hashiwokakero game board GUI.
+	 * @param gameBoard The game board.
+	 */
 	public DrawingBoard(GameBoard gameBoard) {
 		myBoard = gameBoard;
 		setOpaque(true);
@@ -65,18 +78,21 @@ public class DrawingBoard extends JPanel {
 		this.requestFocus();
 	}
 
+	/**
+	 * @return The game board from model.base
+	 */
 	public GameBoard getMyBoard() {
 		return myBoard;
 	}
 
 	/**
-	 * Gets the nearest Drawable item.
+	 * Gets the nearest Drawable item. This is either a VisualLink or a VisualGridNode.
 	 *
 	 * @param p
 	 *            the point
 	 * @return the nearest Drawable item
 	 */
-	public AbstractDrawable getNearestDrawableItem(Point p) {
+	public AbstractDrawable getNearestDrawableItem(final Point p) {
 		for (AbstractDrawable d : nodes) {
 			if (d.isLocatedInPosition(p, cellSize)) {
 				return d;
@@ -97,7 +113,7 @@ public class DrawingBoard extends JPanel {
 	 *            the point
 	 * @return the nearest VisualGridNode
 	 */
-	public VisualGridNode getNearestNode(Point p) {
+	public VisualGridNode getNearestNode(final Point p) {
 		for (VisualGridNode d : nodes) {
 			if (d.isLocatedInPosition(p, cellSize)) {
 				return d;
@@ -113,7 +129,7 @@ public class DrawingBoard extends JPanel {
 	 *            the point
 	 * @return the nearest VisualLink
 	 */
-	public VisualLink getNearestLink(Point p) {
+	public VisualLink getNearestLink(final Point p) {
 		for (VisualLink d : links) {
 			if (d.isLocatedInPosition(p, cellSize)) {
 				return d;
@@ -132,12 +148,7 @@ public class DrawingBoard extends JPanel {
 			link.draw((Graphics2D) g, cellSize);
 		}
 		for (VisualGridNode node : nodes) {
-			try {
-				node.draw((Graphics2D) g, cellSize);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			node.draw((Graphics2D) g, cellSize);
 		}
 		if (showGrid) {
 			// draw the grid

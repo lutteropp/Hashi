@@ -122,7 +122,7 @@ public class GridNode {
 	
 	/**
 	 * @param node The node in question
-	 * @return True, if and only if the node in question is a neighbor of this node.
+	 * @return {@value true}, if and only if the node in question is a neighbor of this node.
 	 */
 	public boolean isNeighborOf(GridNode node) {
 		for (Direction dir : Direction.values()) {
@@ -136,7 +136,7 @@ public class GridNode {
 	}
 	
 	/**
-	 * @return True, if and only if the node's goal is to be fully connected.
+	 * @return {@value true}, if and only if the node's goal is to be fully connected.
 	 */
 	public boolean goalIsFullNode() {
 		int numNeighbors = this.getAllNeighbors().size();

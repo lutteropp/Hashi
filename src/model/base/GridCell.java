@@ -65,7 +65,7 @@ public class GridCell {
 	/**
 	 * Check whether the cell is filled or not.
 	 * 
-	 * @return True, if and only if the cell is filled.
+	 * @return {@value true}, if and only if the cell is filled.
 	 */
 	public boolean isFilled() {
 		return filled;
@@ -74,7 +74,7 @@ public class GridCell {
 	/**
 	 * Check whether the cell is empty or not.
 	 * 
-	 * @return True, if and only if the cell is empty.
+	 * @return {@value true}, if and only if the cell is empty.
 	 */
 	public boolean isEmpty() {
 		return !filled;
