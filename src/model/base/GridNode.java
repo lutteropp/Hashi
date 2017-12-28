@@ -1,7 +1,6 @@
-package model;
+package model.base;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -204,6 +203,17 @@ public class GridNode {
 		return link;
 	}
 	
+	/**
+	 * Fill ALL possible connections of the node.
+	 */
+	public void fillNode() {
+		for (Direction dir : Direction.values()) {
+			if (connections.get(dir) != null) {
+				connections.get(dir).setThickness(2);
+			}
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -244,16 +254,5 @@ public class GridNode {
 	@Override
 	public String toString() {
 		return "GridNode [x=" + x + ", y=" + y + ", goal=" + goal + "]";
-	}
-
-	/**
-	 * Fill ALL possible connections of the node.
-	 */
-	public void fillNode() {
-		for (Direction dir : Direction.values()) {
-			if (connections.get(dir) != null) {
-				connections.get(dir).setThickness(2);
-			}
-		}
 	}
 }

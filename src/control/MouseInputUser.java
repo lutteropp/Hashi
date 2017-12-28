@@ -4,21 +4,16 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-import model.GridNode;
 import view.AbstractDrawable;
 import view.DrawingBoard;
 import view.VisualGridNode;
 import view.VisualLink;
 
 /**
- *
+ * A class for managing the user mouse input.
  */
 public class MouseInputUser extends MouseAdapter {
-
-	// The events from MouseInputAdapter
-
 	/**
 	 * The DrawingBoard to listen on.
 	 */
@@ -29,7 +24,13 @@ public class MouseInputUser extends MouseAdapter {
 	 */
 	private Point lastMousePos;
 
+	/**
+	 * The last highlighted node or link.
+	 */
 	private AbstractDrawable lastHighlighted;
+	/**
+	 * The last selected node.
+	 */
 	private VisualGridNode lastSelectedNode;
 
 	/**
@@ -39,14 +40,13 @@ public class MouseInputUser extends MouseAdapter {
 	 * @param map
 	 *            The MapView to operate on.
 	 */
-	public MouseInputUser(DrawingBoard board) {
+	public MouseInputUser(final DrawingBoard board) {
 		this.myBoard = board;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		VisualGridNode node = myBoard.getNearestNode(e.getPoint());
-
 		if (e.getClickCount() == 1) {
 			if (node == null) {
 				if (lastSelectedNode != null) {
@@ -56,7 +56,7 @@ public class MouseInputUser extends MouseAdapter {
 				// could still be a selected link
 				VisualLink link = myBoard.getNearestLink(e.getPoint());
 				if (link != null) { // clear the connection
-					link.clear();
+					link.getMyLink().decreaseThickness();
 				}
 			} else {
 				if (lastSelectedNode != null) {
@@ -77,7 +77,7 @@ public class MouseInputUser extends MouseAdapter {
 			}
 			lastSelectedNode = null;
 			
-			if (node != null && node.goalIsFullNode()) {
+			if (node != null) {
 				// fill the whole node with connections
 				node.fillNode();
 			}
@@ -94,14 +94,6 @@ public class MouseInputUser extends MouseAdapter {
 		this.myBoard.requestFocus();
 		Point newPoint = e.getPoint();
 		this.lastMousePos = newPoint;
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
 	}
 
 	@Override

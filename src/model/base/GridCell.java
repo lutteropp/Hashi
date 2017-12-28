@@ -1,4 +1,4 @@
-package model;
+package model.base;
 
 /**
  * A cell in the grid. The cell is either empty or filled (by a node or a
@@ -8,7 +8,7 @@ package model;
  *
  */
 public class GridCell {
-	/** Is the cell filled? */
+	/** Is the cell filled (by either a GridNode or a Link)? */
 	private boolean filled;
 
 	/** The grid node, in case it sits on the grid cell */
@@ -26,7 +26,7 @@ public class GridCell {
 	 * Place a node on the grid cell. This also fills the grid cell.
 	 * @param node The node to place
 	 */
-	public void setNode(GridNode node) {
+	public void setNode(final GridNode node) {
 		myNode = node;
 		filled = true;
 	}
@@ -58,7 +58,7 @@ public class GridCell {
 	 * @param empty
 	 *            Is the cell filled?
 	 */
-	public void setFilled(boolean filled) {
+	public void setFilled(final boolean filled) {
 		this.filled = filled;
 	}
 

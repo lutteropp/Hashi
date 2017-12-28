@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-import model.Direction;
+import model.base.Direction;
 
 public class Assets {
 	public static BufferedImage coldBorder, warmBorder, hotBorder;

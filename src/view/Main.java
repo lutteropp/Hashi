@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import control.MouseInputUser;
-import model.GameBoard;
-import model.GridNode;
-import model.LevelGenerator;
+import model.base.GameBoard;
+import model.base.GridNode;
+import model.generator.LevelGenerator;
 
 public class Main {
 

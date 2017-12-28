@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.Direction;
-import model.GridNode;
-import model.Link;
+import model.base.Direction;
+import model.base.GridNode;
+import model.base.Link;
 
 public class VisualGridNode extends AbstractDrawable {
 	private GridNode myGridNode;

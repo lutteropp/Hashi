@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import model.Direction;
-import model.Link;
+import model.base.Direction;
+import model.base.Link;
 
 public class VisualLink extends AbstractDrawable {
 	private Link myLink;
@@ -29,6 +29,10 @@ public class VisualLink extends AbstractDrawable {
 		} else {
 			isVertical = false;
 		}
+	}
+	
+	public Link getMyLink() {
+		return myLink;
 	}
 	
 	public void clear() {

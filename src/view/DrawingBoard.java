@@ -11,10 +11,10 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import control.MouseInputUser;
-import model.Direction;
-import model.GameBoard;
-import model.GridNode;
-import model.Link;
+import model.base.Direction;
+import model.base.GameBoard;
+import model.base.GridNode;
+import model.base.Link;
 
 public class DrawingBoard extends JPanel {
 	/**

@@ -1,29 +1,44 @@
-package model;
+package model.base;
 
 /**
- * A link between two nodes.
+ * A link between two nodes. If its thickness is greater than zero, it can be
+ * interpreted as an edge in an undirected graph connecting these two nodes.
  * 
  * @author Sarah Lutteropp
  *
  */
 public class Link {
+	/**
+	 * The first node.
+	 */
 	private GridNode node1;
+	/**
+	 * The second node.
+	 */
 	private GridNode node2;
 	/** The number of connections between the nodes. Can be 0, 1, or 2. */
 	private int thickness;
-	
+
 	/**
 	 * Creates a link between two nodes.
-	 * @param node1 The first node.
-	 * @param node2 The second node.
+	 * 
+	 * @param node1
+	 *            The first node.
+	 * @param node2
+	 *            The second node.
 	 */
-	public Link(GridNode node1, GridNode node2) {
+	public Link(final GridNode node1, final GridNode node2) {
 		this.node1 = node1;
 		this.node2 = node2;
 		this.thickness = 0;
 	}
-	
-	public GridNode getOtherNode(GridNode node) {
+
+	/**
+	 * Get the neighbor of the given node by following this link.
+	 * @param node The node on one end of the link.
+	 * @return The node on the other end of the link.
+	 */
+	public GridNode getOtherNode(final GridNode node) {
 		if (node == node1) {
 			return node2;
 		} else if (node == node2) {
@@ -46,7 +61,7 @@ public class Link {
 	public GridNode getNode1() {
 		return node1;
 	}
-	
+
 	/**
 	 * @return The second node
 	 */
@@ -62,17 +77,32 @@ public class Link {
 	}
 	
 	/**
-	 * Sets the number of connections.
-	 * @param thickness The number of connections. Has to be either 0, 1, or 2.
+	 * Decrease the number of connections by one.
 	 */
-	public void setThickness(int thickness) {
+	public void decreaseThickness() {
+		if (thickness == 0) {
+			throw new RuntimeException("Thickness cannot be further decreased as it is already zero");
+		} else {
+			thickness--;
+		}
+	}
+
+	/**
+	 * Sets the number of connections.
+	 * 
+	 * @param thickness
+	 *            The number of connections. Has to be either 0, 1, or 2.
+	 */
+	public void setThickness(final int thickness) {
 		if (thickness < 0 || thickness > 2) {
 			throw new IllegalArgumentException("Thickness must be 0, 1, or 2");
 		}
 		this.thickness = thickness;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -85,7 +115,9 @@ public class Link {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -112,7 +144,9 @@ public class Link {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

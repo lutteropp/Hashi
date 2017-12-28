@@ -1,4 +1,4 @@
-package model;
+package model.base;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -75,13 +75,20 @@ public class GameBoard {
 	 * @param height
 	 *            Height of the grid.
 	 */
-	public GameBoard(int width, int height, ArrayList<GridNode> nodes) {
+	public GameBoard(final int width, final int height, final ArrayList<GridNode> nodes) {
 		if (width < 1) {
 			throw new IllegalArgumentException("The width must be at least 1.");
 		}
 		if (height < 1) {
 			throw new IllegalArgumentException("The height must be at least 1.");
 		}
+		HashSet<GridNode> controlSet = new HashSet<GridNode>();
+		controlSet.addAll(nodes);
+		if (controlSet.size() != nodes.size()) {
+			throw new IllegalArgumentException("Some nodes occur multiple times!");
+		}
+		controlSet.clear();
+
 		cells = new ArrayList<ArrayList<GridCell>>(width);
 		for (int i = 0; i < width; ++i) {
 			cells.add(new ArrayList<GridCell>(height));
@@ -159,13 +166,13 @@ public class GameBoard {
 	 *            The first node to be connected.
 	 * @param node2
 	 *            The second node to be connected.
-	 * @return True if the nodes can be connected.
+	 * @return True, if and only if the nodes can be connected.
 	 */
-	public boolean unblockedConnection(GridNode node1, GridNode node2) {
+	public boolean unblockedConnection(final GridNode node1, final GridNode node2) {
 		if (!node1.getAllNeighbors().contains(node2)) {
 			throw new IllegalArgumentException("The nodes are not neighbors");
 		}
-		// If the nodes are already connected, then path is not blocked by another
+		// If the nodes are already connected, then the path is not blocked by another
 		// connection. Otherwise, check whether the grid cells on the path between the
 		// nodes are currently free.
 		Link link = node1.getLinkToNeighbor(node2);
@@ -204,7 +211,7 @@ public class GameBoard {
 	 *            The second node.
 	 * @return True, if and only if the connection could be toggled.
 	 */
-	public boolean toggleConnection(GridNode node1, GridNode node2) {
+	public boolean toggleConnection(final GridNode node1, final GridNode node2) {
 		Link link1 = node1.getLinkToNeighbor(node2);
 		Link link2 = node2.getLinkToNeighbor(node1);
 		boolean previouslyConnected = (link1.getThickness() > 0);
@@ -237,7 +244,7 @@ public class GameBoard {
 	}
 
 	/**
-	 * Check whether the nodes form a connected graph by doing a breath-first
+	 * Check whether the nodes form a connected graph by doing a breadth-first
 	 * search.
 	 * 
 	 * @param nodes
@@ -269,6 +276,12 @@ public class GameBoard {
 		return true;
 	}
 
+	/**
+	 * Check whether the game has been won. This is the case, if and only if the degree of all
+	 * nodes matches their goal and all nodes form a connected graph.
+	 * 
+	 * @return True, if the game has been won.
+	 */
 	public boolean hasWon() {
 		if (this.getUnfinishedNodes().isEmpty() && this.checkAllNodesConnected()) {
 			return true;
