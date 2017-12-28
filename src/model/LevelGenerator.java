@@ -126,7 +126,7 @@ public class LevelGenerator {
 		possibleExtensions.put(Direction.NORTH, new ArrayList<IncompleteNode>());
 		possibleExtensions.put(Direction.SOUTH, new ArrayList<IncompleteNode>());
 		for (Direction dir : Direction.values()) {
-			if (firstNode.getPossible(dir, width, height) > 0) {
+			for (int i = 0; i < firstNode.getPossible(dir, width, height); ++i) {
 				possibleExtensions.get(dir).add(firstNode);
 			}
 		}
@@ -163,7 +163,7 @@ public class LevelGenerator {
 				nodesToPlace--;
 
 				for (Direction dir : Direction.values()) {
-					if (newNode.getPossible(dir, width, height) > 0) {
+					for (int i = 0; i < newNode.getPossible(dir, width, height); ++i) {
 						possibleExtensions.get(dir).add(newNode);
 					}
 				}
@@ -172,12 +172,8 @@ public class LevelGenerator {
 			actNode.increaseGoal(select.dir);
 			neighbor.increaseGoal(Direction.reverseDirection(select.dir));
 			// update the possible East/West/North/South entries
-			if (actNode.getPossible(select.dir, width, height) == 0) {
-				possibleExtensions.get(select.dir).remove(actNode);
-			}
-			if (neighbor.getPossible(Direction.reverseDirection(select.dir), width, height) == 0) {
-				possibleExtensions.get(Direction.reverseDirection(select.dir)).remove(neighbor);
-			}
+			possibleExtensions.get(select.dir).remove(actNode);
+			possibleExtensions.get(Direction.reverseDirection(select.dir)).remove(neighbor);
 		}
 
 		for (IncompleteNode inode : incompleteNodes) {
