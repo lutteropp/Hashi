@@ -202,6 +202,34 @@ public class GameBoard {
 	}
 
 	/**
+	 * Set the filled state of the grid cells between the given neighboring nodes to
+	 * the new state.
+	 * 
+	 * @param node1
+	 *            The first node.
+	 * @param node2
+	 *            The second node.
+	 * @param newState
+	 *            The new filled state of the affected grid cells.
+	 */
+	private void updateGridCells(final GridNode node1, final GridNode node2, final boolean newState) {
+		if (!node1.isNeighborOf(node2)) {
+			throw new IllegalArgumentException("The nodes are not neighbors");
+		}
+		if (node1.getX() == node2.getX()) {
+			int x = node1.getX();
+			for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(), node2.getY()); ++y) {
+				cells.get(x).get(y).setFilled(newState);
+			}
+		} else { // node1.y == node2.y
+			int y = node1.getY();
+			for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(), node2.getX()); ++x) {
+				cells.get(x).get(y).setFilled(newState);
+			}
+		}
+	}
+
+	/**
 	 * 
 	 * @param node1
 	 * @param node2
@@ -214,26 +242,15 @@ public class GameBoard {
 			link.decreaseThickness();
 			decreased = true;
 			if (link.getThickness() == 0) { // free the affected cells
-				if (node1.getX() == node2.getX()) {
-					int x = node1.getX();
-					for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(),
-							node2.getY()); ++y) {
-						cells.get(x).get(y).setFilled(false);
-					}
-				} else { // node1.y == node2.y
-					int y = node1.getY();
-					for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(),
-							node2.getX()); ++x) {
-						cells.get(x).get(y).setFilled(false);
-					}
-				}
+				updateGridCells(node1, node2, false);
 			}
 		}
 		return decreased;
 	}
 
 	/**
-	 * Tries to increase the number of connections between two nodes either from 0->1 or 1->2.
+	 * Tries to increase the number of connections between two nodes either from
+	 * 0->1 or 1->2.
 	 * 
 	 * @param node1
 	 *            The first node.
@@ -253,17 +270,7 @@ public class GameBoard {
 		boolean connected = link.increaseThickness();
 
 		if (!previouslyConnected) { // update the grid cells because the connection state has changed
-			if (node1.getX() == node2.getX()) {
-				int x = node1.getX();
-				for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(), node2.getY()); ++y) {
-					cells.get(x).get(y).setFilled(true);
-				}
-			} else { // node1.y == node2.y
-				int y = node1.getY();
-				for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(), node2.getX()); ++x) {
-					cells.get(x).get(y).setFilled(true);
-				}
-			}
+			updateGridCells(node1, node2, true);
 		}
 
 		return connected;
@@ -333,21 +340,9 @@ public class GameBoard {
 					GridNode node2 = link.getOtherNode(node1);
 					if (unblockedConnection(node1, node2)) {
 						link.setThickness(2);
-						
 						if (thicknessBefore == 0) { // update the grid cells
-							if (node1.getX() == node2.getX()) {
-								int x = node1.getX();
-								for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(), node2.getY()); ++y) {
-									cells.get(x).get(y).setFilled(true);
-								}
-							} else { // node1.y == node2.y
-								int y = node1.getY();
-								for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(), node2.getX()); ++x) {
-									cells.get(x).get(y).setFilled(true);
-								}
-							}
+							updateGridCells(node1, node2, true);
 						}
-						
 						addedConnection = true;
 					}
 				}
