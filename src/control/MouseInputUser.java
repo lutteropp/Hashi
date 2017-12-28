@@ -11,7 +11,7 @@ import view.VisualGridNode;
 import view.VisualLink;
 
 /**
- * A class for managing the user mouse input.
+ * A class for managing the mouse input from the user.
  */
 public class MouseInputUser extends MouseAdapter {
 	/**
@@ -27,20 +27,26 @@ public class MouseInputUser extends MouseAdapter {
 	 * The last selected node.
 	 */
 	private VisualGridNode lastSelectedNode;
+	
+	private boolean gameHasEnded;
 
 	/**
-	 * Creates a mouse listener for the given map view. After creation, the current
-	 * tool has to be set manually.
+	 * Creates a mouse listener for the drawing board.
 	 * 
-	 * @param map
-	 *            The MapView to operate on.
+	 * @param board
+	 *            The DrawingBoard to operate on.
 	 */
 	public MouseInputUser(final DrawingBoard board) {
 		this.myBoard = board;
+		gameHasEnded = false;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if (gameHasEnded) { // do nothing
+			return;
+		}
+		
 		VisualGridNode node = myBoard.getNearestNode(e.getPoint());
 		if (e.getClickCount() == 1) {
 			if (node == null) {
@@ -79,13 +85,18 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		if (myBoard.getMyBoard().hasWon()) {
 			myBoard.setBackground(Color.WHITE);
-			System.out.println("The game has been won.");
+			gameHasEnded = true;
+			System.out.println("Congratulations! You won the game.");
 		}
 		myBoard.repaint();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		if (gameHasEnded) {
+			return; // do nothing
+		}
+		
 		AbstractDrawable drawable = null;
 		drawable = myBoard.getNearestDrawableItem(e.getPoint());
 		if (lastHighlighted != null) {
