@@ -96,12 +96,25 @@ public class GridNode {
 	}
 
 	/**
-	 * @return The nodes connected to this node.
+	 * @return The neighboring nodes of this node.
 	 */
 	public ArrayList<GridNode> getAllNeighbors() {
 		ArrayList<GridNode> res = new ArrayList<GridNode>();
 		for (Direction dir : Direction.values()) {
 			if (connections.get(dir) != null) {
+				res.add(connections.get(dir).getOtherNode(this));
+			}
+		}
+		return res;
+	}
+	
+	/**
+	 * @return The nodes connected to this node with at least one wire.
+	 */
+	public ArrayList<GridNode> getAllNonZeroNeighbors() {
+		ArrayList<GridNode> res = new ArrayList<GridNode>();
+		for (Direction dir : Direction.values()) {
+			if (connections.get(dir) != null && connections.get(dir).getThickness() > 0) {
 				res.add(connections.get(dir).getOtherNode(this));
 			}
 		}

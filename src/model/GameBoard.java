@@ -252,7 +252,7 @@ public class GameBoard {
 			GridNode actNode = queue.remove();
 			if (!visited.contains(actNode)) {
 				visited.add(actNode);
-				ArrayList<GridNode> neighbors = actNode.getAllNeighbors();
+				ArrayList<GridNode> neighbors = actNode.getAllNonZeroNeighbors();
 				for (GridNode neighbor : neighbors) {
 					if (!visited.contains(neighbor)) {
 						queue.add(neighbor);
