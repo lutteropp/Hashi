@@ -53,7 +53,7 @@ public class GridNode {
 	 * @param target
 	 *            The neighborring node.
 	 */
-	public void setLink(Direction dir, Link link) {
+	protected void setLink(Direction dir, Link link) {
 		// check if the target node can indeed be the neighbor
 		GridNode target = link.getOtherNode(this);
 		if (dir == Direction.NORTH) {
