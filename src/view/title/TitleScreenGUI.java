@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -13,7 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import control.title.ExitButtonListener;
+import control.title.NewFixedGameButtonListener;
+import control.title.NewRandomGameButtonListener;
+import control.title.OptionsButtonListener;
+import control.title.TitleGUIResizeListener;
 import jaco.mp3.player.MP3Player;
+import view.MainWindow;
 
 // Play music using https://sourceforge.net/projects/jacomp3player/
 // See example here: https://sites.google.com/site/teachmemrxymon/java/how-to-use-mp3player-class
@@ -27,6 +31,8 @@ public class TitleScreenGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 4550458197071990473L;
 
+	private MainWindow mainWindow;
+	
 	private JLabel titleImage;
 
 	private JPanel buttonPane;
@@ -52,7 +58,8 @@ public class TitleScreenGUI extends JPanel {
 	/**
 	 * Create the title screen.
 	 */
-	public TitleScreenGUI() {
+	public TitleScreenGUI(MainWindow mainWindow) {
+		this.mainWindow = mainWindow;
 		player = new MP3Player(new File("assets/DST-Omicron.mp3"));
 		buttons = new ArrayList<JButton>();
 
@@ -64,16 +71,19 @@ public class TitleScreenGUI extends JPanel {
 		JPanel leftBorder = new JPanel();
 		JPanel rightBorder = new JPanel();
 		JPanel bottomBorder = new JPanel();
-
 		buttonPane = new JPanel();
 
 		newFixedGameButton = new JButton("New fixed game");
+		newFixedGameButton.addActionListener(new NewFixedGameButtonListener(mainWindow));
 		buttons.add(newFixedGameButton);
 		newRandomGameButton = new JButton("New random game");
+		newRandomGameButton.addActionListener(new NewRandomGameButtonListener(mainWindow));
 		buttons.add(newRandomGameButton);
 		optionsButton = new JButton("Options");
+		optionsButton.addActionListener(new OptionsButtonListener(mainWindow));
 		buttons.add(optionsButton);
 		exitButton = new JButton("Exit");
+		exitButton.addActionListener(new ExitButtonListener());
 		buttons.add(exitButton);
 
 		buttonPane.setLayout(new GridLayout(0, 1));
@@ -89,15 +99,6 @@ public class TitleScreenGUI extends JPanel {
 		add(rightBorder, BorderLayout.EAST);
 		add(bottomBorder, BorderLayout.SOUTH);
 
-		this.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				for (JButton button : buttons) {
-					button.setFont(button.getFont()
-							.deriveFont((float) (Math.min(button.getHeight() / 2, button.getWidth()) / 2)));
-				}
-				titleImage.setFont(buttons.get(0).getFont());
-			}
-		});
+		this.addComponentListener(new TitleGUIResizeListener(buttons, titleImage));
 	}
 }

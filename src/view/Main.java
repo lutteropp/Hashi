@@ -1,29 +1,16 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import model.base.GameBoard;
-import model.base.GridNode;
-import model.generator.LevelGenerator;
 import view.game.GameAssets;
-import view.game.GameBoardGUI;
-import view.title.TitleScreenGUI;
 
 /**
  * The main class, responsible for creating and showing the respective GUI windows.
  * @author Sarah Lutteropp
  */
 public class Main {
-	/**
-	 * The game field.
-	 */
-	private GameBoardGUI gameBoardGUI;
-	private TitleScreenGUI titleScreenGUI;
+	
+	private MainWindow window;
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be invoked
@@ -32,29 +19,8 @@ public class Main {
 	 */
 	private void createAndShowGUI() throws IOException {
 		GameAssets.loadAssets();
-		JFrame frame = new JFrame("Hashiwokakero");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-		final int width = 15;
-		final int height = 5;
-		//ArrayList<GridNode> nodes = LevelGenerator.getFixedLevelWidth15Height5();
-		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height);
-		
-		JPanel contentPane = new JPanel();
-		contentPane.setLayout(new BorderLayout());
-		GameBoard board = new GameBoard(width, height, nodes);
-		gameBoardGUI = new GameBoardGUI(board);
-		titleScreenGUI = new TitleScreenGUI();
-		
-		//contentPane.add(gameBoardGUI, BorderLayout.CENTER);
-		contentPane.add(titleScreenGUI, BorderLayout.CENTER);
-		titleScreenGUI.loopMusic();
-		
-		frame.setContentPane(contentPane);
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setVisible(true);
+		window = new MainWindow();
+		window.showTitleWindow();
 	}
 
 	/**
