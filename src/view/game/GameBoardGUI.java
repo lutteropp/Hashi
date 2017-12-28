@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import control.MouseInputUser;
+import control.game.MouseInputUser;
 import model.base.Direction;
 import model.base.GameBoard;
 import model.base.GridNode;
@@ -19,7 +19,7 @@ import model.base.Link;
  * The visual representation of the board where the game is played.
  * @author Sarah Lutteropp
  */
-public class DrawingBoardGUI extends JPanel {
+public class GameBoardGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 8249093357328115400L;
 	/** The VisualGridNodes to draw */
@@ -44,7 +44,7 @@ public class DrawingBoardGUI extends JPanel {
 	 * Create the main Hashiwokakero game board GUI.
 	 * @param gameBoard The game board.
 	 */
-	public DrawingBoardGUI(GameBoard gameBoard) {
+	public GameBoardGUI(GameBoard gameBoard) {
 		myBoard = gameBoard;
 		setOpaque(true);
 		cols = gameBoard.getWidth();

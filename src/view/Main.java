@@ -11,7 +11,8 @@ import model.base.GameBoard;
 import model.base.GridNode;
 import model.generator.LevelGenerator;
 import view.game.Assets;
-import view.game.DrawingBoardGUI;
+import view.game.GameBoardGUI;
+import view.title.TitleScreenGUI;
 
 /**
  * The main class, responsible for creating and showing the GUI.
@@ -21,7 +22,8 @@ public class Main {
 	/**
 	 * The game field.
 	 */
-	private DrawingBoardGUI drawingBoard;
+	private GameBoardGUI gameBoardGUI;
+	private TitleScreenGUI titleScreenGUI;
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be invoked
@@ -41,14 +43,17 @@ public class Main {
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout());
 		GameBoard board = new GameBoard(width, height, nodes);
-		drawingBoard = new DrawingBoardGUI(board);
-		contentPane.add(drawingBoard, BorderLayout.CENTER);
-
+		gameBoardGUI = new GameBoardGUI(board);
+		titleScreenGUI = new TitleScreenGUI();
+		
+		//contentPane.add(gameBoardGUI, BorderLayout.CENTER);
+		contentPane.add(titleScreenGUI, BorderLayout.CENTER);
+		
 		frame.setContentPane(contentPane);
 		frame.pack();
 		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setVisible(true);
 	}
 
 	/**

@@ -1,12 +1,11 @@
-package control;
+package control.game;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import view.game.AbstractDrawable;
-import view.game.DrawingBoardGUI;
+import view.game.GameBoardGUI;
 import view.game.VisualGridNode;
 import view.game.VisualLink;
 
@@ -17,7 +16,7 @@ public class MouseInputUser extends MouseAdapter {
 	/**
 	 * The DrawingBoard to listen on.
 	 */
-	private DrawingBoardGUI myBoard;
+	private GameBoardGUI myBoard;
 
 	/**
 	 * The last highlighted node or link.
@@ -36,7 +35,7 @@ public class MouseInputUser extends MouseAdapter {
 	 * @param board
 	 *            The DrawingBoard to operate on.
 	 */
-	public MouseInputUser(final DrawingBoardGUI board) {
+	public MouseInputUser(final GameBoardGUI board) {
 		this.myBoard = board;
 		gameHasEnded = false;
 	}
