@@ -203,17 +203,6 @@ public class GridNode {
 		return link;
 	}
 	
-	/**
-	 * Fill ALL possible connections of the node.
-	 */
-	public void fillNode() {
-		for (Direction dir : Direction.values()) {
-			if (connections.get(dir) != null) {
-				connections.get(dir).setThickness(2);
-			}
-		}
-	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

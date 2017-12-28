@@ -77,16 +77,31 @@ public class Link {
 	}
 	
 	/**
-	 * Decrease the number of connections by one.
+	 * Try to decrease the number of connections by one.
+	 * @return {@value true}, if and only if the number of connections has been decreased.
 	 */
-	public void decreaseThickness() {
+	public boolean decreaseThickness() {
 		if (thickness == 0) {
-			throw new RuntimeException("Thickness cannot be further decreased as it is already zero");
+			return false;
 		} else {
 			thickness--;
+			return true;
 		}
 	}
 
+	/**
+	 * Try to increase the the number of connections by one.
+	 * @return {@value true}, if and only if the number of connections has been increased.
+	 */
+	public boolean increaseThickness() {
+		if (thickness == 2) {
+			return false;
+		} else {
+			thickness++;
+			return true;
+		}
+	}
+	
 	/**
 	 * Sets the number of connections.
 	 * 

@@ -202,45 +202,71 @@ public class GameBoard {
 	}
 
 	/**
-	 * Tries to toggle the number of connections between two nodes either from 0->1,
-	 * 1->2, or 2->0.
+	 * 
+	 * @param node1
+	 * @param node2
+	 * @return {@value true}, if and only if the connection could be decreased.
+	 */
+	public boolean decreaseConnection(final GridNode node1, final GridNode node2) {
+		boolean decreased = false;
+		Link link = node1.getLinkToNeighbor(node2);
+		if (link.getThickness() > 0) {
+			link.decreaseThickness();
+			decreased = true;
+			if (link.getThickness() == 0) { // free the affected cells
+				if (node1.getX() == node2.getX()) {
+					int x = node1.getX();
+					for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(),
+							node2.getY()); ++y) {
+						cells.get(x).get(y).setFilled(false);
+					}
+				} else { // node1.y == node2.y
+					int y = node1.getY();
+					for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(),
+							node2.getX()); ++x) {
+						cells.get(x).get(y).setFilled(false);
+					}
+				}
+			}
+		}
+		return decreased;
+	}
+
+	/**
+	 * Tries to increase the number of connections between two nodes either from 0->1 or 1->2.
 	 * 
 	 * @param node1
 	 *            The first node.
 	 * @param node2
 	 *            The second node.
-	 * @return {@value true}, if and only if the connection could be toggled.
+	 * @return {@value true}, if and only if the connection could be increased.
 	 */
-	public boolean toggleConnection(final GridNode node1, final GridNode node2) {
-		Link link1 = node1.getLinkToNeighbor(node2);
-		Link link2 = node2.getLinkToNeighbor(node1);
-		boolean previouslyConnected = (link1.getThickness() > 0);
-		if (link1.getThickness() == 0) { // in this case, we need to first check whether the path between the nodes is
-											// currently free.
+	public boolean increaseConnection(final GridNode node1, final GridNode node2) {
+		Link link = node1.getLinkToNeighbor(node2);
+		boolean previouslyConnected = (link.getThickness() > 0);
+		if (link.getThickness() == 0) { // in this case, we need to first check whether the path between the nodes is
+										// currently free.
 			if (!unblockedConnection(node1, node2)) {
 				return false;
 			}
 		}
-		link1.toggle();
-		link2.toggle();
-		boolean nowConnected = (link1.getThickness() > 0);
+		boolean connected = link.increaseThickness();
 
-		if (previouslyConnected != nowConnected) { // update the grid cells because the connection state has changed
-			boolean filledState = nowConnected;
+		if (!previouslyConnected) { // update the grid cells because the connection state has changed
 			if (node1.getX() == node2.getX()) {
 				int x = node1.getX();
 				for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(), node2.getY()); ++y) {
-					cells.get(x).get(y).setFilled(filledState);
+					cells.get(x).get(y).setFilled(true);
 				}
 			} else { // node1.y == node2.y
 				int y = node1.getY();
 				for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(), node2.getX()); ++x) {
-					cells.get(x).get(y).setFilled(filledState);
+					cells.get(x).get(y).setFilled(true);
 				}
 			}
 		}
 
-		return true;
+		return connected;
 	}
 
 	/**
@@ -277,8 +303,8 @@ public class GameBoard {
 	}
 
 	/**
-	 * Check whether the game has been won. This is the case, if and only if the degree of all
-	 * nodes matches their goal and all nodes form a connected graph.
+	 * Check whether the game has been won. This is the case, if and only if the
+	 * degree of all nodes matches their goal and all nodes form a connected graph.
 	 * 
 	 * @return {@value true}, if the game has been won.
 	 */
@@ -288,5 +314,45 @@ public class GameBoard {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Fill all currently possible connections of this node.
+	 * 
+	 * @param node1
+	 *            The node.
+	 * @return {@value true}, if at least one connection has been added.
+	 */
+	public boolean fillNode(GridNode node1) {
+		boolean addedConnection = false;
+		for (Direction dir : Direction.values()) {
+			Link link = node1.getLink(dir);
+			if (link != null) {
+				int thicknessBefore = link.getThickness();
+				if (thicknessBefore < 2) {
+					GridNode node2 = link.getOtherNode(node1);
+					if (unblockedConnection(node1, node2)) {
+						link.setThickness(2);
+						
+						if (thicknessBefore == 0) { // update the grid cells
+							if (node1.getX() == node2.getX()) {
+								int x = node1.getX();
+								for (int y = Math.min(node1.getY(), node2.getY()) + 1; y < Math.max(node1.getY(), node2.getY()); ++y) {
+									cells.get(x).get(y).setFilled(true);
+								}
+							} else { // node1.y == node2.y
+								int y = node1.getY();
+								for (int x = Math.min(node1.getX(), node2.getX()) + 1; x < Math.max(node1.getX(), node2.getX()); ++x) {
+									cells.get(x).get(y).setFilled(true);
+								}
+							}
+						}
+						
+						addedConnection = true;
+					}
+				}
+			}
+		}
+		return addedConnection;
 	}
 }
