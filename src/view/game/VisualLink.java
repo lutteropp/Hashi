@@ -81,9 +81,9 @@ public class VisualLink extends AbstractDrawable {
 		if (myLink.getThickness() > 0) {
 			BufferedImage wireImage;
 			if (isVertical) {
-				wireImage = Assets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.highlighted);
+				wireImage = GameAssets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.highlighted);
 			} else {
-				wireImage = Assets.getWireImage(Direction.EAST, myLink.getThickness(), this.highlighted);
+				wireImage = GameAssets.getWireImage(Direction.EAST, myLink.getThickness(), this.highlighted);
 			}
 			if (isVertical) {
 				int x = minX;

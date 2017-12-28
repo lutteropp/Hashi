@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 import model.base.GameBoard;
 import model.base.GridNode;
 import model.generator.LevelGenerator;
-import view.game.Assets;
+import view.game.GameAssets;
 import view.game.GameBoardGUI;
 import view.title.TitleScreenGUI;
 
 /**
- * The main class, responsible for creating and showing the GUI.
+ * The main class, responsible for creating and showing the respective GUI windows.
  * @author Sarah Lutteropp
  */
 public class Main {
@@ -31,7 +31,7 @@ public class Main {
 	 * @throws IOException 
 	 */
 	private void createAndShowGUI() throws IOException {
-		Assets.loadAssets();
+		GameAssets.loadAssets();
 		JFrame frame = new JFrame("Hashiwokakero");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -48,6 +48,7 @@ public class Main {
 		
 		//contentPane.add(gameBoardGUI, BorderLayout.CENTER);
 		contentPane.add(titleScreenGUI, BorderLayout.CENTER);
+		titleScreenGUI.loopMusic();
 		
 		frame.setContentPane(contentPane);
 		frame.pack();

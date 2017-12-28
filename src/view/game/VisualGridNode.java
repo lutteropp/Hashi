@@ -79,14 +79,14 @@ public class VisualGridNode extends AbstractDrawable {
 	 */
 	private BufferedImage assembleNodeImage(final int cellSize) {
 		ArrayList<BufferedImage> parts = new ArrayList<BufferedImage>();
-		parts.add(Assets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
+		parts.add(GameAssets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
 		for (Direction dir : Direction.values()) {
 			Link link = myGridNode.getLink(dir);
 			if (link != null) {
-				parts.add(Assets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
+				parts.add(GameAssets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
 			}
 		}
-		parts.add(Assets.getGoalImage(myGridNode.getGoal()));
+		parts.add(GameAssets.getGoalImage(myGridNode.getGoal()));
 		BufferedImage bi = new BufferedImage(cellSize, cellSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics biGraphics = bi.getGraphics();
 		for (BufferedImage part : parts) {
