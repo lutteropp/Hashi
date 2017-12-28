@@ -23,15 +23,13 @@ import view.MainWindow;
 // See example here: https://sites.google.com/site/teachmemrxymon/java/how-to-use-mp3player-class
 
 /**
- * The title screen GUI. Modified from https://stackoverflow.com/a/21226098
+ * The title screen GUI.
  * 
  * @author Sarah Lutteropp
  */
 public class TitleScreenGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 4550458197071990473L;
-
-	private MainWindow mainWindow;
 	
 	private JLabel titleImage;
 
@@ -59,7 +57,6 @@ public class TitleScreenGUI extends JPanel {
 	 * Create the title screen.
 	 */
 	public TitleScreenGUI(MainWindow mainWindow) {
-		this.mainWindow = mainWindow;
 		player = new MP3Player(new File("assets/DST-Omicron.mp3"));
 		buttons = new ArrayList<JButton>();
 
