@@ -32,9 +32,10 @@ public class MouseInputUser extends MouseAdapter {
 	 * The last selected node.
 	 */
 	private VisualGridNode lastSelectedNode;
-	
+
 	/**
-	 * The current successfully selected second node. Used for improving the double-click behaviour.
+	 * The current successfully selected second node. Used for improving the
+	 * double-click behaviour.
 	 */
 	private VisualGridNode secondSelectedNode;
 
@@ -56,7 +57,9 @@ public class MouseInputUser extends MouseAdapter {
 
 	/**
 	 * Process a single-click event
-	 * @param e The event
+	 * 
+	 * @param e
+	 *            The event
 	 * @return {@value true}, if and only if the game state has changed
 	 */
 	private boolean processSingleClick(MouseEvent e) {
@@ -103,15 +106,22 @@ public class MouseInputUser extends MouseAdapter {
 
 	/**
 	 * Process a double-click event
-	 * @param e The event
+	 * 
+	 * @param e
+	 *            The event
 	 * @return {@value true}, if and only if the game state has changed
 	 */
 	private boolean processDoubleClick(MouseEvent e) {
 		boolean gameStateChanged = false;
 		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
-		if (lastSelectedNode != null) {
-			lastSelectedNode.setSelected(false);
-			if (lastSelectedNode == node) {
+
+		if (node == null) {
+			if (lastSelectedNode != null) {
+				lastSelectedNode.setSelected(false);
+				lastSelectedNode = null;
+			}
+		} else {
+			if (lastSelectedNode == node) { // the node has already been selected
 				// fill the whole node with connections
 				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
 				if (connected) {
@@ -119,8 +129,20 @@ public class MouseInputUser extends MouseAdapter {
 					SoundAssets.connectSound.play();
 				}
 			}
+		}
+
+		if (lastSelectedNode != null) { // a node has been selected before
+			if (lastSelectedNode == node) { // ... and it was this node
+				// fill the whole node with connections
+				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
+				if (connected) {
+					gameStateChanged = true;
+					SoundAssets.connectSound.play();
+				}
+			}
+			lastSelectedNode.setSelected(false);
 			lastSelectedNode = null;
-		} else {
+		} else { // no node has been selected before
 			if (node != null && secondSelectedNode != node) {
 				// fill the whole node with connections
 				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());

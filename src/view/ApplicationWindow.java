@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -140,6 +141,11 @@ public class ApplicationWindow extends JFrame {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
+		JOptionPane.showMessageDialog(this, 
+                "You won the game!", 
+                "CONGRATULATIONS!", 
+                JOptionPane.INFORMATION_MESSAGE);
+		this.showTitleWindow();
 	}
 
 	public void showGeneratorWindow() {
