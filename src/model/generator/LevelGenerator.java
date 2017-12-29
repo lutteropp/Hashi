@@ -127,14 +127,14 @@ public class LevelGenerator {
 		} else { // Direction.SOUTH
 			y -= 2;
 		}
-		
+
 		if (x < 0 || x >= cells.size()) {
 			return null;
 		}
 		if (y < 0 || y >= cells.get(0).size()) {
 			return null;
 		}
-		
+
 		return cells.get(x).get(y);
 	}
 
@@ -221,10 +221,8 @@ public class LevelGenerator {
 			}
 
 			if (totalOuterPossible == 0) {
-				// In rare cases, there are no possible outer extensions left. These generated
-				// levels
-				// tend to look ugly and have too many 8-nodes, thus we redo the whole
-				// generation.
+				// In rare cases, there are no possible outer extensions left. In these cases,
+				// we redo the whole generation.
 				return generateLevel(width, height, gridUsage, pOuterExtension);
 			}
 
@@ -232,10 +230,8 @@ public class LevelGenerator {
 			boolean doOuterExtension = (rand.nextDouble() <= pOuterExtension);
 
 			DirectionSelection select;
-			boolean didInnerExtension = false;
 			if (!doOuterExtension && totalInnerPossible > 0) { // do inner extension
 				select = nextDirection(innerExtensions);
-				didInnerExtension = true;
 			} else { // do outer extension anyway
 				select = nextDirection(outerExtensions);
 			}
@@ -254,15 +250,7 @@ public class LevelGenerator {
 			}
 			IncompleteNode neighbor = cells.get(newX).get(newY);
 
-			if (!didInnerExtension && neighbor != null) {
-				throw new RuntimeException("Why is the neighbor not null?");
-			}
-
 			if (neighbor == null) { // Create a new node. This means we did an outer extension.
-				if (didInnerExtension) {
-					throw new RuntimeException("Something went wrong 1");
-				}
-
 				neighbor = new IncompleteNode(newX, newY);
 				incompleteNodes.add(neighbor);
 				cells.get(newX).set(newY, neighbor);
@@ -305,10 +293,6 @@ public class LevelGenerator {
 				}
 
 			} else { // we did an inner extension
-				if (!didInnerExtension) {
-					throw new RuntimeException("Something went wrong 2");
-				}
-
 				actNode.increaseGoal(select.dir);
 				neighbor.increaseGoal(Direction.reverseDirection(select.dir));
 				innerExtensions.get(select.dir).remove(actNode);
