@@ -63,6 +63,7 @@ public class ApplicationWindow extends JFrame {
 		setTitle("Hashiwokakero");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationByPlatform(true);
 		keyInput = new KeyInputUser(this);
 		titleScreenGUI = new TitleScreenGUI(this);
@@ -79,7 +80,6 @@ public class ApplicationWindow extends JFrame {
 		titleScreenGUI.loopMusic();
 
 		setContentPane(titleScreenGUI);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		titleScreenGUI.requestFocus();
 		setVisible(true);
 	}
@@ -95,7 +95,6 @@ public class ApplicationWindow extends JFrame {
 		gameBoardGUI.loopMusic();
 
 		setContentPane(gameBoardGUI);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gameBoardGUI.requestFocus();
 		setVisible(true);
 	}
@@ -111,7 +110,6 @@ public class ApplicationWindow extends JFrame {
 
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gameBoardGUI.requestFocus();
 		setVisible(true);
 	}
@@ -127,14 +125,12 @@ public class ApplicationWindow extends JFrame {
 
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gameBoardGUI.requestFocus();
 		setVisible(true);
 	}
 
 	public void showOptionsWindow() {
 		setContentPane(optionsGUI);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		optionsGUI.requestFocus();
 		setVisible(true);
 	}
@@ -148,7 +144,6 @@ public class ApplicationWindow extends JFrame {
 
 	public void showGeneratorWindow() {
 		setContentPane(generatorGUI);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		generatorGUI.requestFocus();
 		setVisible(true);
 	}
