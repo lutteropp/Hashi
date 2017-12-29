@@ -132,12 +132,12 @@ public class TitleScreenGUI extends JPanel {
 		c.weightx = 0.0;
 		c.weighty = 0.3;
 		c.gridwidth = 3;
+		c.gridheight = 1;
 		c.gridx = 0;
 		c.gridy = 0;
 		add(titlePane, c);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.ipady = 80; // make this component extra tall
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridheight = 4;
@@ -149,28 +149,28 @@ public class TitleScreenGUI extends JPanel {
 		c.gridx = 0;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.1;
+		c.weightx = 0.15;
 		add(leftBorder, c);
 		c = new GridBagConstraints();
 		c.gridheight = 5;
 		c.gridx = 2;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.1;
+		c.weightx = 0.15;
 		add(rightBorder, c);
 		c = new GridBagConstraints();
-		c.gridheight = 5;
+		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 5;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weighty = 0.1;
 		add(bottomBorder, c);
 
-		titlePane.setBackground(Color.WHITE);
+		/*titlePane.setBackground(Color.WHITE);
 		leftBorder.setBackground(Color.WHITE);
 		rightBorder.setBackground(Color.WHITE);
 		bottomBorder.setBackground(Color.WHITE);
 		buttonPane.setBackground(Color.WHITE);
-		this.setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);*/
 	}
 }
