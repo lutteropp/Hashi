@@ -47,7 +47,7 @@ public class ApplicationWindow extends JFrame {
 
 	public ApplicationWindow() {
 		setTitle("Hashiwokakero");
-		setResizable(false);
+		//setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationByPlatform(true);
 		titleScreenGUI = new TitleScreenGUI(this);

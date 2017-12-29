@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import assets.GraphicalAssets;
+import assets.GraphicalGameAssets;
 import model.base.Direction;
 import model.base.GridNode;
 import model.base.Link;
@@ -80,14 +80,14 @@ public class VisualGridNode extends AbstractDrawable {
 	 */
 	private BufferedImage assembleNodeImage(final int cellSize) {
 		ArrayList<BufferedImage> parts = new ArrayList<BufferedImage>();
-		parts.add(GraphicalAssets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
+		parts.add(GraphicalGameAssets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
 		for (Direction dir : Direction.values()) {
 			Link link = myGridNode.getLink(dir);
 			if (link != null) {
-				parts.add(GraphicalAssets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
+				parts.add(GraphicalGameAssets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
 			}
 		}
-		parts.add(GraphicalAssets.getGoalImage(myGridNode.getGoal()));
+		parts.add(GraphicalGameAssets.getGoalImage(myGridNode.getGoal()));
 		BufferedImage bi = new BufferedImage(cellSize, cellSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics biGraphics = bi.getGraphics();
 		for (BufferedImage part : parts) {

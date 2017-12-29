@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import assets.GraphicalAssets;
+import assets.GraphicalGameAssets;
 import model.base.Direction;
 import model.base.Link;
 
@@ -82,9 +82,9 @@ public class VisualLink extends AbstractDrawable {
 		if (myLink.getThickness() > 0) {
 			BufferedImage wireImage;
 			if (isVertical) {
-				wireImage = GraphicalAssets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.highlighted);
+				wireImage = GraphicalGameAssets.getWireImage(Direction.SOUTH, myLink.getThickness(), this.highlighted);
 			} else {
-				wireImage = GraphicalAssets.getWireImage(Direction.EAST, myLink.getThickness(), this.highlighted);
+				wireImage = GraphicalGameAssets.getWireImage(Direction.EAST, myLink.getThickness(), this.highlighted);
 			}
 			if (isVertical) {
 				int x = minX;

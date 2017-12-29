@@ -15,7 +15,7 @@ import model.base.Direction;
  * 
  * @author Sarah Lutteropp
  */
-public class GraphicalAssets {
+public class GraphicalGameAssets {
 	/** The different node bodies. */
 	private static BufferedImage coldBody, warmBody, hotBody;
 	/** The different node goals. These are numbers from 1 to 8. */

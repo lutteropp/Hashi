@@ -4,7 +4,8 @@ import java.io.IOException;
 
 import javax.swing.UnsupportedLookAndFeelException;
 
-import assets.GraphicalAssets;
+import assets.GraphicalGameAssets;
+import assets.GraphicalMenuAssets;
 
 /**
  * The main class, responsible for creating and showing the respective GUI
@@ -24,7 +25,8 @@ public class Main {
 	 * @throws UnsupportedLookAndFeelException
 	 */
 	private void createAndShowGUI() throws IOException {
-		GraphicalAssets.loadAssets();
+		GraphicalGameAssets.loadAssets();
+		GraphicalMenuAssets.loadAssets();
 		window = new ApplicationWindow();
 		window.showTitleWindow();
 	}

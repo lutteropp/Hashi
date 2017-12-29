@@ -5,15 +5,16 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import assets.GraphicalMenuAssets;
 import control.generator.GenerateButtonListener;
 import control.generator.SliderChangeListener;
 import view.ApplicationWindow;
+import view.ScalingButton;
 
 /**
  * The GUI for setting the level generator parameters.
@@ -64,8 +65,7 @@ public class GeneratorGUI extends JPanel {
 	 *            The main window
 	 */
 	public GeneratorGUI(ApplicationWindow mainWindow) {
-		generateButton = new JButton();
-		generateButton.setIcon(new ImageIcon("assets/Generate.png"));
+		generateButton = new ScalingButton(GraphicalMenuAssets.generatorButtonImage);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int maxWidth = (int) Math.round(screenSize.getWidth() / 100);
 		int maxHeight = (int) Math.round(screenSize.getHeight() / 100);
