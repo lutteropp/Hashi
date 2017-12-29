@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ import control.generator.SliderChangeListener;
 import control.title.KeyInputUser;
 import view.ApplicationWindow;
 import view.ScalingButton;
-import view.title.ScalingLabel;
+import view.ScalingLabel;
 
 /**
  * The GUI for setting the level generator parameters.
@@ -43,14 +44,6 @@ public class GeneratorGUI extends JPanel {
 	 * to connecting two already existing nodes) during level generation
 	 */
 	private JSlider outerExtensionSlider;
-	/** Caption of the width slider */
-	private ScalingLabel widthCaptionLabel;
-	/** Caption of the height slider */
-	private ScalingLabel heightCaptionLabel;
-	/** Caption of the filling slider */
-	private ScalingLabel fillingCaptionLabel;
-	/** Caption of the outer extension slider */
-	private ScalingLabel outerExtensionCaptionLabel;
 	/** Value of the width slider to be shown */
 	private ScalingLabel widthValueLabel;
 	/** Value of the height slider to be shown */
@@ -85,10 +78,16 @@ public class GeneratorGUI extends JPanel {
 		outerExtensionSlider.addKeyListener(keyListener);
 		this.addKeyListener(keyListener);
 		
-		widthCaptionLabel = new ScalingLabel("Width: ");
-		heightCaptionLabel = new ScalingLabel("Height: ");
-		fillingCaptionLabel = new ScalingLabel("Filling: ");
-		outerExtensionCaptionLabel = new ScalingLabel("Outer extension probability: ");
+		ScalingLabel widthCaptionLabel =   new ScalingLabel("  Width    ");
+		ScalingLabel heightCaptionLabel =  new ScalingLabel("  Height   ");
+		ScalingLabel fillingCaptionLabel = new ScalingLabel("  Filling  ");
+		
+		JPanel outerExtensionCaptionPanel = new JPanel(new GridLayout(3, 1));
+		outerExtensionCaptionPanel.add(    new ScalingLabel("   Outer   "));
+		outerExtensionCaptionPanel.add(    new ScalingLabel(" extension "));
+		outerExtensionCaptionPanel.add(    new ScalingLabel("probability"));
+		
+		//ScalingLabel outerExtensionCaptionLabel = new ScalingLabel("Outer extension probability: ");
 		widthValueLabel = new ScalingLabel("15");
 		heightValueLabel = new ScalingLabel("10");
 		fillingValueLabel = new ScalingLabel("0.20");
@@ -205,7 +204,7 @@ public class GeneratorGUI extends JPanel {
 		c.gridy = 4;
 		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
-		add(outerExtensionCaptionLabel, c);
+		add(outerExtensionCaptionPanel, c);
 		c = new GridBagConstraints();
 		c.gridx = 2;
 		c.gridy = 4;
@@ -227,6 +226,9 @@ public class GeneratorGUI extends JPanel {
 		c.weighty = 0.4;
 		c.fill = GridBagConstraints.BOTH;
 		add(generateButton, c);
+		
+		topBorder.setLayout(new GridLayout());
+		topBorder.add(new ScalingLabel("New random game"));
 		
 		Color background = new Color(90, 220, 220);
 		topBorder.setBackground(background);

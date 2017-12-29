@@ -5,7 +5,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import view.title.ScalingLabel;
+import view.ScalingLabel;
 
 /**
  * A listener that updates the value label for a given JSlider.

@@ -18,6 +18,7 @@ import control.title.NewRandomGameButtonListener;
 import control.title.HelpButtonListener;
 import view.ApplicationWindow;
 import view.ScalingButton;
+import view.ScalingLabel;
 
 /**
  * The title screen GUI.
@@ -90,7 +91,8 @@ public class TitleScreenGUI extends JPanel {
 		hasStopped = true;
 		buttons = new ArrayList<JButton>();
 
-		ScalingLabel titlePane = new ScalingLabel("Hashiwokakero");
+		ScalingLabel titleLabel = new ScalingLabel("Hashiwokakero");
+		titleLabel.setBoldFont(true);
 
 		JPanel leftBorder = new JPanel();
 		JPanel rightBorder = new JPanel();
@@ -130,7 +132,7 @@ public class TitleScreenGUI extends JPanel {
 		c.gridheight = 1;
 		c.gridx = 0;
 		c.gridy = 0;
-		add(titlePane, c);
+		add(titleLabel, c);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -162,7 +164,7 @@ public class TitleScreenGUI extends JPanel {
 		add(bottomBorder, c);
 
 		Color background = new Color(90, 220, 220);
-		titlePane.setBackground(background);
+		titleLabel.setBackground(background);
 		leftBorder.setBackground(background);
 		rightBorder.setBackground(background);
 		bottomBorder.setBackground(background);

@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
@@ -10,10 +9,10 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 
 import org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelCross;
 
+import assets.SoundAssets;
 import control.title.KeyInputUser;
 import model.base.GameBoard;
 import model.base.GridNode;
@@ -54,12 +53,13 @@ public class ApplicationWindow extends JFrame {
 	 */
 	private KeyInputUser keyInput;
 
-	public ApplicationWindow() throws ParseException, UnsupportedLookAndFeelException, MalformedURLException, IOException {
-		
-		//SynthLookAndFeel laf = new SynthLookAndFeel();
-		//laf.load(new File("assets/laf.xml").toURI().toURL());
-        UIManager.setLookAndFeel(new BeautyEyeLookAndFeelCross());
-		
+	public ApplicationWindow()
+			throws ParseException, UnsupportedLookAndFeelException, MalformedURLException, IOException {
+
+		// SynthLookAndFeel laf = new SynthLookAndFeel();
+		// laf.load(new File("assets/laf.xml").toURI().toURL());
+		UIManager.setLookAndFeel(new BeautyEyeLookAndFeelCross());
+
 		setTitle("Hashiwokakero");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -79,7 +79,6 @@ public class ApplicationWindow extends JFrame {
 		titleScreenGUI.loopMusic();
 
 		setContentPane(titleScreenGUI);
-		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		titleScreenGUI.requestFocus();
 		setVisible(true);
@@ -96,7 +95,6 @@ public class ApplicationWindow extends JFrame {
 		gameBoardGUI.loopMusic();
 
 		setContentPane(gameBoardGUI);
-		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gameBoardGUI.requestFocus();
 		setVisible(true);
@@ -113,7 +111,6 @@ public class ApplicationWindow extends JFrame {
 
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);
-		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gameBoardGUI.requestFocus();
 		setVisible(true);
@@ -130,7 +127,6 @@ public class ApplicationWindow extends JFrame {
 
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);
-		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gameBoardGUI.requestFocus();
 		setVisible(true);
@@ -138,13 +134,13 @@ public class ApplicationWindow extends JFrame {
 
 	public void showOptionsWindow() {
 		setContentPane(optionsGUI);
-		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		optionsGUI.requestFocus();
 		setVisible(true);
 	}
 
 	public void showGameFinishedWindow() {
+		SoundAssets.winningMusic.play();
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
@@ -152,7 +148,6 @@ public class ApplicationWindow extends JFrame {
 
 	public void showGeneratorWindow() {
 		setContentPane(generatorGUI);
-		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		generatorGUI.requestFocus();
 		setVisible(true);

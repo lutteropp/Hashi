@@ -1,4 +1,4 @@
-package view.title;
+package view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,15 +12,23 @@ public class ScalingLabel extends JLabel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 3189235547273253630L;
 	private String text;
+	private boolean bold;
 
 	public ScalingLabel(String text) {
 		this.text = text;
+		this.bold = false;
+	}
+
+	public void setBoldFont(boolean bold) {
+		this.bold = bold;
 	}
 
 	private BufferedImage createButtonImage() {
 		Font font = getFont();
-		font = font.deriveFont(150f).deriveFont(Font.BOLD); // make the font very large to avoid rescaling effects
-
+		font = font.deriveFont(150f); // make the font very large to avoid rescaling effects
+		if (this.bold) {
+			font = font.deriveFont(Font.BOLD);
+		}
 		FontMetrics metrics = getFontMetrics(font);
 		int width = metrics.stringWidth(text);
 		int height = metrics.getHeight();
@@ -55,7 +63,7 @@ public class ScalingLabel extends JLabel {
 		}
 		g.drawImage(buttonImage, (this.getWidth() - width) / 2, (this.getHeight() - height) / 2, width, height, null);
 	}
-	
+
 	@Override
 	public void setText(String text) {
 		this.text = text;
