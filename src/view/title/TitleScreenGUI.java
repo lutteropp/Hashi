@@ -3,6 +3,7 @@ package view.title;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ import control.title.ExitButtonListener;
 import control.title.NewFixedGameButtonListener;
 import control.title.NewRandomGameButtonListener;
 import control.title.OptionsButtonListener;
-import control.title.TitleGUIResizeListener;
 import view.ApplicationWindow;
+import view.ScalingButton;
 
 /**
  * The title screen GUI.
@@ -39,15 +40,15 @@ public class TitleScreenGUI extends JPanel {
 	private ArrayList<JButton> buttons;
 
 	/** The "continue game" button */
-	private JButton continueGameButton;
+	private ScalingButton continueGameButton;
 	/** The "new fixed game" button */ 
-	private JButton newFixedGameButton;
+	private ScalingButton newFixedGameButton;
 	/** The "new random game" button */
-	private JButton newRandomGameButton;
+	private ScalingButton newRandomGameButton;
 	/** The "options" button */
-	private JButton optionsButton;
+	private ScalingButton optionsButton;
 	/** The "exit" button */
-	private JButton exitButton;
+	private ScalingButton exitButton;
 
 	/**
 	 * Has the music been stopped? This flag is used for avoiding interrupting an
@@ -94,30 +95,27 @@ public class TitleScreenGUI extends JPanel {
 		hasStopped = true;
 		buttons = new ArrayList<JButton>();
 
-		JPanel titlePane = new JPanel(new GridBagLayout());
-		titleImage = new JLabel("Hashiwokakero");
-		titleImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		titlePane.add(titleImage);
+		TitlePane titlePane = new TitlePane();
 
 		JPanel leftBorder = new JPanel();
 		JPanel rightBorder = new JPanel();
 		JPanel bottomBorder = new JPanel();
 		buttonPane = new JPanel();
 
-		continueGameButton = new JButton("Continue game");
+		continueGameButton = new ScalingButton("Continue game");
 		continueGameButton.addActionListener(new ContinueGameButtonListener(mainWindow));
 		continueGameButton.setEnabled(false);
 		buttons.add(continueGameButton);
-		newFixedGameButton = new JButton("New fixed game");
+		newFixedGameButton = new ScalingButton("New fixed game");
 		newFixedGameButton.addActionListener(new NewFixedGameButtonListener(mainWindow));
 		buttons.add(newFixedGameButton);
-		newRandomGameButton = new JButton("New random game");
+		newRandomGameButton = new ScalingButton("New random game");
 		newRandomGameButton.addActionListener(new NewRandomGameButtonListener(mainWindow));
 		buttons.add(newRandomGameButton);
-		optionsButton = new JButton("Options");
+		optionsButton = new ScalingButton("Options");
 		optionsButton.addActionListener(new OptionsButtonListener(mainWindow));
 		buttons.add(optionsButton);
-		exitButton = new JButton("Exit");
+		exitButton = new ScalingButton("Exit");
 		exitButton.addActionListener(new ExitButtonListener());
 		buttons.add(exitButton);
 
@@ -126,15 +124,48 @@ public class TitleScreenGUI extends JPanel {
 			button.setAlignmentX(Component.CENTER_ALIGNMENT);
 			buttonPane.add(button);
 		}
+		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 40;      //make this component tall
+		c.weightx = 0.0;
+		c.weighty = 0.3;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 0;
+		add(titlePane, c);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.ipady = 80; // make this component extra tall
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridheight = 4;
+		c.gridx = 1;
+		c.gridy = 1;
+		add(buttonPane, c);
+		c = new GridBagConstraints();
+		c.gridheight = 5;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.1;
+		add(leftBorder, c);
+		c = new GridBagConstraints();
+		c.gridheight = 5;
+		c.gridx = 2;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.1;
+		add(rightBorder, c);
+		c = new GridBagConstraints();
+		c.gridheight = 5;
+		c.gridx = 0;
+		c.gridy = 5;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weighty = 0.1;
+		add(bottomBorder, c);
 
-		this.setLayout(new BorderLayout());
-		add(titlePane, BorderLayout.NORTH);
-		add(buttonPane, BorderLayout.CENTER);
-		add(leftBorder, BorderLayout.WEST);
-		add(rightBorder, BorderLayout.EAST);
-		add(bottomBorder, BorderLayout.SOUTH);
-
-		this.addComponentListener(new TitleGUIResizeListener(buttons, titleImage));
 		titlePane.setBackground(Color.WHITE);
 		leftBorder.setBackground(Color.WHITE);
 		rightBorder.setBackground(Color.WHITE);

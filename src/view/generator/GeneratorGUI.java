@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import assets.GraphicalMenuAssets;
 import control.generator.GenerateButtonListener;
 import control.generator.SliderChangeListener;
 import view.ApplicationWindow;
@@ -65,7 +64,7 @@ public class GeneratorGUI extends JPanel {
 	 *            The main window
 	 */
 	public GeneratorGUI(ApplicationWindow mainWindow) {
-		generateButton = new ScalingButton(GraphicalMenuAssets.generatorButtonImage);
+		generateButton = new ScalingButton("Generate Level");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int maxWidth = (int) Math.round(screenSize.getWidth() / 100);
 		int maxHeight = (int) Math.round(screenSize.getHeight() / 100);
