@@ -46,8 +46,8 @@ public class GeneratorGUI extends JPanel {
 		int maxWidth = (int) Math.round(screenSize.getWidth() / 100);
 		int maxHeight = (int) Math.round(screenSize.getHeight() / 100);
 
-		widthSlider = new JSlider(1, maxWidth, 15);
-		heightSlider = new JSlider(1, maxHeight, 10);
+		widthSlider = new JSlider(3, maxWidth, 15);
+		heightSlider = new JSlider(3, maxHeight, 10);
 		fillingSlider = new JSlider(1, 25, 15); // 25% is the maximum value because we don't want to place nodes
 												// directly next to each other... this would look ugly
 		widthCaptionLabel = new JLabel("Width: ");

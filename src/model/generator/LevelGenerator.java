@@ -114,6 +114,9 @@ public class LevelGenerator {
 	 */
 	public static ArrayList<GridNode> generateLevel(final int width, final int height, double gridUsage) {
 		int nodesToPlace = (int) Math.round(width * height * gridUsage);
+		if (nodesToPlace < 2) {
+			nodesToPlace = 2; // minimum number of nodes to be placed
+		}
 
 		ArrayList<ArrayList<IncompleteNode>> cells = new ArrayList<ArrayList<IncompleteNode>>();
 		for (int i = 0; i < width; ++i) {
