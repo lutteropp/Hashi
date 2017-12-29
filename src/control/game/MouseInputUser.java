@@ -115,7 +115,6 @@ public class MouseInputUser extends MouseAdapter {
 				// fill the whole node with connections
 				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
 				if (connected) {
-					System.out.println("1");
 					gameStateChanged = true;
 					SoundAssets.connectSound.play();
 				}
@@ -126,7 +125,6 @@ public class MouseInputUser extends MouseAdapter {
 				// fill the whole node with connections
 				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
 				if (connected) {
-					System.out.println("2");
 					gameStateChanged = true;
 					SoundAssets.connectSound.play();
 				}
@@ -144,13 +142,10 @@ public class MouseInputUser extends MouseAdapter {
 		if (gameHasEnded) { // do nothing
 			return;
 		}
-
 		boolean gameStateChanged = false;
 		if (e.getClickCount() == 2) {
-			System.out.println("Double click");
 			gameStateChanged = processDoubleClick(e);
 		} else { // single-click... or the first click of a double-click
-			System.out.println("Single click");
 			gameStateChanged = processSingleClick(e);
 		}
 
@@ -164,6 +159,7 @@ public class MouseInputUser extends MouseAdapter {
 				lastHighlighted.setHighlighted(false);
 				lastHighlighted = null;
 			}
+			secondSelectedNode = null;
 			mainWindow.showGameFinishedWindow();
 		}
 		gameBoardGUI.repaint();
