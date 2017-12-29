@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JSlider;
 
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * Listener for the "generate" button in the level generator GUI.
@@ -16,7 +16,7 @@ public class GenerateButtonListener implements ActionListener {
 	/**
 	 * The main window of the program
 	 */
-	private MainWindow mainWindow;
+	private ApplicationWindow mainWindow;
 	/**
 	 * The slider for the width of the grid
 	 */
@@ -49,7 +49,7 @@ public class GenerateButtonListener implements ActionListener {
 	 *            The slider for outer link extension probability during level
 	 *            generation
 	 */
-	public GenerateButtonListener(MainWindow mainWindow, JSlider widthSlider, JSlider heightSlider,
+	public GenerateButtonListener(ApplicationWindow mainWindow, JSlider widthSlider, JSlider heightSlider,
 			JSlider fillingSlider, JSlider outerExtensionSlider) {
 		this.mainWindow = mainWindow;
 		this.widthSlider = widthSlider;

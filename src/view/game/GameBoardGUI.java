@@ -16,7 +16,7 @@ import model.base.Direction;
 import model.base.GameBoard;
 import model.base.GridNode;
 import model.base.Link;
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * The visual representation of the board where the game is played.
@@ -62,7 +62,7 @@ public class GameBoardGUI extends JPanel {
 	 * Create the main Hashiwokakero game board GUI.
 	 * @param gameBoard The game board.
 	 */
-	public GameBoardGUI(GameBoard gameBoard, MainWindow mainWindow) {
+	public GameBoardGUI(GameBoard gameBoard, ApplicationWindow mainWindow) {
 		myBoard = gameBoard;
 		setOpaque(true);
 		cols = gameBoard.getWidth();

@@ -3,7 +3,7 @@ package control.title;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * A listener for the Options button on the title screen. When invoked, it switches to the options screen.
@@ -11,9 +11,9 @@ import view.MainWindow;
  * @author Sarah Lutteropp
  */
 public class OptionsButtonListener implements ActionListener {
-	private MainWindow mainWindow;
+	private ApplicationWindow mainWindow;
 	
-	public OptionsButtonListener(MainWindow mainWindow) {
+	public OptionsButtonListener(ApplicationWindow mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 	

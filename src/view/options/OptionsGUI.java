@@ -2,7 +2,7 @@ package view.options;
 
 import javax.swing.JPanel;
 
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * The general options GUI.
@@ -16,7 +16,7 @@ public class OptionsGUI extends JPanel {
 	 * Create the GUI for choosing the parameters for the random generator
 	 * @param mainWindow The main window
 	 */
-	public OptionsGUI(MainWindow mainWindow) {
+	public OptionsGUI(ApplicationWindow mainWindow) {
 		
 	}
 }

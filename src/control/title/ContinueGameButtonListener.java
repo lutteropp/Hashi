@@ -3,7 +3,7 @@ package control.title;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * A listener for the continue button on the title screen. When invoked, it
@@ -15,7 +15,7 @@ public class ContinueGameButtonListener implements ActionListener {
 	/**
 	 * The main window of the program
 	 */
-	private MainWindow mainWindow;
+	private ApplicationWindow mainWindow;
 
 	/**
 	 * Create a listener for the continue button on the title screen
@@ -23,7 +23,7 @@ public class ContinueGameButtonListener implements ActionListener {
 	 * @param mainWindow
 	 *            The main window of the program
 	 */
-	public ContinueGameButtonListener(MainWindow mainWindow) {
+	public ContinueGameButtonListener(ApplicationWindow mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 

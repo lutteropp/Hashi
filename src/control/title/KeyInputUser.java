@@ -3,7 +3,7 @@ package control.title;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * Listener that waits for the user pressing the ESCAPE key in order to return
@@ -15,7 +15,7 @@ public class KeyInputUser implements KeyListener {
 	/**
 	 * The main window of the program
 	 */
-	private MainWindow mainWindow;
+	private ApplicationWindow mainWindow;
 
 	/**
 	 * Create a listener that waits for the user pressing the ESCAPE key in order to
@@ -24,7 +24,7 @@ public class KeyInputUser implements KeyListener {
 	 * @param mainWindow
 	 *            The main window of the program.
 	 */
-	public KeyInputUser(MainWindow mainWindow) {
+	public KeyInputUser(ApplicationWindow mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 

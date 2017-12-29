@@ -14,7 +14,14 @@ import view.generator.GeneratorGUI;
 import view.options.OptionsGUI;
 import view.title.TitleScreenGUI;
 
-public class MainWindow extends JFrame {
+/**
+ * The main window of the program. This is the JFrame that shows everything to
+ * the user.
+ * 
+ * @author Sarah Lutteropp
+ *
+ */
+public class ApplicationWindow extends JFrame {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = -4506625565792229187L;
 	/**
@@ -38,7 +45,7 @@ public class MainWindow extends JFrame {
 	 */
 	private KeyInputUser keyInput;
 
-	public MainWindow() {
+	public ApplicationWindow() {
 		setTitle("Hashiwokakero");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -47,11 +54,11 @@ public class MainWindow extends JFrame {
 		generatorGUI = new GeneratorGUI(this);
 		optionsGUI = new OptionsGUI(this);
 		keyInput = new KeyInputUser(this);
-		
+
 		titleScreenGUI.addKeyListener(keyInput);
 		generatorGUI.addKeyListener(keyInput);
 		optionsGUI.addKeyListener(keyInput);
-		
+
 		this.setBackground(Color.WHITE);
 	}
 

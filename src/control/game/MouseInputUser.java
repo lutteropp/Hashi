@@ -5,7 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import assets.SoundAssets;
-import view.MainWindow;
+import view.ApplicationWindow;
 import view.game.AbstractDrawable;
 import view.game.GameBoardGUI;
 import view.game.VisualGridNode;
@@ -23,7 +23,7 @@ public class MouseInputUser extends MouseAdapter {
 	/**
 	 * The main window.
 	 */
-	private MainWindow mainWindow;
+	private ApplicationWindow mainWindow;
 
 	/**
 	 * The last highlighted node or link.
@@ -44,7 +44,7 @@ public class MouseInputUser extends MouseAdapter {
 	 * @param mainWindow
 	 *            The main window of the program.
 	 */
-	public MouseInputUser(final GameBoardGUI board, MainWindow mainWindow) {
+	public MouseInputUser(final GameBoardGUI board, ApplicationWindow mainWindow) {
 		this.gameBoardGUI = board;
 		this.mainWindow = mainWindow;
 		gameHasEnded = false;

@@ -14,7 +14,7 @@ import assets.GraphicalAssets;
  */
 public class Main {
 
-	private MainWindow window;
+	private ApplicationWindow window;
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be invoked
@@ -25,7 +25,7 @@ public class Main {
 	 */
 	private void createAndShowGUI() throws IOException {
 		GraphicalAssets.loadAssets();
-		window = new MainWindow();
+		window = new ApplicationWindow();
 		window.showTitleWindow();
 	}
 

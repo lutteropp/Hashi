@@ -12,6 +12,9 @@ import jaco.mp3.player.MP3Player;
  * @author Sarah Lutteropp
  */
 public class SoundAssets {
+	// Play music using https://sourceforge.net/projects/jacomp3player/
+	// See example here: https://sites.google.com/site/teachmemrxymon/java/how-to-use-mp3player-class
+	
 	// Button sound effect files from https://www.soundjay.com
 	public static final MP3Player connectSound = new MP3Player(new File("assets/button-20.mp3"));
 	public static final MP3Player disconnectSound = new MP3Player(new File("assets/button-46.mp3"));

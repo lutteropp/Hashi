@@ -3,7 +3,7 @@ package control.title;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.MainWindow;
+import view.ApplicationWindow;
 
 /**
  * A listener for the NewRandomGame button on the title screen. When invoked, it
@@ -15,7 +15,7 @@ public class NewRandomGameButtonListener implements ActionListener {
 	/**
 	 * The main window of the program
 	 */
-	private MainWindow mainWindow;
+	private ApplicationWindow mainWindow;
 
 	/**
 	 * Create a listener for the NewRandomGame button on the title screen.
@@ -23,7 +23,7 @@ public class NewRandomGameButtonListener implements ActionListener {
 	 * @param mainWindow
 	 *            The main window of the program
 	 */
-	public NewRandomGameButtonListener(MainWindow mainWindow) {
+	public NewRandomGameButtonListener(ApplicationWindow mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 

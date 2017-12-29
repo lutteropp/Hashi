@@ -18,10 +18,7 @@ import control.title.NewFixedGameButtonListener;
 import control.title.NewRandomGameButtonListener;
 import control.title.OptionsButtonListener;
 import control.title.TitleGUIResizeListener;
-import view.MainWindow;
-
-// Play music using https://sourceforge.net/projects/jacomp3player/
-// See example here: https://sites.google.com/site/teachmemrxymon/java/how-to-use-mp3player-class
+import view.ApplicationWindow;
 
 /**
  * The title screen GUI.
@@ -32,20 +29,35 @@ public class TitleScreenGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 4550458197071990473L;
 
+	/** The title image on top */
 	private JLabel titleImage;
 
+	/** The panel containing all the buttons on the title screen */
 	private JPanel buttonPane;
 
+	/** All buttons on the title screen in one list*/
 	private ArrayList<JButton> buttons;
 
+	/** The "continue game" button */
 	private JButton continueGameButton;
+	/** The "new fixed game" button */ 
 	private JButton newFixedGameButton;
+	/** The "new random game" button */
 	private JButton newRandomGameButton;
+	/** The "options" button */
 	private JButton optionsButton;
+	/** The "exit" button */
 	private JButton exitButton;
 
+	/**
+	 * Has the music been stopped? This flag is used for avoiding interrupting an
+	 * already playing music just to start it again
+	 */
 	private boolean hasStopped;
 
+	/**
+	 * Play background music.
+	 */
 	public void loopMusic() {
 		if (hasStopped) {
 			SoundAssets.titleMusic.setRepeat(true);
@@ -54,6 +66,9 @@ public class TitleScreenGUI extends JPanel {
 		}
 	}
 
+	/**
+	 * Stop playing background music.
+	 */
 	public void stopMusic() {
 		SoundAssets.titleMusic.stop();
 		hasStopped = true;
@@ -71,8 +86,11 @@ public class TitleScreenGUI extends JPanel {
 
 	/**
 	 * Create the title screen.
+	 * 
+	 * @param mainWindow
+	 *            The main window of the program
 	 */
-	public TitleScreenGUI(MainWindow mainWindow) {
+	public TitleScreenGUI(ApplicationWindow mainWindow) {
 		hasStopped = true;
 		buttons = new ArrayList<JButton>();
 
