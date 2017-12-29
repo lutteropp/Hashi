@@ -1,10 +1,8 @@
 package view.generator;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
@@ -14,6 +12,7 @@ import javax.swing.JSlider;
 
 import control.generator.GenerateButtonListener;
 import control.generator.SliderChangeListener;
+import control.title.KeyInputUser;
 import view.ApplicationWindow;
 import view.ScalingButton;
 
@@ -64,8 +63,9 @@ public class GeneratorGUI extends JPanel {
 	 * 
 	 * @param mainWindow
 	 *            The main window
+	 * @parem KeyInputUser The key listener to get back to the main window
 	 */
-	public GeneratorGUI(ApplicationWindow mainWindow) {
+	public GeneratorGUI(ApplicationWindow mainWindow, KeyInputUser keyListener) {
 		generateButton = new ScalingButton("Generate Level");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int maxWidth = (int) Math.round(screenSize.getWidth() / 100);
@@ -76,6 +76,13 @@ public class GeneratorGUI extends JPanel {
 		fillingSlider = new JSlider(1, 25, 20); // 25% is the maximum value because we don't want to place nodes
 												// directly next to each other... this would look ugly
 		outerExtensionSlider = new JSlider(1, 100, 55);
+		
+		widthSlider.addKeyListener(keyListener);
+		heightSlider.addKeyListener(keyListener);
+		fillingSlider.addKeyListener(keyListener);
+		outerExtensionSlider.addKeyListener(keyListener);
+		this.addKeyListener(keyListener);
+		
 		widthCaptionLabel = new JLabel("Width: ");
 		heightCaptionLabel = new JLabel("Height: ");
 		fillingCaptionLabel = new JLabel("Filling: ");

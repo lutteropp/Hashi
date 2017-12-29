@@ -1,9 +1,18 @@
 package view;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.synth.SynthLookAndFeel;
+
+import org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelCross;
 
 import control.title.KeyInputUser;
 import model.base.GameBoard;
@@ -45,19 +54,20 @@ public class ApplicationWindow extends JFrame {
 	 */
 	private KeyInputUser keyInput;
 
-	public ApplicationWindow() {
+	public ApplicationWindow() throws ParseException, UnsupportedLookAndFeelException, MalformedURLException, IOException {
+		
+		//SynthLookAndFeel laf = new SynthLookAndFeel();
+		//laf.load(new File("assets/laf.xml").toURI().toURL());
+        UIManager.setLookAndFeel(new BeautyEyeLookAndFeelCross());
+		
 		setTitle("Hashiwokakero");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationByPlatform(true);
-		titleScreenGUI = new TitleScreenGUI(this);
-		generatorGUI = new GeneratorGUI(this);
-		optionsGUI = new OptionsGUI(this);
 		keyInput = new KeyInputUser(this);
-
-		titleScreenGUI.addKeyListener(keyInput);
-		generatorGUI.addKeyListener(keyInput);
-		optionsGUI.addKeyListener(keyInput);
+		titleScreenGUI = new TitleScreenGUI(this);
+		generatorGUI = new GeneratorGUI(this, keyInput);
+		optionsGUI = new OptionsGUI(this, keyInput);
 
 		this.setBackground(Color.WHITE);
 	}
@@ -82,8 +92,7 @@ public class ApplicationWindow extends JFrame {
 		}
 		ArrayList<GridNode> nodes = LevelGenerator.getFixedLevelWidth15Height5();
 		GameBoard board = new GameBoard(15, 5, nodes);
-		gameBoardGUI = new GameBoardGUI(board, this);
-		gameBoardGUI.addKeyListener(keyInput);
+		gameBoardGUI = new GameBoardGUI(board, this, keyInput);
 		gameBoardGUI.loopMusic();
 
 		setContentPane(gameBoardGUI);
@@ -100,8 +109,7 @@ public class ApplicationWindow extends JFrame {
 		}
 		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height, gridUsage, pOuterExtension);
 		GameBoard board = new GameBoard(width, height, nodes);
-		gameBoardGUI = new GameBoardGUI(board, this);
-		gameBoardGUI.addKeyListener(keyInput);
+		gameBoardGUI = new GameBoardGUI(board, this, keyInput);
 
 		gameBoardGUI.loopMusic();
 		setContentPane(gameBoardGUI);

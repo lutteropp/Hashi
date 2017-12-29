@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import assets.SoundAssets;
 import control.game.MouseInputUser;
+import control.title.KeyInputUser;
 import model.base.Direction;
 import model.base.GameBoard;
 import model.base.GridNode;
@@ -61,8 +62,9 @@ public class GameBoardGUI extends JPanel {
 	/**
 	 * Create the main Hashiwokakero game board GUI.
 	 * @param gameBoard The game board.
+	 * @parem KeyInputUser The key listener to get back to the main window
 	 */
-	public GameBoardGUI(GameBoard gameBoard, ApplicationWindow mainWindow) {
+	public GameBoardGUI(GameBoard gameBoard, ApplicationWindow mainWindow, KeyInputUser keyListener) {
 		myBoard = gameBoard;
 		setOpaque(true);
 		cols = gameBoard.getWidth();
@@ -92,6 +94,7 @@ public class GameBoardGUI extends JPanel {
 		MouseInputUser myListener = new MouseInputUser(this, mainWindow);
 		addMouseListener(myListener);
 		addMouseMotionListener(myListener);
+		addKeyListener(keyListener);
 		this.setPreferredSize(new Dimension(cols * preferredCellSize, rows * preferredCellSize));
 		this.requestFocus();
 		this.setBackground(Color.WHITE);

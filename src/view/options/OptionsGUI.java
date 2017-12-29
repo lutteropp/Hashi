@@ -2,6 +2,7 @@ package view.options;
 
 import javax.swing.JPanel;
 
+import control.title.KeyInputUser;
 import view.ApplicationWindow;
 
 /**
@@ -15,8 +16,9 @@ public class OptionsGUI extends JPanel {
 	/**
 	 * Create the GUI for choosing the parameters for the random generator
 	 * @param mainWindow The main window
+	 * @parem KeyInputUser The key listener to get back to the main window
 	 */
-	public OptionsGUI(ApplicationWindow mainWindow) {
-		
+	public OptionsGUI(ApplicationWindow mainWindow, KeyInputUser keyInput) {
+		addKeyListener(keyInput);
 	}
 }
