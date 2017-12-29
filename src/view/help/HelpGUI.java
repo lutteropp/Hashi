@@ -32,7 +32,7 @@ public class HelpGUI extends JPanel {
 		rulesPanel.add(new ScalingLabel("Rules:"));
 		rulesPanel.add(new ScalingLabel("1. All nodes must form a connected graph."));
 		rulesPanel.add(new ScalingLabel(
-				"2. Each node must have as exactly as many connections to other nodes as specified in its number."));
+				"2. Each node must have as exactly as many connections to other nodes as specified by its number."));
 		rulesPanel.add(new ScalingLabel("3. Connection wires are straight-line only and can not cross each other."));
 
 		JPanel generatorSettingsPanel = new JPanel(new GridLayout(0, 1));

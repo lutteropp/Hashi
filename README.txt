@@ -5,7 +5,7 @@ I don't have Windows or a Mac, but I guess there you only have to double-click t
 
 Rules:
 1. All nodes must form a connected graph.
-2. Each node must have as exactly as many connections to other nodes as specified in its number.
+2. Each node must have as exactly as many connections to other nodes as specified by its number.
 3. Connection wires are straight-line only and can not cross each other.
 
 Generator settings:
