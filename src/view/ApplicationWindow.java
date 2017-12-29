@@ -20,7 +20,7 @@ import model.base.GridNode;
 import model.generator.LevelGenerator;
 import view.game.GameBoardGUI;
 import view.generator.GeneratorGUI;
-import view.options.OptionsGUI;
+import view.help.HelpGUI;
 import view.title.TitleScreenGUI;
 
 /**
@@ -48,7 +48,7 @@ public class ApplicationWindow extends JFrame {
 	/**
 	 * The options screen.
 	 */
-	private OptionsGUI optionsGUI;
+	private HelpGUI optionsGUI;
 	/**
 	 * Listener that returns to the title screen when the Escape key is released.
 	 */
@@ -67,7 +67,7 @@ public class ApplicationWindow extends JFrame {
 		keyInput = new KeyInputUser(this);
 		titleScreenGUI = new TitleScreenGUI(this);
 		generatorGUI = new GeneratorGUI(this, keyInput);
-		optionsGUI = new OptionsGUI(this, keyInput);
+		optionsGUI = new HelpGUI(this, keyInput);
 
 		this.setBackground(Color.WHITE);
 	}

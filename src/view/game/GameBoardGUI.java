@@ -97,7 +97,10 @@ public class GameBoardGUI extends JPanel {
 		addKeyListener(keyListener);
 		this.setPreferredSize(new Dimension(cols * preferredCellSize, rows * preferredCellSize));
 		this.requestFocus();
-		this.setBackground(Color.WHITE);
+		
+		Color background = new Color(238, 247, 246);
+		
+		this.setBackground(background);
 	}
 
 	/**

@@ -1,6 +1,5 @@
 package view.title;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -9,7 +8,6 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import assets.SoundAssets;
@@ -17,7 +15,7 @@ import control.title.ContinueGameButtonListener;
 import control.title.ExitButtonListener;
 import control.title.NewFixedGameButtonListener;
 import control.title.NewRandomGameButtonListener;
-import control.title.OptionsButtonListener;
+import control.title.HelpButtonListener;
 import view.ApplicationWindow;
 import view.ScalingButton;
 
@@ -29,9 +27,6 @@ import view.ScalingButton;
 public class TitleScreenGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 4550458197071990473L;
-
-	/** The title image on top */
-	private JLabel titleImage;
 
 	/** The panel containing all the buttons on the title screen */
 	private JPanel buttonPane;
@@ -45,8 +40,8 @@ public class TitleScreenGUI extends JPanel {
 	private ScalingButton newFixedGameButton;
 	/** The "new random game" button */
 	private ScalingButton newRandomGameButton;
-	/** The "options" button */
-	private ScalingButton optionsButton;
+	/** The "help" button */
+	private ScalingButton helpButton;
 	/** The "exit" button */
 	private ScalingButton exitButton;
 
@@ -95,7 +90,7 @@ public class TitleScreenGUI extends JPanel {
 		hasStopped = true;
 		buttons = new ArrayList<JButton>();
 
-		TitlePane titlePane = new TitlePane();
+		ScalingLabel titlePane = new ScalingLabel("Hashiwokakero");
 
 		JPanel leftBorder = new JPanel();
 		JPanel rightBorder = new JPanel();
@@ -112,9 +107,9 @@ public class TitleScreenGUI extends JPanel {
 		newRandomGameButton = new ScalingButton("New random game");
 		newRandomGameButton.addActionListener(new NewRandomGameButtonListener(mainWindow));
 		buttons.add(newRandomGameButton);
-		optionsButton = new ScalingButton("Options");
-		optionsButton.addActionListener(new OptionsButtonListener(mainWindow));
-		buttons.add(optionsButton);
+		helpButton = new ScalingButton("Help");
+		helpButton.addActionListener(new HelpButtonListener(mainWindow));
+		buttons.add(helpButton);
 		exitButton = new ScalingButton("Exit");
 		exitButton.addActionListener(new ExitButtonListener());
 		buttons.add(exitButton);
@@ -128,7 +123,7 @@ public class TitleScreenGUI extends JPanel {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 40;      //make this component tall
+		c.ipady = 100;      //make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.3;
 		c.gridwidth = 3;
@@ -166,11 +161,11 @@ public class TitleScreenGUI extends JPanel {
 		c.weighty = 0.1;
 		add(bottomBorder, c);
 
-		/*titlePane.setBackground(Color.WHITE);
-		leftBorder.setBackground(Color.WHITE);
-		rightBorder.setBackground(Color.WHITE);
-		bottomBorder.setBackground(Color.WHITE);
-		buttonPane.setBackground(Color.WHITE);
-		this.setBackground(Color.WHITE);*/
+		Color background = new Color(90, 220, 220);
+		titlePane.setBackground(background);
+		leftBorder.setBackground(background);
+		rightBorder.setBackground(background);
+		bottomBorder.setBackground(background);
+		this.setBackground(background);
 	}
 }

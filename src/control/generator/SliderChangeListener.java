@@ -5,6 +5,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import view.title.ScalingLabel;
+
 /**
  * A listener that updates the value label for a given JSlider.
  * 
@@ -36,7 +38,7 @@ public class SliderChangeListener implements ChangeListener {
 	 *            How to interpret the slider value. The displayed value will be the
 	 *            value of the slider times the scaling value.
 	 */
-	public SliderChangeListener(JLabel label, JSlider slider, double scaling) {
+	public SliderChangeListener(ScalingLabel label, JSlider slider, double scaling) {
 		this.label = label;
 		this.slider = slider;
 		this.scaling = scaling;

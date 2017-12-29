@@ -1,5 +1,6 @@
 package view.generator;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +16,7 @@ import control.generator.SliderChangeListener;
 import control.title.KeyInputUser;
 import view.ApplicationWindow;
 import view.ScalingButton;
+import view.title.ScalingLabel;
 
 /**
  * The GUI for setting the level generator parameters.
@@ -42,21 +44,21 @@ public class GeneratorGUI extends JPanel {
 	 */
 	private JSlider outerExtensionSlider;
 	/** Caption of the width slider */
-	private JLabel widthCaptionLabel;
+	private ScalingLabel widthCaptionLabel;
 	/** Caption of the height slider */
-	private JLabel heightCaptionLabel;
+	private ScalingLabel heightCaptionLabel;
 	/** Caption of the filling slider */
-	private JLabel fillingCaptionLabel;
+	private ScalingLabel fillingCaptionLabel;
 	/** Caption of the outer extension slider */
-	private JLabel outerExtensionCaptionLabel;
+	private ScalingLabel outerExtensionCaptionLabel;
 	/** Value of the width slider to be shown */
-	private JLabel widthValueLabel;
+	private ScalingLabel widthValueLabel;
 	/** Value of the height slider to be shown */
-	private JLabel heightValueLabel;
+	private ScalingLabel heightValueLabel;
 	/** Value of the filling slider to be shown */
-	private JLabel fillingValueLabel;
+	private ScalingLabel fillingValueLabel;
 	/** Value of the outer extension slider to be shown */
-	private JLabel outerExtensionValueLabel;
+	private ScalingLabel outerExtensionValueLabel;
 
 	/**
 	 * Create the GUI for choosing the parameters for the random generator
@@ -68,12 +70,12 @@ public class GeneratorGUI extends JPanel {
 	public GeneratorGUI(ApplicationWindow mainWindow, KeyInputUser keyListener) {
 		generateButton = new ScalingButton("Generate Level");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int maxWidth = (int) Math.round(screenSize.getWidth() / 100);
-		int maxHeight = (int) Math.round(screenSize.getHeight() / 100);
+		int maxWidth = (int) Math.floor(screenSize.getWidth() / 100) - 1;
+		int maxHeight = (int) Math.floor(screenSize.getHeight() / 100) - 1;
 
-		widthSlider = new JSlider(3, maxWidth, 15);
-		heightSlider = new JSlider(3, maxHeight, 10);
-		fillingSlider = new JSlider(1, 25, 20); // 25% is the maximum value because we don't want to place nodes
+		widthSlider = new JSlider(3, maxWidth, maxWidth / 2);
+		heightSlider = new JSlider(3, maxHeight, maxHeight / 2);
+		fillingSlider = new JSlider(15, 25, 20); // 25% is the maximum value because we don't want to place nodes
 												// directly next to each other... this would look ugly
 		outerExtensionSlider = new JSlider(1, 100, 55);
 		
@@ -83,14 +85,14 @@ public class GeneratorGUI extends JPanel {
 		outerExtensionSlider.addKeyListener(keyListener);
 		this.addKeyListener(keyListener);
 		
-		widthCaptionLabel = new JLabel("Width: ");
-		heightCaptionLabel = new JLabel("Height: ");
-		fillingCaptionLabel = new JLabel("Filling: ");
-		outerExtensionCaptionLabel = new JLabel("Outer extension probability: ");
-		widthValueLabel = new JLabel("15");
-		heightValueLabel = new JLabel("10");
-		fillingValueLabel = new JLabel("0.20");
-		outerExtensionValueLabel = new JLabel("0.55");
+		widthCaptionLabel = new ScalingLabel("Width: ");
+		heightCaptionLabel = new ScalingLabel("Height: ");
+		fillingCaptionLabel = new ScalingLabel("Filling: ");
+		outerExtensionCaptionLabel = new ScalingLabel("Outer extension probability: ");
+		widthValueLabel = new ScalingLabel("15");
+		heightValueLabel = new ScalingLabel("10");
+		fillingValueLabel = new ScalingLabel("0.20");
+		outerExtensionValueLabel = new ScalingLabel("0.55");
 		widthSlider.addChangeListener(new SliderChangeListener(widthValueLabel, widthSlider, 1.0));
 		heightSlider.addChangeListener(new SliderChangeListener(heightValueLabel, heightSlider, 1.0));
 		double doubleScaling = 0.01;
@@ -107,11 +109,11 @@ public class GeneratorGUI extends JPanel {
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.ipady = 40;      //make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.1;
-		c.gridwidth = 3;
+		c.gridwidth = 5;
 		c.gridheight = 1;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -120,27 +122,28 @@ public class GeneratorGUI extends JPanel {
 		c.gridheight = 5;
 		c.gridx = 0;
 		c.gridy = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.1;
 		add(leftBorder, c);
 		c = new GridBagConstraints();
 		c.gridheight = 5;
 		c.gridx = 4;
 		c.gridy = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.1;
 		add(rightBorder, c);
 		c = new GridBagConstraints();
-		c.gridwidth = 1;
+		c.gridwidth = 5;
 		c.gridx = 0;
 		c.gridy = 6;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 0.1;
 		add(bottomBorder, c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 1;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(widthCaptionLabel, c);
 		c = new GridBagConstraints();
@@ -153,12 +156,14 @@ public class GeneratorGUI extends JPanel {
 		c = new GridBagConstraints();
 		c.gridx = 3;
 		c.gridy = 1;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(widthValueLabel, c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 2;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(heightCaptionLabel, c);
 		c = new GridBagConstraints();
@@ -171,12 +176,14 @@ public class GeneratorGUI extends JPanel {
 		c = new GridBagConstraints();
 		c.gridx = 3;
 		c.gridy = 2;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(heightValueLabel, c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 3;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(fillingCaptionLabel, c);
 		c = new GridBagConstraints();
@@ -189,12 +196,14 @@ public class GeneratorGUI extends JPanel {
 		c = new GridBagConstraints();
 		c.gridx = 3;
 		c.gridy = 3;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(fillingValueLabel, c);
 		
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 4;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(outerExtensionCaptionLabel, c);
 		c = new GridBagConstraints();
@@ -207,6 +216,7 @@ public class GeneratorGUI extends JPanel {
 		c = new GridBagConstraints();
 		c.gridx = 3;
 		c.gridy = 4;
+		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(outerExtensionValueLabel, c);
 		
@@ -217,6 +227,12 @@ public class GeneratorGUI extends JPanel {
 		c.weighty = 0.4;
 		c.fill = GridBagConstraints.BOTH;
 		add(generateButton, c);
+		
+		Color background = new Color(90, 220, 220);
+		topBorder.setBackground(background);
+		leftBorder.setBackground(background);
+		rightBorder.setBackground(background);
+		bottomBorder.setBackground(background);
 		
 		this.requestFocus();
 	}

@@ -92,16 +92,15 @@ public class MouseInputUser extends MouseAdapter {
 		} else { // double-click
 			if (lastSelectedNode != null) {
 				lastSelectedNode.setSelected(false);
-			}
-			lastSelectedNode = null;
-
-			if (node != null) {
-				// fill the whole node with connections
-				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
-				if (connected) {
-					SoundAssets.connectSound.play();
+				if (lastSelectedNode == node) {
+					// fill the whole node with connections
+					boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
+					if (connected) {
+						SoundAssets.connectSound.play();
+					}
 				}
 			}
+			lastSelectedNode = null;
 		}
 		if (gameBoardGUI.getMyBoard().hasWon()) {
 			gameBoardGUI.setBackground(Color.WHITE);

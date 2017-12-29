@@ -10,10 +10,10 @@ import view.ApplicationWindow;
  * 
  * @author Sarah Lutteropp
  */
-public class OptionsButtonListener implements ActionListener {
+public class HelpButtonListener implements ActionListener {
 	private ApplicationWindow mainWindow;
 	
-	public OptionsButtonListener(ApplicationWindow mainWindow) {
+	public HelpButtonListener(ApplicationWindow mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 	
