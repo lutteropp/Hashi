@@ -13,20 +13,20 @@ public class GenerateButtonListener implements ActionListener {
 	private JSlider widthSlider;
 	private JSlider heightSlider;
 	private JSlider fillingSlider;
-	private double fillingScaling;
+	private JSlider outerExtensionSlider;
 
 	public GenerateButtonListener(MainWindow mainWindow, JSlider widthSlider, JSlider heightSlider,
-			JSlider fillingSlider, double fillingScaling) {
+			JSlider fillingSlider, JSlider outerExtensionSlider) {
 		this.mainWindow = mainWindow;
 		this.widthSlider = widthSlider;
 		this.heightSlider = heightSlider;
 		this.fillingSlider = fillingSlider;
-		this.fillingScaling = fillingScaling;
+		this.outerExtensionSlider = outerExtensionSlider;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		mainWindow.showRandomGameWindow(widthSlider.getValue(), heightSlider.getValue(), fillingSlider.getValue() * fillingScaling);
+		mainWindow.showRandomGameWindow(widthSlider.getValue(), heightSlider.getValue(), fillingSlider.getValue() * 0.01, outerExtensionSlider.getValue() * 0.01);
 	}
 
 }

@@ -27,12 +27,15 @@ public class GeneratorGUI extends JPanel {
 	private JSlider widthSlider;
 	private JSlider heightSlider;
 	private JSlider fillingSlider;
+	private JSlider outerExtensionSlider;
 	private JLabel widthCaptionLabel;
 	private JLabel heightCaptionLabel;
 	private JLabel fillingCaptionLabel;
+	private JLabel outerExtensionCaptionLabel;
 	private JLabel widthValueLabel;
 	private JLabel heightValueLabel;
 	private JLabel fillingValueLabel;
+	private JLabel outerExtensionValueLabel;
 
 	/**
 	 * Create the GUI for choosing the parameters for the random generator
@@ -48,20 +51,24 @@ public class GeneratorGUI extends JPanel {
 
 		widthSlider = new JSlider(3, maxWidth, 15);
 		heightSlider = new JSlider(3, maxHeight, 10);
-		fillingSlider = new JSlider(1, 25, 15); // 25% is the maximum value because we don't want to place nodes
+		fillingSlider = new JSlider(1, 25, 25); // 25% is the maximum value because we don't want to place nodes
 												// directly next to each other... this would look ugly
+		outerExtensionSlider = new JSlider(1, 100, 40);
 		widthCaptionLabel = new JLabel("Width: ");
 		heightCaptionLabel = new JLabel("Height: ");
 		fillingCaptionLabel = new JLabel("Filling: ");
+		outerExtensionCaptionLabel = new JLabel("Outer extension probability: ");
 		widthValueLabel = new JLabel("15");
 		heightValueLabel = new JLabel("10");
-		fillingValueLabel = new JLabel("0.15");
+		fillingValueLabel = new JLabel("0.25");
+		outerExtensionValueLabel = new JLabel("0.4");
 		widthSlider.addChangeListener(new SliderChangeListener(widthValueLabel, widthSlider, 1.0));
 		heightSlider.addChangeListener(new SliderChangeListener(heightValueLabel, heightSlider, 1.0));
-		double fillingScaling = 0.01;
-		fillingSlider.addChangeListener(new SliderChangeListener(fillingValueLabel, fillingSlider, fillingScaling));
+		double doubleScaling = 0.01;
+		fillingSlider.addChangeListener(new SliderChangeListener(fillingValueLabel, fillingSlider, doubleScaling));
+		outerExtensionSlider.addChangeListener(new SliderChangeListener(outerExtensionValueLabel, outerExtensionSlider, doubleScaling));
 		generateButton.addActionListener(
-				new GenerateButtonListener(mainWindow, widthSlider, heightSlider, fillingSlider, fillingScaling));
+				new GenerateButtonListener(mainWindow, widthSlider, heightSlider, fillingSlider, outerExtensionSlider));
 
 		JPanel widthPanel = new JPanel(new FlowLayout());
 		widthPanel.add(widthCaptionLabel);
@@ -77,11 +84,17 @@ public class GeneratorGUI extends JPanel {
 		fillingPanel.add(fillingCaptionLabel);
 		fillingPanel.add(fillingSlider);
 		fillingPanel.add(fillingValueLabel);
+		
+		JPanel outerExtensionPanel = new JPanel(new FlowLayout());
+		outerExtensionPanel.add(outerExtensionCaptionLabel);
+		outerExtensionPanel.add(outerExtensionSlider);
+		outerExtensionPanel.add(outerExtensionValueLabel);
 
 		this.setLayout(new GridLayout(0, 1));
 		this.add(widthPanel);
 		this.add(heightPanel);
 		this.add(fillingPanel);
+		this.add(outerExtensionPanel);
 		this.add(generateButton);
 		this.requestFocus();
 	}

@@ -19,8 +19,6 @@ public class IncompleteNode {
 	private int y;
 	/** Wanted number of connections in each direction */
 	private HashMap<Direction, Integer> goals;
-	/** The neighbor of the node into each direction */
-	private HashMap<Direction, IncompleteNode> neighbors;
 
 	/**
 	 * Create an incomplete node for level generation.
@@ -42,10 +40,6 @@ public class IncompleteNode {
 		goals = new HashMap<Direction, Integer>();
 		for (Direction dir : Direction.values()) {
 			goals.put(dir, 0);
-		}
-		neighbors = new HashMap<Direction, IncompleteNode>();
-		for (Direction dir : Direction.values()) {
-			neighbors.put(dir, null);
 		}
 	}
 
@@ -191,7 +185,6 @@ public class IncompleteNode {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((goals == null) ? 0 : goals.hashCode());
-		result = prime * result + ((neighbors == null) ? 0 : neighbors.hashCode());
 		result = prime * result + x;
 		result = prime * result + y;
 		return result;
@@ -216,15 +209,18 @@ public class IncompleteNode {
 				return false;
 		} else if (!goals.equals(other.goals))
 			return false;
-		if (neighbors == null) {
-			if (other.neighbors != null)
-				return false;
-		} else if (!neighbors.equals(other.neighbors))
-			return false;
 		if (x != other.x)
 			return false;
 		if (y != other.y)
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "IncompleteNode [x=" + x + ", y=" + y + ", goals=" + goals + "]";
 	}
 }

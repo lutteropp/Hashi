@@ -85,12 +85,12 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 	}
 
-	public void showRandomGameWindow(int width, int height, double gridUsage) {
+	public void showRandomGameWindow(int width, int height, double gridUsage, double pOuterExtension) {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.stopMusic();
 			titleScreenGUI.setContinueGameButtonEnabled(true);
 		}
-		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height, gridUsage);
+		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height, gridUsage, pOuterExtension);
 		GameBoard board = new GameBoard(width, height, nodes);
 		gameBoardGUI = new GameBoardGUI(board, this);
 		gameBoardGUI.addKeyListener(keyInput);
