@@ -182,6 +182,7 @@ public class MouseInputUser extends MouseAdapter {
 				lastHighlighted = null;
 			}
 			secondSelectedNode = null;
+			gameBoardGUI.repaint();
 			mainWindow.showGameFinishedWindow();
 		}
 		gameBoardGUI.repaint();
