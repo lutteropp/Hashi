@@ -1,9 +1,12 @@
 package view.help;
 
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 
 import control.title.KeyInputUser;
 import view.ApplicationWindow;
+import view.ScalingLabel;
 
 /**
  * The help instructions GUI.
@@ -20,5 +23,7 @@ public class HelpGUI extends JPanel {
 	 */
 	public HelpGUI(ApplicationWindow mainWindow, KeyInputUser keyInput) {
 		addKeyListener(keyInput);
+		this.setLayout(new GridLayout(0, 1));
+		add(new ScalingLabel("Rules:"));
 	}
 }
