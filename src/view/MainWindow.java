@@ -40,6 +40,7 @@ public class MainWindow extends JFrame {
 
 	public MainWindow() {
 		setTitle("Hashiwokakero");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationByPlatform(true);
 		titleScreenGUI = new TitleScreenGUI(this);

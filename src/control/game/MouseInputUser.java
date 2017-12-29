@@ -116,7 +116,6 @@ public class MouseInputUser extends MouseAdapter {
 			}
 			mainWindow.showGameFinishedWindow();
 			SoundAssets.winningMusic.play();
-			System.out.println("Congratulations! You won the game.");
 		}
 		gameBoardGUI.repaint();
 	}

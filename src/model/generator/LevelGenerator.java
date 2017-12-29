@@ -221,8 +221,8 @@ public class LevelGenerator {
 			}
 
 			if (totalOuterPossible == 0) {
-				// In rare cases, there are no possible outer extensions left. In these cases,
-				// we redo the whole generation.
+				// In very rare cases, there are no possible outer extensions left. In these
+				// cases, we redo the whole generation.
 				return generateLevel(width, height, gridUsage, pOuterExtension);
 			}
 

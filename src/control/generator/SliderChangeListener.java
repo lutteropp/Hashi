@@ -19,7 +19,7 @@ public class SliderChangeListener implements ChangeListener {
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (scaling != 1) {
-			label.setText(Double.toString(slider.getValue() * scaling));
+			label.setText(String.format("%3.2f", slider.getValue() * scaling));
 		} else {
 			label.setText(Integer.toString(slider.getValue()));
 		}

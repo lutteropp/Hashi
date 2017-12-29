@@ -51,17 +51,17 @@ public class GeneratorGUI extends JPanel {
 
 		widthSlider = new JSlider(3, maxWidth, 15);
 		heightSlider = new JSlider(3, maxHeight, 10);
-		fillingSlider = new JSlider(1, 25, 25); // 25% is the maximum value because we don't want to place nodes
+		fillingSlider = new JSlider(1, 25, 2); // 25% is the maximum value because we don't want to place nodes
 												// directly next to each other... this would look ugly
-		outerExtensionSlider = new JSlider(1, 100, 40);
+		outerExtensionSlider = new JSlider(1, 100, 55);
 		widthCaptionLabel = new JLabel("Width: ");
 		heightCaptionLabel = new JLabel("Height: ");
 		fillingCaptionLabel = new JLabel("Filling: ");
 		outerExtensionCaptionLabel = new JLabel("Outer extension probability: ");
 		widthValueLabel = new JLabel("15");
 		heightValueLabel = new JLabel("10");
-		fillingValueLabel = new JLabel("0.25");
-		outerExtensionValueLabel = new JLabel("0.4");
+		fillingValueLabel = new JLabel("0.2");
+		outerExtensionValueLabel = new JLabel("0.55");
 		widthSlider.addChangeListener(new SliderChangeListener(widthValueLabel, widthSlider, 1.0));
 		heightSlider.addChangeListener(new SliderChangeListener(heightValueLabel, heightSlider, 1.0));
 		double doubleScaling = 0.01;
