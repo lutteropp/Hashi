@@ -68,25 +68,26 @@ public class GeneratorGUI extends JPanel {
 		widthSlider = new JSlider(3, maxWidth, maxWidth / 2);
 		heightSlider = new JSlider(3, maxHeight, maxHeight / 2);
 		fillingSlider = new JSlider(15, 25, 20); // 25% is the maximum value because we don't want to place nodes
-												// directly next to each other... this would look ugly
+													// directly next to each other... this would look ugly
 		outerExtensionSlider = new JSlider(1, 100, 55);
-		
+
 		widthSlider.addKeyListener(keyListener);
 		heightSlider.addKeyListener(keyListener);
 		fillingSlider.addKeyListener(keyListener);
 		outerExtensionSlider.addKeyListener(keyListener);
 		this.addKeyListener(keyListener);
-		
-		ScalingLabel widthCaptionLabel =   new ScalingLabel("  Width    ");
-		ScalingLabel heightCaptionLabel =  new ScalingLabel("  Height   ");
+
+		ScalingLabel widthCaptionLabel = new ScalingLabel("  Width    ");
+		ScalingLabel heightCaptionLabel = new ScalingLabel("  Height   ");
 		ScalingLabel fillingCaptionLabel = new ScalingLabel("  Filling  ");
-		
+
 		JPanel outerExtensionCaptionPanel = new JPanel(new GridLayout(3, 1));
-		outerExtensionCaptionPanel.add(    new ScalingLabel("   Outer   "));
-		outerExtensionCaptionPanel.add(    new ScalingLabel(" extension "));
-		outerExtensionCaptionPanel.add(    new ScalingLabel("probability"));
-		
-		//ScalingLabel outerExtensionCaptionLabel = new ScalingLabel("Outer extension probability: ");
+		outerExtensionCaptionPanel.add(new ScalingLabel("   Outer   "));
+		outerExtensionCaptionPanel.add(new ScalingLabel(" extension "));
+		outerExtensionCaptionPanel.add(new ScalingLabel("probability"));
+
+		// ScalingLabel outerExtensionCaptionLabel = new ScalingLabel("Outer extension
+		// probability: ");
 		widthValueLabel = new ScalingLabel("15");
 		heightValueLabel = new ScalingLabel("10");
 		fillingValueLabel = new ScalingLabel("0.20");
@@ -99,16 +100,16 @@ public class GeneratorGUI extends JPanel {
 				new SliderChangeListener(outerExtensionValueLabel, outerExtensionSlider, doubleScaling));
 		generateButton.addActionListener(
 				new GenerateButtonListener(mainWindow, widthSlider, heightSlider, fillingSlider, outerExtensionSlider));
-		
+
+		this.setLayout(new GridBagLayout());
+
 		JPanel topBorder = new JPanel();
 		JPanel leftBorder = new JPanel();
 		JPanel rightBorder = new JPanel();
 		JPanel bottomBorder = new JPanel();
-		
-		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.ipady = 40;      //make this component tall
+		c.ipady = 40; // make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.1;
 		c.gridwidth = 5;
@@ -137,7 +138,7 @@ public class GeneratorGUI extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 0.1;
 		add(bottomBorder, c);
-		
+
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 1;
@@ -157,7 +158,7 @@ public class GeneratorGUI extends JPanel {
 		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(widthValueLabel, c);
-		
+
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 2;
@@ -177,7 +178,7 @@ public class GeneratorGUI extends JPanel {
 		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(heightValueLabel, c);
-		
+
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 3;
@@ -197,7 +198,7 @@ public class GeneratorGUI extends JPanel {
 		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(fillingValueLabel, c);
-		
+
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 4;
@@ -217,7 +218,7 @@ public class GeneratorGUI extends JPanel {
 		c.weightx = 0.1;
 		c.fill = GridBagConstraints.BOTH;
 		add(outerExtensionValueLabel, c);
-		
+
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 5;
@@ -225,16 +226,16 @@ public class GeneratorGUI extends JPanel {
 		c.weighty = 0.4;
 		c.fill = GridBagConstraints.BOTH;
 		add(generateButton, c);
-		
+
 		topBorder.setLayout(new GridLayout());
 		topBorder.add(new ScalingLabel("New random game"));
-		
+
 		Color background = new Color(90, 220, 220);
 		topBorder.setBackground(background);
 		leftBorder.setBackground(background);
 		rightBorder.setBackground(background);
 		bottomBorder.setBackground(background);
-		
+
 		this.requestFocus();
 	}
 }
