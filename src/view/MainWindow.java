@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -49,6 +50,8 @@ public class MainWindow extends JFrame {
 		titleScreenGUI.addKeyListener(keyInput);
 		generatorGUI.addKeyListener(keyInput);
 		optionsGUI.addKeyListener(keyInput);
+		
+		this.setBackground(Color.ORANGE);
 	}
 
 	public void showTitleWindow() {

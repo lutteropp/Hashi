@@ -2,30 +2,40 @@ package view;
 
 import java.io.IOException;
 
-import view.game.GameAssets;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import assets.GraphicalAssets;
 
 /**
- * The main class, responsible for creating and showing the respective GUI windows.
+ * The main class, responsible for creating and showing the respective GUI
+ * windows.
+ * 
  * @author Sarah Lutteropp
  */
 public class Main {
-	
+
 	private MainWindow window;
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be invoked
 	 * from the event-dispatching thread.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
+	 * @throws UnsupportedLookAndFeelException
 	 */
 	private void createAndShowGUI() throws IOException {
-		GameAssets.loadAssets();
+		GraphicalAssets.loadAssets();
 		window = new MainWindow();
 		window.showTitleWindow();
 	}
 
 	/**
-	 * The mandatory main function. This only creates a thread for displaying the GUI.
-	 * @param args The command line parameters. Please note that these will be ignored.
+	 * The mandatory main function. This only creates a thread for displaying the
+	 * GUI.
+	 * 
+	 * @param args
+	 *            The command line parameters. Please note that these will be
+	 *            ignored.
 	 */
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:

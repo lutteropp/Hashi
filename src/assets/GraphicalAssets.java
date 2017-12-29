@@ -1,4 +1,4 @@
-package view.game;
+package assets;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,13 +10,12 @@ import javax.imageio.ImageIO;
 import model.base.Direction;
 
 /**
- * A class for managing the medial assets of the Hashiwokakero game. The
- * graphics are drawn my myself, the music is under Creative Commons License and
- * taken from nosoapradio.us
+ * A class for managing the graphical assets of the Hashiwokakero game. The
+ * graphics are drawn by myself.
  * 
  * @author Sarah Lutteropp
  */
-public class GameAssets {
+public class GraphicalAssets {
 	/** The different node bodies. */
 	private static BufferedImage coldBody, warmBody, hotBody;
 	/** The different node goals. These are numbers from 1 to 8. */

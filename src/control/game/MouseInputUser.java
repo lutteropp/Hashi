@@ -3,9 +3,8 @@ package control.game;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 
-import jaco.mp3.player.MP3Player;
+import assets.SoundAssets;
 import view.MainWindow;
 import view.game.AbstractDrawable;
 import view.game.GameBoardGUI;
@@ -37,9 +36,6 @@ public class MouseInputUser extends MouseAdapter {
 	 */
 	private VisualGridNode lastSelectedNode;
 
-	private MP3Player connectSound;
-	private MP3Player disconnectSound;
-
 	private boolean gameHasEnded;
 
 	/**
@@ -52,8 +48,6 @@ public class MouseInputUser extends MouseAdapter {
 		this.gameBoardGUI = board;
 		this.mainWindow = mainWindow;
 		gameHasEnded = false;
-		connectSound = new MP3Player(new File("assets/button-20.mp3"));
-		disconnectSound = new MP3Player(new File("assets/button-46.mp3"));
 	}
 
 	@Override
@@ -75,7 +69,7 @@ public class MouseInputUser extends MouseAdapter {
 					boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
 							link.getMyLink().getNode2());
 					if (disconnected) {
-						disconnectSound.play();
+						SoundAssets.disconnectSound.play();
 					}
 				}
 			} else {
@@ -85,7 +79,7 @@ public class MouseInputUser extends MouseAdapter {
 						boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
 								lastSelectedNode.getMyGridNode());
 						if (increased) {
-							connectSound.play();
+							SoundAssets.connectSound.play();
 						}
 					}
 					lastSelectedNode.setSelected(false);
@@ -105,7 +99,7 @@ public class MouseInputUser extends MouseAdapter {
 				// fill the whole node with connections
 				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
 				if (connected) {
-					connectSound.play();
+					SoundAssets.connectSound.play();
 				}
 			}
 		}
@@ -121,6 +115,7 @@ public class MouseInputUser extends MouseAdapter {
 				lastHighlighted = null;
 			}
 			mainWindow.showGameFinishedWindow();
+			SoundAssets.winningMusic.play();
 			System.out.println("Congratulations! You won the game.");
 		}
 		gameBoardGUI.repaint();

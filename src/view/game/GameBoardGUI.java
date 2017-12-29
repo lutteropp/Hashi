@@ -1,18 +1,17 @@
 package view.game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import assets.SoundAssets;
 import control.game.MouseInputUser;
-import control.title.KeyInputUser;
-import jaco.mp3.player.MP3Player;
 import model.base.Direction;
 import model.base.GameBoard;
 import model.base.GridNode;
@@ -44,22 +43,19 @@ public class GameBoardGUI extends JPanel {
 	/** The actual game logic. */
 	private GameBoard myBoard;
 
-	/** The background music player */
-	private MP3Player player;
-
 	/**
 	 * Start looping the background music.
 	 */
 	public void loopMusic() {
-		player.setRepeat(true);
-		player.play();
+		SoundAssets.gameMusic.setRepeat(true);
+		SoundAssets.gameMusic.play();
 	}
 	
 	/**
 	 * Stop looping the background music.
 	 */
 	public void stopMusic() {
-		player.stop();
+		SoundAssets.gameMusic.stop();
 	}
 	
 	/**
@@ -67,7 +63,6 @@ public class GameBoardGUI extends JPanel {
 	 * @param gameBoard The game board.
 	 */
 	public GameBoardGUI(GameBoard gameBoard, MainWindow mainWindow) {
-		player = new MP3Player(new File("assets/DST-DayBreak.mp3"));
 		myBoard = gameBoard;
 		setOpaque(true);
 		cols = gameBoard.getWidth();
@@ -99,6 +94,7 @@ public class GameBoardGUI extends JPanel {
 		addMouseMotionListener(myListener);
 		this.setPreferredSize(new Dimension(cols * preferredCellSize, rows * preferredCellSize));
 		this.requestFocus();
+		this.setBackground(Color.WHITE);
 	}
 
 	/**

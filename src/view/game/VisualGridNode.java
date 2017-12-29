@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import assets.GraphicalAssets;
 import model.base.Direction;
 import model.base.GridNode;
 import model.base.Link;
@@ -79,21 +80,20 @@ public class VisualGridNode extends AbstractDrawable {
 	 */
 	private BufferedImage assembleNodeImage(final int cellSize) {
 		ArrayList<BufferedImage> parts = new ArrayList<BufferedImage>();
-		parts.add(GameAssets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
+		parts.add(GraphicalAssets.getBodyImage(myGridNode.getDegree(), myGridNode.getGoal()));
 		for (Direction dir : Direction.values()) {
 			Link link = myGridNode.getLink(dir);
 			if (link != null) {
-				parts.add(GameAssets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
+				parts.add(GraphicalAssets.getPinImage(dir, link.getThickness(), myLinks.get(dir).isHighlighted()));
 			}
 		}
-		parts.add(GameAssets.getGoalImage(myGridNode.getGoal()));
+		parts.add(GraphicalAssets.getGoalImage(myGridNode.getGoal()));
 		BufferedImage bi = new BufferedImage(cellSize, cellSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics biGraphics = bi.getGraphics();
 		for (BufferedImage part : parts) {
 			biGraphics.drawImage(part, 0, 0, cellSize, cellSize, null);
 		}
 		biGraphics.dispose();
-
 		return bi;
 	}
 
@@ -106,7 +106,7 @@ public class VisualGridNode extends AbstractDrawable {
 			g.setColor(Color.YELLOW);
 			g.fillOval(myGridNode.getX() * cellSize, myGridNode.getY() * cellSize, cellSize, cellSize);
 		} else if (this.highlighted) {
-			g.setColor(Color.LIGHT_GRAY);
+			g.setColor(new Color(234, 234, 234));
 			g.fillOval(myGridNode.getX() * cellSize, myGridNode.getY() * cellSize, cellSize, cellSize);
 		}
 		BufferedImage bi = assembleNodeImage(cellSize);

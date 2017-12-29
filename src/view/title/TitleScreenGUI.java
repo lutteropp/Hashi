@@ -1,23 +1,23 @@
 package view.title;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import assets.SoundAssets;
 import control.title.ContinueGameButtonListener;
 import control.title.ExitButtonListener;
 import control.title.NewFixedGameButtonListener;
 import control.title.NewRandomGameButtonListener;
 import control.title.OptionsButtonListener;
 import control.title.TitleGUIResizeListener;
-import jaco.mp3.player.MP3Player;
 import view.MainWindow;
 
 // Play music using https://sourceforge.net/projects/jacomp3player/
@@ -31,7 +31,7 @@ import view.MainWindow;
 public class TitleScreenGUI extends JPanel {
 	/** The serialVersionUID that caused a warning when it was missing. */
 	private static final long serialVersionUID = 4550458197071990473L;
-	
+
 	private JLabel titleImage;
 
 	private JPanel buttonPane;
@@ -43,31 +43,37 @@ public class TitleScreenGUI extends JPanel {
 	private JButton newRandomGameButton;
 	private JButton optionsButton;
 	private JButton exitButton;
-	
-	private MP3Player player;
+
+	private boolean hasStopped;
 
 	public void loopMusic() {
-		player.setRepeat(true);
-		player.play();
+		if (hasStopped) {
+			SoundAssets.titleMusic.setRepeat(true);
+			SoundAssets.titleMusic.play();
+			hasStopped = false;
+		}
 	}
-	
+
 	public void stopMusic() {
-		player.stop();
+		SoundAssets.titleMusic.stop();
+		hasStopped = true;
 	}
 
 	/**
 	 * Set whether the continue game button should be enabled or disabled.
-	 * @param enabled Is the continue game button enabled?
+	 * 
+	 * @param enabled
+	 *            Is the continue game button enabled?
 	 */
 	public void setContinueGameButtonEnabled(boolean enabled) {
 		continueGameButton.setEnabled(enabled);
 	}
-	
+
 	/**
 	 * Create the title screen.
 	 */
 	public TitleScreenGUI(MainWindow mainWindow) {
-		player = new MP3Player(new File("assets/DST-Omicron.mp3"));
+		hasStopped = true;
 		buttons = new ArrayList<JButton>();
 
 		JPanel titlePane = new JPanel(new GridBagLayout());
@@ -111,5 +117,11 @@ public class TitleScreenGUI extends JPanel {
 		add(bottomBorder, BorderLayout.SOUTH);
 
 		this.addComponentListener(new TitleGUIResizeListener(buttons, titleImage));
+		titlePane.setBackground(Color.ORANGE);
+		leftBorder.setBackground(Color.ORANGE);
+		rightBorder.setBackground(Color.ORANGE);
+		bottomBorder.setBackground(Color.ORANGE);
+		buttonPane.setBackground(Color.ORANGE);
+		this.setBackground(Color.ORANGE);
 	}
 }
