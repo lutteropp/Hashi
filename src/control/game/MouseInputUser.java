@@ -1,6 +1,5 @@
 package control.game;
 
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -33,6 +32,11 @@ public class MouseInputUser extends MouseAdapter {
 	 * The last selected node.
 	 */
 	private VisualGridNode lastSelectedNode;
+	
+	/**
+	 * The current successfully selected second node. Used for improving the double-click behaviour.
+	 */
+	private VisualGridNode secondSelectedNode;
 
 	private boolean gameHasEnded;
 
@@ -50,68 +54,107 @@ public class MouseInputUser extends MouseAdapter {
 		gameHasEnded = false;
 	}
 
+	/**
+	 * Process a single-click event
+	 * @param e The event
+	 * @return {@value true}, if and only if the game state has changed
+	 */
+	private boolean processSingleClick(MouseEvent e) {
+		boolean gameStateChanged = false;
+		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
+		secondSelectedNode = null;
+		if (node == null) {
+			if (lastSelectedNode != null) {
+				lastSelectedNode.setSelected(false);
+				lastSelectedNode = null;
+			}
+			// could still be a selected link
+			VisualLink link = gameBoardGUI.getNearestLink(e.getPoint());
+			if (link != null) { // decrease the connection
+				boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
+						link.getMyLink().getNode2());
+				if (disconnected) {
+					SoundAssets.disconnectSound.play();
+					gameStateChanged = true;
+				}
+			}
+		} else { // a node has been clicked
+			if (lastSelectedNode != null) { // this was the second node to be selected
+				if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
+					// toggle the connection
+					boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
+							lastSelectedNode.getMyGridNode());
+					if (increased) {
+						SoundAssets.connectSound.play();
+						gameStateChanged = true;
+					}
+					// the second node has sucessfully been selected
+					secondSelectedNode = node;
+				}
+				lastSelectedNode.setSelected(false);
+				lastSelectedNode = null;
+			} else { // this was the first node to be selected
+				node.setSelected(true);
+				lastSelectedNode = node;
+			}
+		}
+		return gameStateChanged;
+	}
+
+	/**
+	 * Process a double-click event
+	 * @param e The event
+	 * @return {@value true}, if and only if the game state has changed
+	 */
+	private boolean processDoubleClick(MouseEvent e) {
+		boolean gameStateChanged = false;
+		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
+		if (lastSelectedNode != null) {
+			lastSelectedNode.setSelected(false);
+			if (lastSelectedNode == node) {
+				// fill the whole node with connections
+				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
+				if (connected) {
+					System.out.println("1");
+					gameStateChanged = true;
+					SoundAssets.connectSound.play();
+				}
+			}
+			lastSelectedNode = null;
+		} else {
+			if (node != null && secondSelectedNode != node) {
+				// fill the whole node with connections
+				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
+				if (connected) {
+					System.out.println("2");
+					gameStateChanged = true;
+					SoundAssets.connectSound.play();
+				}
+				lastSelectedNode = null;
+			} else if (node != null && secondSelectedNode == node) {
+				node.setSelected(true);
+				lastSelectedNode = node;
+			}
+		}
+		return gameStateChanged;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (gameHasEnded) { // do nothing
 			return;
 		}
 
-		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
-		if (e.getClickCount() == 1) {
-			if (node == null) {
-				if (lastSelectedNode != null) {
-					lastSelectedNode.setSelected(false);
-					lastSelectedNode = null;
-				}
-				// could still be a selected link
-				VisualLink link = gameBoardGUI.getNearestLink(e.getPoint());
-				if (link != null) { // decrease the connection
-					boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
-							link.getMyLink().getNode2());
-					if (disconnected) {
-						SoundAssets.disconnectSound.play();
-					}
-				}
-			} else { // a node has been clicked
-				if (lastSelectedNode != null) { // this was the second node to be selected
-					if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
-						// toggle the connection
-						boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
-								lastSelectedNode.getMyGridNode());
-						if (increased) {
-							SoundAssets.connectSound.play();
-						}
-					}
-					lastSelectedNode.setSelected(false);
-					lastSelectedNode = null;
-				} else { // this was the first node to be selected
-					node.setSelected(true);
-					lastSelectedNode = node;
-				}
-			}
-		} else { // double-click
-			if (lastSelectedNode != null) {
-				lastSelectedNode.setSelected(false);
-				if (lastSelectedNode == node) {
-					// fill the whole node with connections
-					boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
-					if (connected) {
-						SoundAssets.connectSound.play();
-					}
-				}
-			} else {
-				if (node != null) {
-					// fill the whole node with connections
-					boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
-					if (connected) {
-						SoundAssets.connectSound.play();
-					}
-				}
-			}
-			lastSelectedNode = null;
+		boolean gameStateChanged = false;
+		if (e.getClickCount() == 2) {
+			System.out.println("Double click");
+			gameStateChanged = processDoubleClick(e);
+		} else { // single-click... or the first click of a double-click
+			System.out.println("Single click");
+			gameStateChanged = processSingleClick(e);
 		}
-		if (gameBoardGUI.getMyBoard().hasWon()) {
-			gameBoardGUI.setBackground(Color.WHITE);
+
+		if (gameStateChanged && gameBoardGUI.getMyBoard().hasWon()) {
 			gameHasEnded = true;
 			if (lastSelectedNode != null) {
 				lastSelectedNode.setSelected(false);
