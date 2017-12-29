@@ -11,8 +11,6 @@ import view.game.GameBoardGUI;
 import view.game.VisualGridNode;
 import view.game.VisualLink;
 
-// The button sound effect files are under the Creative Commons License and from https://www.soundjay.com
-
 /**
  * A class for managing the mouse input from the user.
  */
@@ -26,7 +24,7 @@ public class MouseInputUser extends MouseAdapter {
 	 * The main window.
 	 */
 	private MainWindow mainWindow;
-	
+
 	/**
 	 * The last highlighted node or link.
 	 */
@@ -43,6 +41,8 @@ public class MouseInputUser extends MouseAdapter {
 	 * 
 	 * @param board
 	 *            The DrawingBoard to operate on.
+	 * @param mainWindow
+	 *            The main window of the program.
 	 */
 	public MouseInputUser(final GameBoardGUI board, MainWindow mainWindow) {
 		this.gameBoardGUI = board;
@@ -72,8 +72,8 @@ public class MouseInputUser extends MouseAdapter {
 						SoundAssets.disconnectSound.play();
 					}
 				}
-			} else {
-				if (lastSelectedNode != null) {
+			} else { // a node has been clicked
+				if (lastSelectedNode != null) { // this was the second node to be selected
 					if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
 						// toggle the connection
 						boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
@@ -84,7 +84,7 @@ public class MouseInputUser extends MouseAdapter {
 					}
 					lastSelectedNode.setSelected(false);
 					lastSelectedNode = null;
-				} else {
+				} else { // this was the first node to be selected
 					node.setSelected(true);
 					lastSelectedNode = node;
 				}

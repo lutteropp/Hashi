@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import view.MainWindow;
 
 /**
- * A listener for the Options button on the title screen.
+ * A listener for the Options button on the title screen. When invoked, it switches to the options screen.
  * 
  * @author Sarah Lutteropp
  */

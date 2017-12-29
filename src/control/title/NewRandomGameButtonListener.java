@@ -6,17 +6,27 @@ import java.awt.event.ActionListener;
 import view.MainWindow;
 
 /**
- * A listener for the NewRandomGame button on the title screen.
+ * A listener for the NewRandomGame button on the title screen. When invoked, it
+ * switches to the screen for choosing the level generator's parameters.
  * 
  * @author Sarah Lutteropp
  */
 public class NewRandomGameButtonListener implements ActionListener {
+	/**
+	 * The main window of the program
+	 */
 	private MainWindow mainWindow;
-	
+
+	/**
+	 * Create a listener for the NewRandomGame button on the title screen.
+	 * 
+	 * @param mainWindow
+	 *            The main window of the program
+	 */
 	public NewRandomGameButtonListener(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		mainWindow.showGeneratorWindow();
