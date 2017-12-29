@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
 		generatorGUI.addKeyListener(keyInput);
 		optionsGUI.addKeyListener(keyInput);
 		
-		this.setBackground(Color.ORANGE);
+		this.setBackground(Color.WHITE);
 	}
 
 	public void showTitleWindow() {
@@ -85,12 +85,12 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 	}
 
-	public void showRandomGameWindow(int width, int height) {
+	public void showRandomGameWindow(int width, int height, double gridUsage) {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.stopMusic();
 			titleScreenGUI.setContinueGameButtonEnabled(true);
 		}
-		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height);
+		ArrayList<GridNode> nodes = LevelGenerator.generateLevel(width, height, gridUsage);
 		GameBoard board = new GameBoard(width, height, nodes);
 		gameBoardGUI = new GameBoardGUI(board, this);
 		gameBoardGUI.addKeyListener(keyInput);

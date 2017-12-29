@@ -117,11 +117,11 @@ public class TitleScreenGUI extends JPanel {
 		add(bottomBorder, BorderLayout.SOUTH);
 
 		this.addComponentListener(new TitleGUIResizeListener(buttons, titleImage));
-		titlePane.setBackground(Color.ORANGE);
-		leftBorder.setBackground(Color.ORANGE);
-		rightBorder.setBackground(Color.ORANGE);
-		bottomBorder.setBackground(Color.ORANGE);
-		buttonPane.setBackground(Color.ORANGE);
-		this.setBackground(Color.ORANGE);
+		titlePane.setBackground(Color.WHITE);
+		leftBorder.setBackground(Color.WHITE);
+		rightBorder.setBackground(Color.WHITE);
+		bottomBorder.setBackground(Color.WHITE);
+		buttonPane.setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 	}
 }
