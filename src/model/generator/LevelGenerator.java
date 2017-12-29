@@ -1,6 +1,5 @@
 package model.generator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -150,6 +149,10 @@ public class LevelGenerator {
 	 * @param gridUsage
 	 *            Percentage of the grid cells to be filled with nodes. Can be at
 	 *            most 0.25, must be at least 0.01.
+	 * @param pOuterExtension
+	 *            Probability to do an extension that creates a new node (in
+	 *            contrast to an inner extension that connects two already existing
+	 *            nodes).
 	 * @return A list of nodes which constitute the level.
 	 */
 	public static ArrayList<GridNode> generateLevel(final int width, final int height, double gridUsage,
@@ -189,12 +192,10 @@ public class LevelGenerator {
 		nodesToPlace--;
 
 		// Keep track of the possible extensions in each direction.
-		// A node with two free pins into a direction will be added twice. A node with
-		// only one free pin into a direction will be added once. This ensures that each
-		// free pin has the same chance of being selected for extension.
 		HashMap<Direction, ArrayList<IncompleteNode>> outerExtensions = new HashMap<Direction, ArrayList<IncompleteNode>>();
 		// Each free pin leading to a direct neighbor counts as a possible inner
-		// extension.
+		// extension. This ensures that each possible inner extension has the
+		// same chance of being selected.
 		HashMap<Direction, ArrayList<IncompleteNode>> innerExtensions = new HashMap<Direction, ArrayList<IncompleteNode>>();
 		for (Direction dir : Direction.values()) {
 			outerExtensions.put(dir, new ArrayList<IncompleteNode>());
@@ -212,11 +213,9 @@ public class LevelGenerator {
 		// north, south, east, or west of a node.
 		while (nodesToPlace > 0) {
 			int totalOuterPossible = 0;
-			for (Direction dir : Direction.values()) {
-				totalOuterPossible += outerExtensions.get(dir).size();
-			}
 			int totalInnerPossible = 0;
 			for (Direction dir : Direction.values()) {
+				totalOuterPossible += outerExtensions.get(dir).size();
 				totalInnerPossible += innerExtensions.get(dir).size();
 			}
 
@@ -236,21 +235,22 @@ public class LevelGenerator {
 				select = nextDirection(outerExtensions);
 			}
 			IncompleteNode actNode = select.node;
-			// Compute the coordinates of the neighbor for extension.
-			int newX = actNode.getX();
-			int newY = actNode.getY();
-			if (select.dir == Direction.EAST) {
-				newX += 2;
-			} else if (select.dir == Direction.WEST) {
-				newX -= 2;
-			} else if (select.dir == Direction.NORTH) {
-				newY += 2;
-			} else { // Direction.SOUTH
-				newY -= 2;
-			}
-			IncompleteNode neighbor = cells.get(newX).get(newY);
+			// Retrieve the neighbor for extension.
+			IncompleteNode neighbor = getDirectNeighborAt(actNode, select.dir, cells);
 
 			if (neighbor == null) { // Create a new node. This means we did an outer extension.
+				int newX = actNode.getX();
+				int newY = actNode.getY();
+				if (select.dir == Direction.EAST) {
+					newX += 2;
+				} else if (select.dir == Direction.WEST) {
+					newX -= 2;
+				} else if (select.dir == Direction.NORTH) {
+					newY += 2;
+				} else { // Direction.SOUTH
+					newY -= 2;
+				}
+				
 				neighbor = new IncompleteNode(newX, newY);
 				incompleteNodes.add(neighbor);
 				cells.get(newX).set(newY, neighbor);
