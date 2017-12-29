@@ -99,6 +99,14 @@ public class MouseInputUser extends MouseAdapter {
 						SoundAssets.connectSound.play();
 					}
 				}
+			} else {
+				if (node != null) {
+					// fill the whole node with connections
+					boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
+					if (connected) {
+						SoundAssets.connectSound.play();
+					}
+				}
 			}
 			lastSelectedNode = null;
 		}
