@@ -21,7 +21,7 @@ public class HelpGUI extends JPanel {
 	private static final long serialVersionUID = 4753107236165358560L;
 
 	/**
-	 * Create the GUI for showing the game instructions.
+	 * Create the GUI for showing the help instructions.
 	 * 
 	 * @param mainWindow
 	 *            The main window

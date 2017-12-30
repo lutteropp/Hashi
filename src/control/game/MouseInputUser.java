@@ -34,6 +34,11 @@ public class MouseInputUser extends MouseAdapter {
 	private VisualGridNode lastSelectedNode;
 
 	/**
+	 * The last pressed node.
+	 */
+	private VisualGridNode lastPressedNode;
+
+	/**
 	 * The current successfully selected second node. Used for improving the
 	 * double-click behaviour.
 	 */
@@ -84,7 +89,7 @@ public class MouseInputUser extends MouseAdapter {
 		} else { // a node has been clicked
 			if (lastSelectedNode != null) { // this was the second node to be selected
 				if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
-					// toggle the connection
+					// increase the connection
 					boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
 							lastSelectedNode.getMyGridNode());
 					if (increased) {
@@ -159,6 +164,23 @@ public class MouseInputUser extends MouseAdapter {
 		return gameStateChanged;
 	}
 
+	private void processChangedGameState() {
+		if (gameBoardGUI.getMyBoard().hasWon()) {
+			gameHasEnded = true;
+			if (lastSelectedNode != null) {
+				lastSelectedNode.setSelected(false);
+				lastSelectedNode = null;
+			}
+			if (lastHighlighted != null) {
+				lastHighlighted.setHighlighted(false);
+				lastHighlighted = null;
+			}
+			secondSelectedNode = null;
+			gameBoardGUI.repaint();
+			mainWindow.showGameFinishedWindow();
+		}
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (gameHasEnded) { // do nothing
@@ -170,21 +192,11 @@ public class MouseInputUser extends MouseAdapter {
 		} else { // single-click... or the first click of a double-click
 			gameStateChanged = processSingleClick(e);
 		}
-		
+
 		gameBoardGUI.repaint();
 
-		if (gameStateChanged && gameBoardGUI.getMyBoard().hasWon()) {
-			gameHasEnded = true;
-			if (lastSelectedNode != null) {
-				lastSelectedNode.setSelected(false);
-				lastSelectedNode = null;
-			}
-			if (lastHighlighted != null) {
-				lastHighlighted.setHighlighted(false);
-				lastHighlighted = null;
-			}
-			secondSelectedNode = null;
-			mainWindow.showGameFinishedWindow();
+		if (gameStateChanged) {
+			processChangedGameState();
 		}
 	}
 
@@ -204,5 +216,33 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		lastHighlighted = drawable;
 		gameBoardGUI.repaint();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		lastPressedNode = gameBoardGUI.getNearestNode(e.getPoint());
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (lastPressedNode != null) {
+			VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
+			if (node != null && node != lastPressedNode) {
+				boolean increased = false;
+				if (lastPressedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
+					// increase the connection
+					increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
+							lastPressedNode.getMyGridNode());
+					if (increased) {
+						SoundAssets.connectSound.play();
+					}
+				}
+				if (increased) {
+					processChangedGameState();
+				}
+			}
+		}
+		lastPressedNode = null;
+		secondSelectedNode = null;
 	}
 }
