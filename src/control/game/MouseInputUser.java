@@ -302,6 +302,7 @@ public class MouseInputUser extends MouseAdapter {
 			VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
 			boolean gameStateChanged = tryConnectingNodes(lastPressedNode, node);
 			if (gameStateChanged) {
+				resetLastSelectedNode();
 				processChangedGameState();
 			}
 		}
