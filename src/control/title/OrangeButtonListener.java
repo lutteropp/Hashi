@@ -1,4 +1,4 @@
-package view;
+package control.title;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;

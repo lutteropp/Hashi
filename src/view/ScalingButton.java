@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 
+import control.title.OrangeButtonListener;
+
 /**
  * A button that maximizes its font size based on the button's size.
  * 
