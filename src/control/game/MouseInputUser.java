@@ -152,6 +152,7 @@ public class MouseInputUser extends MouseAdapter {
 		if (lastSelectedNode != null) {
 			lastSelectedNode.setSelected(false);
 			lastSelectedNode = null;
+			gameBoardGUI.repaint();
 			changed = true;
 		}
 		return changed;
@@ -166,6 +167,7 @@ public class MouseInputUser extends MouseAdapter {
 		if (lastHighlighted != null) {
 			lastHighlighted.setHighlighted(false);
 			lastHighlighted = null;
+			gameBoardGUI.repaint();
 			changed = true;
 		}
 		return changed;
@@ -245,8 +247,6 @@ public class MouseInputUser extends MouseAdapter {
 				// fill the whole node with connections
 				gameStateChanged = tryFillingNode(node);
 				resetLastSelectedNode();
-			} else if (node != null && secondSelectedNode == node) {
-				setLastSelectedNode(node);
 			}
 		}
 		return gameStateChanged;
