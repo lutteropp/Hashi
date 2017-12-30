@@ -170,6 +170,19 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		return changed;
 	}
+	
+	/**
+	 * Set the last selected node.
+	 * @param node The node to be selected.
+	 * @return 
+	 */
+	private void setLastSelectedNode(VisualGridNode node) {
+		lastSelectedNode = node;
+		if (node != null) {
+			node.setSelected(true);
+			gameBoardGUI.repaint();
+		}
+	}
 
 	/**
 	 * Process a single-click event
@@ -195,8 +208,7 @@ public class MouseInputUser extends MouseAdapter {
 				}
 				resetLastSelectedNode();
 			} else { // this was the first node to be selected
-				node.setSelected(true);
-				lastSelectedNode = node;
+				setLastSelectedNode(node);
 			}
 		}
 		return gameStateChanged;
@@ -212,7 +224,6 @@ public class MouseInputUser extends MouseAdapter {
 	private boolean processDoubleClick(MouseEvent e) {
 		boolean gameStateChanged = false;
 		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
-
 		if (node == null) {
 			resetLastSelectedNode();
 			// could still be a selected link
@@ -235,8 +246,7 @@ public class MouseInputUser extends MouseAdapter {
 				gameStateChanged = tryFillingNode(node);
 				resetLastSelectedNode();
 			} else if (node != null && secondSelectedNode == node) {
-				node.setSelected(true);
-				lastSelectedNode = node;
+				setLastSelectedNode(node);
 			}
 		}
 		return gameStateChanged;
