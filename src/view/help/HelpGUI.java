@@ -46,6 +46,9 @@ public class HelpGUI extends JPanel {
 		
 		Color background = new Color(90, 220, 220);
 		this.setBackground(background);
+		rulesPanel.setBackground(background);
+		generatorSettingsPanel.setBackground(background);
+		controlsPanel.setBackground(background);
 		emptyPanel.setBackground(background);
 		creditsPanel.setBackground(background);
 	}

@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -63,8 +62,6 @@ public class ApplicationWindow extends JFrame {
 		titleScreenGUI = new TitleScreenGUI(this);
 		generatorGUI = new GeneratorGUI(this, keyInput);
 		helpGUI = new HelpGUI(this, keyInput);
-
-		this.setBackground(Color.WHITE);
 	}
 
 	/**
@@ -166,7 +163,7 @@ public class ApplicationWindow extends JFrame {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
-		JOptionPane.showMessageDialog(null, "You won the game!", "CONGRATULATIONS!", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, "You won the game!", "Congratutlations", JOptionPane.INFORMATION_MESSAGE);
 		this.showTitleWindow();
 	}
 
