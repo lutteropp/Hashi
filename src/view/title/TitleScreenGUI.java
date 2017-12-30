@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import assets.GraphicalGameAssets;
 import assets.SoundAssets;
 import control.title.ContinueGameButtonListener;
 import control.title.ExitButtonListener;
@@ -18,6 +19,7 @@ import control.title.NewRandomGameButtonListener;
 import control.title.HelpButtonListener;
 import view.ApplicationWindow;
 import view.ScalingButton;
+import view.ScalingImagePanel;
 import view.ScalingLabel;
 
 /**
@@ -91,9 +93,6 @@ public class TitleScreenGUI extends JPanel {
 		hasStopped = true;
 		buttons = new ArrayList<JButton>();
 
-		ScalingLabel titleLabel = new ScalingLabel("Hashiwokakero");
-		titleLabel.setBoldFont(true);
-
 		JPanel leftBorder = new JPanel();
 		JPanel rightBorder = new JPanel();
 		JPanel bottomBorder = new JPanel();
@@ -123,16 +122,45 @@ public class TitleScreenGUI extends JPanel {
 		}
 		
 		this.setLayout(new GridBagLayout());
+		
+		ScalingImagePanel catPanel = new ScalingImagePanel(GraphicalGameAssets.getCatImage());
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.ipady = 100;      //make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.3;
-		c.gridwidth = 3;
+		c.gridwidth = 1;
 		c.gridheight = 1;
 		c.gridx = 0;
 		c.gridy = 0;
+		add(catPanel, c);
+		
+		
+		ScalingLabel titleLabel = new ScalingLabel("Hashiwokakero");
+		titleLabel.setBoldFont(true);
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.ipady = 100;      //make this component tall
+		c.weightx = 0.0;
+		c.weighty = 0.3;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.gridx = 1;
+		c.gridy = 0;
 		add(titleLabel, c);
+		
+		ScalingImagePanel catPanel2 = new ScalingImagePanel(GraphicalGameAssets.getCatImage());
+		c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.ipady = 100;      //make this component tall
+		c.weightx = 0.0;
+		c.weighty = 0.3;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.gridx = 2;
+		c.gridy = 0;
+		add(catPanel2, c);
+		
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -168,6 +196,8 @@ public class TitleScreenGUI extends JPanel {
 		leftBorder.setBackground(background);
 		rightBorder.setBackground(background);
 		bottomBorder.setBackground(background);
+		catPanel.setBackground(background);
+		catPanel2.setBackground(background);
 		this.setBackground(background);
 	}
 }

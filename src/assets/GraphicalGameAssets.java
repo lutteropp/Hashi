@@ -10,8 +10,9 @@ import javax.imageio.ImageIO;
 import model.base.Direction;
 
 /**
- * A class for managing the graphical assets of the Hashiwokakero game. The
- * graphics are drawn by myself.
+ * A class for managing the graphical assets of the Hashiwokakero game. Most
+ * graphics are drawn by myself. Only exception: The cat image is from
+ * https://en.wikipedia.org/wiki/File:Manekineko1003.jpg
  * 
  * @author Sarah Lutteropp
  */
@@ -54,7 +55,11 @@ public class GraphicalGameAssets {
 	 * The generator settings explained.
 	 */
 	private static BufferedImage generatorSettings;
-	
+	/**
+	 * A lucky cat.
+	 */
+	private static BufferedImage cat;
+
 	/**
 	 * Get the image for the node's pins in the given direction.
 	 * 
@@ -158,26 +163,33 @@ public class GraphicalGameAssets {
 	public static BufferedImage getGoalImage(final int goal) {
 		return numbers.get(goal);
 	}
-	
+
 	/**
 	 * @return The image explaining the game rules.
 	 */
 	public static BufferedImage getGameRulesImage() {
 		return gameRules;
 	}
-	
+
 	/**
 	 * @return The image explaining the game controls.
 	 */
 	public static BufferedImage getGameControlsImage() {
 		return gameControls;
 	}
-	
+
 	/**
 	 * @return The image explaining the generator settings.
 	 */
 	public static BufferedImage getGeneratorSettingsImage() {
 		return generatorSettings;
+	}
+
+	/**
+	 * @return An image of a lucky cat.
+	 */
+	public static BufferedImage getCatImage() {
+		return cat;
 	}
 
 	/**
@@ -239,9 +251,10 @@ public class GraphicalGameAssets {
 		numbers.put(6, ImageIO.read(new File("assets/6.png")));
 		numbers.put(7, ImageIO.read(new File("assets/7.png")));
 		numbers.put(8, ImageIO.read(new File("assets/8.png")));
-		
+
 		gameRules = ImageIO.read(new File("assets/GameRules.png"));
 		gameControls = ImageIO.read(new File("assets/GameControls.png"));
 		generatorSettings = ImageIO.read(new File("assets/GeneratorSettings.png"));
+		cat = ImageIO.read(new File("assets/cat.jpg"));
 	}
 }
