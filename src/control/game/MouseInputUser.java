@@ -128,7 +128,7 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		return connected;
 	}
-	
+
 	/**
 	 * Since the game state has changed, check whether the player has won the game.
 	 */
@@ -142,10 +142,12 @@ public class MouseInputUser extends MouseAdapter {
 			mainWindow.showGameFinishedWindow();
 		}
 	}
-	
+
 	/**
 	 * Reset the last selected node.
-	 * @return {@value true}, if and only if the last selected node was not {@value null} before.
+	 * 
+	 * @return {@value true}, if and only if the last selected node was not
+	 *         {@value null} before.
 	 */
 	private boolean resetLastSelectedNode() {
 		boolean changed = false;
@@ -157,10 +159,12 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		return changed;
 	}
-	
+
 	/**
 	 * Reset the last highlighted drawable.
-	 * @return {@value true}, if and only if the last highlighted node was not {@value null} before.
+	 * 
+	 * @return {@value true}, if and only if the last highlighted node was not
+	 *         {@value null} before.
 	 */
 	private boolean resetLastHighlighted() {
 		boolean changed = false;
@@ -172,11 +176,13 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		return changed;
 	}
-	
+
 	/**
 	 * Set the last selected node.
-	 * @param node The node to be selected.
-	 * @return 
+	 * 
+	 * @param node
+	 *            The node to be selected.
+	 * @return
 	 */
 	private void setLastSelectedNode(VisualGridNode node) {
 		lastSelectedNode = node;
@@ -227,7 +233,6 @@ public class MouseInputUser extends MouseAdapter {
 		boolean gameStateChanged = false;
 		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
 		if (node == null) {
-			resetLastSelectedNode();
 			// could still be a selected link
 			gameStateChanged = tryDecreaseLink(gameBoardGUI.getNearestLink(e.getPoint()));
 		} else {
@@ -235,20 +240,12 @@ public class MouseInputUser extends MouseAdapter {
 				// fill the whole node with connections
 				gameStateChanged = tryFillingNode(node);
 			}
-		}
-		if (lastSelectedNode != null) { // a node has been selected before
-			if (lastSelectedNode == node) { // ... and it was this node
+			if (secondSelectedNode != node) {
 				// fill the whole node with connections
 				gameStateChanged = tryFillingNode(node);
 			}
-			resetLastSelectedNode();
-		} else { // no node has been selected before
-			if (node != null && secondSelectedNode != node) {
-				// fill the whole node with connections
-				gameStateChanged = tryFillingNode(node);
-				resetLastSelectedNode();
-			}
 		}
+		resetLastSelectedNode();
 		return gameStateChanged;
 	}
 
