@@ -6,6 +6,12 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+/**
+ * Listener that highlights a button in orange color if the mouse is moved over
+ * the button.
+ * 
+ * @author Sarah Lutteropp
+ */
 public class OrangeButtonListener implements MouseListener {
 
 	/** The button to listen to */
