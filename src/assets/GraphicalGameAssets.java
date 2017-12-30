@@ -1,7 +1,6 @@
 package assets;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -212,7 +211,7 @@ public class GraphicalGameAssets {
 	 * @throws IOException
 	 */
 	private static BufferedImage load(String path) throws IOException {
-		return ImageIO.read(new File(ClassLoader.getSystemResource(path).getFile()));
+		return ImageIO.read(ClassLoader.getSystemResourceAsStream("assets/" + path));
 	}
 
 	/**
@@ -221,64 +220,64 @@ public class GraphicalGameAssets {
 	 * @throws IOException
 	 */
 	public static void loadAssets() throws IOException {
-		coldBody = load("assets/media/ColdBorder.png");
-		warmBody = load("assets/media/WarmBorder.png");
-		hotBody = load("assets/media/HotBorder.png");
+		coldBody = load("ColdBorder.png");
+		warmBody = load("WarmBorder.png");
+		hotBody = load("HotBorder.png");
 		eastPins = new HashMap<Integer, BufferedImage>();
-		eastPins.put(0, load("assets/media/RightConnections_0.png"));
-		eastPins.put(1, load("assets/media/RightConnections_1.png"));
-		eastPins.put(2, load("assets/media/RightConnections_2.png"));
+		eastPins.put(0, load("RightConnections_0.png"));
+		eastPins.put(1, load("RightConnections_1.png"));
+		eastPins.put(2, load("RightConnections_2.png"));
 		westPins = new HashMap<Integer, BufferedImage>();
-		westPins.put(0, load("assets/media/LeftConnections_0.png"));
-		westPins.put(1, load("assets/media/LeftConnections_1.png"));
-		westPins.put(2, load("assets/media/LeftConnections_2.png"));
+		westPins.put(0, load("LeftConnections_0.png"));
+		westPins.put(1, load("LeftConnections_1.png"));
+		westPins.put(2, load("LeftConnections_2.png"));
 		northPins = new HashMap<Integer, BufferedImage>();
-		northPins.put(0, load("assets/media/BottomConnections_0.png"));
-		northPins.put(1, load("assets/media/BottomConnections_1.png"));
-		northPins.put(2, load("assets/media/BottomConnections_2.png"));
+		northPins.put(0, load("BottomConnections_0.png"));
+		northPins.put(1, load("BottomConnections_1.png"));
+		northPins.put(2, load("BottomConnections_2.png"));
 		southPins = new HashMap<Integer, BufferedImage>();
-		southPins.put(0, load("assets/media/TopConnections_0.png"));
-		southPins.put(1, load("assets/media/TopConnections_1.png"));
-		southPins.put(2, load("assets/media/TopConnections_2.png"));
+		southPins.put(0, load("TopConnections_0.png"));
+		southPins.put(1, load("TopConnections_1.png"));
+		southPins.put(2, load("TopConnections_2.png"));
 		eastPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		eastPinsHighlighted.put(1, load("assets/media/RightConnections_1_Highlighted.png"));
-		eastPinsHighlighted.put(2, load("assets/media/RightConnections_2_Highlighted.png"));
+		eastPinsHighlighted.put(1, load("RightConnections_1_Highlighted.png"));
+		eastPinsHighlighted.put(2, load("RightConnections_2_Highlighted.png"));
 		westPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		westPinsHighlighted.put(1, load("assets/media/LeftConnections_1_Highlighted.png"));
-		westPinsHighlighted.put(2, load("assets/media/LeftConnections_2_Highlighted.png"));
+		westPinsHighlighted.put(1, load("LeftConnections_1_Highlighted.png"));
+		westPinsHighlighted.put(2, load("LeftConnections_2_Highlighted.png"));
 		northPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		northPinsHighlighted.put(1, load("assets/media/BottomConnections_1_Highlighted.png"));
-		northPinsHighlighted.put(2, load("assets/media/BottomConnections_2_Highlighted.png"));
+		northPinsHighlighted.put(1, load("BottomConnections_1_Highlighted.png"));
+		northPinsHighlighted.put(2, load("BottomConnections_2_Highlighted.png"));
 		southPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		southPinsHighlighted.put(1, load("assets/media/TopConnections_1_Highlighted.png"));
-		southPinsHighlighted.put(2, load("assets/media/TopConnections_2_Highlighted.png"));
+		southPinsHighlighted.put(1, load("TopConnections_1_Highlighted.png"));
+		southPinsHighlighted.put(2, load("TopConnections_2_Highlighted.png"));
 		verticalWire = new HashMap<Integer, BufferedImage>();
-		verticalWire.put(1, load("assets/media/VerticalConnection_1.png"));
-		verticalWire.put(2, load("assets/media/VerticalConnection_2.png"));
+		verticalWire.put(1, load("VerticalConnection_1.png"));
+		verticalWire.put(2, load("VerticalConnection_2.png"));
 		horizontalWire = new HashMap<Integer, BufferedImage>();
-		horizontalWire.put(1, load("assets/media/HorizontalConnection_1.png"));
-		horizontalWire.put(2, load("assets/media/HorizontalConnection_2.png"));
+		horizontalWire.put(1, load("HorizontalConnection_1.png"));
+		horizontalWire.put(2, load("HorizontalConnection_2.png"));
 		verticalWireHighlighted = new HashMap<Integer, BufferedImage>();
-		verticalWireHighlighted.put(1, load("assets/media/VerticalConnection_1_Highlighted.png"));
-		verticalWireHighlighted.put(2, load("assets/media/VerticalConnection_2_Highlighted.png"));
+		verticalWireHighlighted.put(1, load("VerticalConnection_1_Highlighted.png"));
+		verticalWireHighlighted.put(2, load("VerticalConnection_2_Highlighted.png"));
 		horizontalWireHighlighted = new HashMap<Integer, BufferedImage>();
-		horizontalWireHighlighted.put(1, load("assets/media/HorizontalConnection_1_Highlighted.png"));
-		horizontalWireHighlighted.put(2, load("assets/media/HorizontalConnection_2_Highlighted.png"));
+		horizontalWireHighlighted.put(1, load("HorizontalConnection_1_Highlighted.png"));
+		horizontalWireHighlighted.put(2, load("HorizontalConnection_2_Highlighted.png"));
 
 		numbers = new HashMap<Integer, BufferedImage>();
-		numbers.put(1, load("assets/media/1.png"));
-		numbers.put(2, load("assets/media/2.png"));
-		numbers.put(3, load("assets/media/3.png"));
-		numbers.put(4, load("assets/media/4.png"));
-		numbers.put(5, load("assets/media/5.png"));
-		numbers.put(6, load("assets/media/6.png"));
-		numbers.put(7, load("assets/media/7.png"));
-		numbers.put(8, load("assets/media/8.png"));
+		numbers.put(1, load("1.png"));
+		numbers.put(2, load("2.png"));
+		numbers.put(3, load("3.png"));
+		numbers.put(4, load("4.png"));
+		numbers.put(5, load("5.png"));
+		numbers.put(6, load("6.png"));
+		numbers.put(7, load("7.png"));
+		numbers.put(8, load("8.png"));
 
-		gameRules = load("assets/media/GameRules.png");
-		gameControls = load("assets/media/GameControls.png");
-		generatorSettings = load("assets/media/GeneratorSettings.png");
-		luckyCat = load("assets/media/cat.jpg");
-		bigCat = load("assets/media/big_cat.jpg");
+		gameRules = load("GameRules.png");
+		gameControls = load("GameControls.png");
+		generatorSettings = load("GeneratorSettings.png");
+		luckyCat = load("cat.jpg");
+		bigCat = load("big_cat.jpg");
 	}
 }

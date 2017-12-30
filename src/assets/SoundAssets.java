@@ -1,7 +1,5 @@
 package assets;
 
-import java.io.File;
-
 import jaco.mp3.player.MP3Player;
 
 /**
@@ -17,17 +15,16 @@ public class SoundAssets {
 	// https://sites.google.com/site/teachmemrxymon/java/how-to-use-mp3player-class
 
 	// Button sound effect files from https://www.soundjay.com
-	public static final MP3Player connectSound = new MP3Player(
-			new File(ClassLoader.getSystemResource("assets/media/button-20.mp3").getFile()));
+
+	public static final MP3Player connectSound = new MP3Player(ClassLoader.getSystemResource("assets/button-20.mp3"));
 	public static final MP3Player disconnectSound = new MP3Player(
-			new File(ClassLoader.getSystemResource("assets/media/button-46.mp3").getFile()));
+			ClassLoader.getSystemResource("assets/button-46.mp3"));
 	// Title music from https://opengameart.org/content/zombies-march
 	public static final MP3Player titleMusic = new MP3Player(
-			new File(ClassLoader.getSystemResource("assets/media/ZombiesAreComing.mp3").getFile()));
+			ClassLoader.getSystemResource("assets/ZombiesAreComing.mp3"));
 	// Game music from http://nosoapradio.us/
-	public static final MP3Player gameMusic = new MP3Player(
-			new File(ClassLoader.getSystemResource("assets/media/DST-DayBreak.mp3").getFile()));
+	public static final MP3Player gameMusic = new MP3Player(ClassLoader.getSystemResource("assets/DST-DayBreak.mp3"));
 	// Winning music from http://www.orangefreesounds.com/
 	public static final MP3Player winningMusic = new MP3Player(
-			new File(ClassLoader.getSystemResource("assets/media/Ta-da-orchestra-fanfare.mp3").getFile()));
+			ClassLoader.getSystemResource("assets/Ta-da-orchestra-fanfare.mp3"));
 }
