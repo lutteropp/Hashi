@@ -163,7 +163,7 @@ public class ApplicationWindow extends JFrame {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
-		JOptionPane.showMessageDialog(null, "You won the game!", "Congratutlations", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "You won the game!", "Congrats!", JOptionPane.INFORMATION_MESSAGE);
 		this.showTitleWindow();
 	}
 
