@@ -161,7 +161,6 @@ public class ApplicationWindow extends JFrame {
 	 */
 	public void showGameFinishedWindow() {
 		gameBoardGUI.setBackgroundImage(GraphicalGameAssets.getBigCatImage());
-		gameBoardGUI.repaint();
 		SoundAssets.winningMusic.play();
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
@@ -169,7 +168,6 @@ public class ApplicationWindow extends JFrame {
 		JOptionPane.showMessageDialog(null, "You won the game!", "Congrats!", JOptionPane.INFORMATION_MESSAGE);
 		this.showTitleWindow();
 		gameBoardGUI.setBackgroundImage(null);
-		gameBoardGUI.repaint();
 	}
 
 	/**

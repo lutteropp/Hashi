@@ -62,8 +62,13 @@ public class GameBoardGUI extends JPanel {
 		SoundAssets.gameMusic.stop();
 	}
 	
+	/**
+	 * Set the background image of the game screen
+	 * @param backgroundImage The background image, can be {@value null}.
+	 */
 	public void setBackgroundImage(BufferedImage backgroundImage) {
 		this.backgroundImage = backgroundImage;
+		repaint();
 	}
 	
 	/**
