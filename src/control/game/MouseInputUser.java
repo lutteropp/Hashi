@@ -235,6 +235,7 @@ public class MouseInputUser extends MouseAdapter {
 							lastPressedNode.getMyGridNode());
 					if (increased) {
 						SoundAssets.connectSound.play();
+						gameBoardGUI.repaint();
 					}
 				}
 				if (increased) {
