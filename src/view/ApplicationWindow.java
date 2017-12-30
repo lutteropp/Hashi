@@ -56,6 +56,7 @@ public class ApplicationWindow extends JFrame {
 	public ApplicationWindow() throws IOException {
 		setTitle("Hashiwokakero");
 		setResizable(false);
+		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationByPlatform(true);
