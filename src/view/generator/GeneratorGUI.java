@@ -43,7 +43,21 @@ public class GeneratorGUI extends JPanel {
 	 * to connecting two already existing nodes) during level generation
 	 */
 	private JSlider outerExtensionSlider;
+	/**
+	 * The generate button
+	 */
+	private JButton generateButton;
+	
+	/** The default background color of the generate button */
+	private Color defaultButtonColor;
 
+	/**
+	 * Reset the button colors to their default colors.
+	 */
+	public void resetButtonColors() {
+		generateButton.setBackground(defaultButtonColor);
+	}
+	
 	/**
 	 * Add the borders to the GridBagLayout
 	 */
@@ -137,7 +151,7 @@ public class GeneratorGUI extends JPanel {
 	 */
 	public GeneratorGUI(ApplicationWindow mainWindow, KeyInputUser keyListener) {
 		// The button for starting the level generation
-		JButton generateButton = new ScalingButton("Generate Level");
+		generateButton = new ScalingButton("Generate Level");
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int maxWidth = (int) Math.floor(screenSize.getWidth() / 100) - 1;
@@ -201,8 +215,7 @@ public class GeneratorGUI extends JPanel {
 		this.setBackground(background);
 		addBorders(background);
 		outerExtensionCaptionPanel.setBackground(background);
-		generateButton.setBackground(Color.WHITE);
 		
-		this.requestFocus();
+		defaultButtonColor = generateButton.getBackground();
 	}
 }

@@ -74,6 +74,9 @@ public class ApplicationWindow extends JFrame {
 		if (gameBoardGUI != null) {
 			gameBoardGUI.stopMusic();
 		}
+		if (generatorGUI != null) {
+			generatorGUI.resetButtonColors();
+		}
 		titleScreenGUI.resetButtonColors();
 		titleScreenGUI.loopMusic();
 
