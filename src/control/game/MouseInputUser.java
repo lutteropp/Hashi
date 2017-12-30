@@ -44,6 +44,9 @@ public class MouseInputUser extends MouseAdapter {
 	 */
 	private VisualGridNode secondSelectedNode;
 
+	/**
+	 * Has the game ended?
+	 */
 	private boolean gameHasEnded;
 
 	/**
@@ -164,6 +167,9 @@ public class MouseInputUser extends MouseAdapter {
 		return gameStateChanged;
 	}
 
+	/**
+	 * Since the game state has changed, check whether the player has won the game.
+	 */
 	private void processChangedGameState() {
 		if (gameBoardGUI.getMyBoard().hasWon()) {
 			gameHasEnded = true;
@@ -192,7 +198,6 @@ public class MouseInputUser extends MouseAdapter {
 		} else { // single-click... or the first click of a double-click
 			gameStateChanged = processSingleClick(e);
 		}
-
 		gameBoardGUI.repaint();
 
 		if (gameStateChanged) {
@@ -205,26 +210,36 @@ public class MouseInputUser extends MouseAdapter {
 		if (gameHasEnded) {
 			return; // do nothing
 		}
-
+		boolean highlightingChanged = false;
 		AbstractDrawable drawable = null;
 		drawable = gameBoardGUI.getNearestDrawableItem(e.getPoint());
 		if (lastHighlighted != null) {
 			lastHighlighted.setHighlighted(false);
+			highlightingChanged = true;
 		}
 		if (drawable != null) {
 			drawable.setHighlighted(true);
+			highlightingChanged = true;
 		}
 		lastHighlighted = drawable;
-		gameBoardGUI.repaint();
+		if (highlightingChanged) {
+			gameBoardGUI.repaint();
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if (gameHasEnded) {
+			return; // do nothing
+		}
 		lastPressedNode = gameBoardGUI.getNearestNode(e.getPoint());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if (gameHasEnded) {
+			return; // do nothing
+		}
 		if (lastPressedNode != null) {
 			VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
 			if (node != null && node != lastPressedNode) {
