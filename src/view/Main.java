@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import assets.GraphicalGameAssets;
 
@@ -22,6 +23,7 @@ public class Main {
 	 * from the event-dispatching thread.
 	 * 
 	 * @throws IOException
+	 * @throws URISyntaxException 
 	 */
 	private void createAndShowGUI() throws IOException {
 		GraphicalGameAssets.loadAssets();

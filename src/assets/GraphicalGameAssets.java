@@ -11,10 +11,10 @@ import model.base.Direction;
 
 /**
  * A class for managing the graphical assets of the Hashiwokakero game. Most
- * graphics are drawn by myself. Only exceptions: 
- * - The lucky cat image is from https://en.wikipedia.org/wiki/File:Manekineko1003.jpg
- * - The big cat image is from https://unsplash.com/photos/R26-yUBSgC0
- * Both cat images are distributed under a Creative Commons License.
+ * graphics are drawn by myself. Only exceptions: - The lucky cat image is from
+ * https://en.wikipedia.org/wiki/File:Manekineko1003.jpg - The big cat image is
+ * from https://unsplash.com/photos/R26-yUBSgC0 Both cat images are distributed
+ * under a Creative Commons License.
  * 
  * @author Sarah Lutteropp
  */
@@ -65,7 +65,7 @@ public class GraphicalGameAssets {
 	 * A big cat.
 	 */
 	private static BufferedImage bigCat;
-	
+
 	/**
 	 * Get the image for the node's pins in the given direction.
 	 * 
@@ -197,7 +197,7 @@ public class GraphicalGameAssets {
 	public static BufferedImage getLuckyCatImage() {
 		return luckyCat;
 	}
-	
+
 	/**
 	 * @return A big cat image.
 	 */
@@ -206,69 +206,79 @@ public class GraphicalGameAssets {
 	}
 
 	/**
+	 * Load an image from the assets
+	 * @param path The path to the image
+	 * @return The image
+	 * @throws IOException
+	 */
+	private static BufferedImage load(String path) throws IOException {
+		return ImageIO.read(new File(ClassLoader.getSystemResource(path).getFile()));
+	}
+
+	/**
 	 * Load all the image files.
 	 * 
 	 * @throws IOException
 	 */
 	public static void loadAssets() throws IOException {
-		coldBody = ImageIO.read(new File("assets/ColdBorder.png"));
-		warmBody = ImageIO.read(new File("assets/WarmBorder.png"));
-		hotBody = ImageIO.read(new File("assets/HotBorder.png"));
+		coldBody = load("assets/media/ColdBorder.png");
+		warmBody = load("assets/media/WarmBorder.png");
+		hotBody = load("assets/media/HotBorder.png");
 		eastPins = new HashMap<Integer, BufferedImage>();
-		eastPins.put(0, ImageIO.read(new File("assets/RightConnections_0.png")));
-		eastPins.put(1, ImageIO.read(new File("assets/RightConnections_1.png")));
-		eastPins.put(2, ImageIO.read(new File("assets/RightConnections_2.png")));
+		eastPins.put(0, load("assets/media/RightConnections_0.png"));
+		eastPins.put(1, load("assets/media/RightConnections_1.png"));
+		eastPins.put(2, load("assets/media/RightConnections_2.png"));
 		westPins = new HashMap<Integer, BufferedImage>();
-		westPins.put(0, ImageIO.read(new File("assets/LeftConnections_0.png")));
-		westPins.put(1, ImageIO.read(new File("assets/LeftConnections_1.png")));
-		westPins.put(2, ImageIO.read(new File("assets/LeftConnections_2.png")));
+		westPins.put(0, load("assets/media/LeftConnections_0.png"));
+		westPins.put(1, load("assets/media/LeftConnections_1.png"));
+		westPins.put(2, load("assets/media/LeftConnections_2.png"));
 		northPins = new HashMap<Integer, BufferedImage>();
-		northPins.put(0, ImageIO.read(new File("assets/BottomConnections_0.png")));
-		northPins.put(1, ImageIO.read(new File("assets/BottomConnections_1.png")));
-		northPins.put(2, ImageIO.read(new File("assets/BottomConnections_2.png")));
+		northPins.put(0, load("assets/media/BottomConnections_0.png"));
+		northPins.put(1, load("assets/media/BottomConnections_1.png"));
+		northPins.put(2, load("assets/media/BottomConnections_2.png"));
 		southPins = new HashMap<Integer, BufferedImage>();
-		southPins.put(0, ImageIO.read(new File("assets/TopConnections_0.png")));
-		southPins.put(1, ImageIO.read(new File("assets/TopConnections_1.png")));
-		southPins.put(2, ImageIO.read(new File("assets/TopConnections_2.png")));
+		southPins.put(0, load("assets/media/TopConnections_0.png"));
+		southPins.put(1, load("assets/media/TopConnections_1.png"));
+		southPins.put(2, load("assets/media/TopConnections_2.png"));
 		eastPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		eastPinsHighlighted.put(1, ImageIO.read(new File("assets/RightConnections_1_Highlighted.png")));
-		eastPinsHighlighted.put(2, ImageIO.read(new File("assets/RightConnections_2_Highlighted.png")));
+		eastPinsHighlighted.put(1, load("assets/media/RightConnections_1_Highlighted.png"));
+		eastPinsHighlighted.put(2, load("assets/media/RightConnections_2_Highlighted.png"));
 		westPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		westPinsHighlighted.put(1, ImageIO.read(new File("assets/LeftConnections_1_Highlighted.png")));
-		westPinsHighlighted.put(2, ImageIO.read(new File("assets/LeftConnections_2_Highlighted.png")));
+		westPinsHighlighted.put(1, load("assets/media/LeftConnections_1_Highlighted.png"));
+		westPinsHighlighted.put(2, load("assets/media/LeftConnections_2_Highlighted.png"));
 		northPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		northPinsHighlighted.put(1, ImageIO.read(new File("assets/BottomConnections_1_Highlighted.png")));
-		northPinsHighlighted.put(2, ImageIO.read(new File("assets/BottomConnections_2_Highlighted.png")));
+		northPinsHighlighted.put(1, load("assets/media/BottomConnections_1_Highlighted.png"));
+		northPinsHighlighted.put(2, load("assets/media/BottomConnections_2_Highlighted.png"));
 		southPinsHighlighted = new HashMap<Integer, BufferedImage>();
-		southPinsHighlighted.put(1, ImageIO.read(new File("assets/TopConnections_1_Highlighted.png")));
-		southPinsHighlighted.put(2, ImageIO.read(new File("assets/TopConnections_2_Highlighted.png")));
+		southPinsHighlighted.put(1, load("assets/media/TopConnections_1_Highlighted.png"));
+		southPinsHighlighted.put(2, load("assets/media/TopConnections_2_Highlighted.png"));
 		verticalWire = new HashMap<Integer, BufferedImage>();
-		verticalWire.put(1, ImageIO.read(new File("assets/VerticalConnection_1.png")));
-		verticalWire.put(2, ImageIO.read(new File("assets/VerticalConnection_2.png")));
+		verticalWire.put(1, load("assets/media/VerticalConnection_1.png"));
+		verticalWire.put(2, load("assets/media/VerticalConnection_2.png"));
 		horizontalWire = new HashMap<Integer, BufferedImage>();
-		horizontalWire.put(1, ImageIO.read(new File("assets/HorizontalConnection_1.png")));
-		horizontalWire.put(2, ImageIO.read(new File("assets/HorizontalConnection_2.png")));
+		horizontalWire.put(1, load("assets/media/HorizontalConnection_1.png"));
+		horizontalWire.put(2, load("assets/media/HorizontalConnection_2.png"));
 		verticalWireHighlighted = new HashMap<Integer, BufferedImage>();
-		verticalWireHighlighted.put(1, ImageIO.read(new File("assets/VerticalConnection_1_Highlighted.png")));
-		verticalWireHighlighted.put(2, ImageIO.read(new File("assets/VerticalConnection_2_Highlighted.png")));
+		verticalWireHighlighted.put(1, load("assets/media/VerticalConnection_1_Highlighted.png"));
+		verticalWireHighlighted.put(2, load("assets/media/VerticalConnection_2_Highlighted.png"));
 		horizontalWireHighlighted = new HashMap<Integer, BufferedImage>();
-		horizontalWireHighlighted.put(1, ImageIO.read(new File("assets/HorizontalConnection_1_Highlighted.png")));
-		horizontalWireHighlighted.put(2, ImageIO.read(new File("assets/HorizontalConnection_2_Highlighted.png")));
+		horizontalWireHighlighted.put(1, load("assets/media/HorizontalConnection_1_Highlighted.png"));
+		horizontalWireHighlighted.put(2, load("assets/media/HorizontalConnection_2_Highlighted.png"));
 
 		numbers = new HashMap<Integer, BufferedImage>();
-		numbers.put(1, ImageIO.read(new File("assets/1.png")));
-		numbers.put(2, ImageIO.read(new File("assets/2.png")));
-		numbers.put(3, ImageIO.read(new File("assets/3.png")));
-		numbers.put(4, ImageIO.read(new File("assets/4.png")));
-		numbers.put(5, ImageIO.read(new File("assets/5.png")));
-		numbers.put(6, ImageIO.read(new File("assets/6.png")));
-		numbers.put(7, ImageIO.read(new File("assets/7.png")));
-		numbers.put(8, ImageIO.read(new File("assets/8.png")));
+		numbers.put(1, load("assets/media/1.png"));
+		numbers.put(2, load("assets/media/2.png"));
+		numbers.put(3, load("assets/media/3.png"));
+		numbers.put(4, load("assets/media/4.png"));
+		numbers.put(5, load("assets/media/5.png"));
+		numbers.put(6, load("assets/media/6.png"));
+		numbers.put(7, load("assets/media/7.png"));
+		numbers.put(8, load("assets/media/8.png"));
 
-		gameRules = ImageIO.read(new File("assets/GameRules.png"));
-		gameControls = ImageIO.read(new File("assets/GameControls.png"));
-		generatorSettings = ImageIO.read(new File("assets/GeneratorSettings.png"));
-		luckyCat = ImageIO.read(new File("assets/cat.jpg"));
-		bigCat = ImageIO.read(new File("assets/big_cat.jpg"));
+		gameRules = load("assets/media/GameRules.png");
+		gameControls = load("assets/media/GameControls.png");
+		generatorSettings = load("assets/media/GeneratorSettings.png");
+		luckyCat = load("assets/media/cat.jpg");
+		bigCat = load("assets/media/big_cat.jpg");
 	}
 }
