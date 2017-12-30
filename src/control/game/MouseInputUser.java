@@ -128,6 +128,16 @@ public class MouseInputUser extends MouseAdapter {
 				lastSelectedNode.setSelected(false);
 				lastSelectedNode = null;
 			}
+			// could still be a selected link
+			VisualLink link = gameBoardGUI.getNearestLink(e.getPoint());
+			if (link != null) { // decrease the connection
+				boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
+						link.getMyLink().getNode2());
+				if (disconnected) {
+					SoundAssets.disconnectSound.play();
+					gameStateChanged = true;
+				}
+			}
 		} else {
 			if (lastSelectedNode == node) { // the node has already been selected
 				// fill the whole node with connections
