@@ -1,11 +1,13 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 
 /**
- * A button that changes maximizes its font size based on the button's size.
+ * A button that maximizes its font size based on the button's size.
+ * 
  * @author Sarah Lutteropp
  *
  */
@@ -17,7 +19,9 @@ public class ScalingButton extends JButton {
 
 	/**
 	 * Create a new scaling button.
-	 * @param text The caption of the button
+	 * 
+	 * @param text
+	 *            The caption of the button
 	 */
 	public ScalingButton(String text) {
 		super();
@@ -27,6 +31,7 @@ public class ScalingButton extends JButton {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		ScalingTextPainter.paint(g, this, text, false, this.isEnabled(), 0.5);
+		BufferedImage buttonImage = ScalingPainter.createTextImage(this, text, false, this.isEnabled());
+		ScalingPainter.paint(g, this, buttonImage, 0.5);
 	}
 }

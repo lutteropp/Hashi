@@ -15,7 +15,7 @@ import javax.swing.JComponent;
  * @author Sarah Lutteropp
  *
  */
-public class ScalingTextPainter {
+public class ScalingPainter {
 
 	/**
 	 * Create an image containing the text in a very large font size.
@@ -30,7 +30,7 @@ public class ScalingTextPainter {
 	 *            Is the component enabled or not?
 	 * @return An image containing the text in a very large font size.
 	 */
-	private static BufferedImage createButtonImage(JComponent component, String text, boolean bold, boolean enabled) {
+	public static BufferedImage createTextImage(JComponent component, String text, boolean bold, boolean enabled) {
 		Font font = component.getFont();
 		font = font.deriveFont(350f); // make the font very large to avoid rescaling effects
 		if (bold) {
@@ -60,24 +60,18 @@ public class ScalingTextPainter {
 	 *            The graphics object of the component
 	 * @param component
 	 *            The component
-	 * @param text
-	 *            The text
-	 * @param bold
-	 *            Is the font bold?
-	 * @param enabled
-	 *            Is the component enabled?
+	 * @param image
+	 *            The image
 	 * @param heightUsage
 	 *            Percentage of the component's height to be used for the text. Has
 	 *            to be greater than 0 and <= 1.
 	 */
-	public static void paint(Graphics g, JComponent component, String text, boolean bold, boolean enabled,
-			double heightUsage) {
+	public static void paint(Graphics g, JComponent component, BufferedImage image, double heightUsage) {
 		if (heightUsage <= 0 || heightUsage > 1) {
 			throw new IllegalArgumentException("Height usage must lie in the interval (0,1]");
 		}
 
-		BufferedImage buttonImage = createButtonImage(component, text, bold, enabled);
-		double originalRatio = (double) buttonImage.getWidth() / buttonImage.getHeight();
+		double originalRatio = (double) image.getWidth() / image.getHeight();
 
 		int maxWidth = component.getWidth();
 		int maxHeight = (int) Math.round(component.getHeight() * heightUsage);
@@ -88,7 +82,7 @@ public class ScalingTextPainter {
 			width = maxWidth;
 			height = (int) Math.floor((double) maxWidth / originalRatio);
 		}
-		g.drawImage(buttonImage, (component.getWidth() - width) / 2, (component.getHeight() - height) / 2, width,
+		g.drawImage(image, (component.getWidth() - width) / 2, (component.getHeight() - height) / 2, width,
 				height, null);
 	}
 }

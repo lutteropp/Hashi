@@ -1,11 +1,12 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
 /**
- * A label that changes maximizes its font size based on the label's size.
+ * A label that maximizes its font size based on the label's size.
  * @author Sarah Lutteropp
  *
  */
@@ -37,7 +38,8 @@ public class ScalingLabel extends JLabel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		ScalingTextPainter.paint(g, this, text, bold, true, 1.0);
+		BufferedImage labelImage = ScalingPainter.createTextImage(this, text, bold, true);
+		ScalingPainter.paint(g, this, labelImage, 1.0);
 	}
 
 	@Override

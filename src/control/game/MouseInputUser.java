@@ -170,6 +170,8 @@ public class MouseInputUser extends MouseAdapter {
 		} else { // single-click... or the first click of a double-click
 			gameStateChanged = processSingleClick(e);
 		}
+		
+		gameBoardGUI.repaint();
 
 		if (gameStateChanged && gameBoardGUI.getMyBoard().hasWon()) {
 			gameHasEnded = true;
@@ -182,10 +184,8 @@ public class MouseInputUser extends MouseAdapter {
 				lastHighlighted = null;
 			}
 			secondSelectedNode = null;
-			gameBoardGUI.repaint();
 			mainWindow.showGameFinishedWindow();
 		}
-		gameBoardGUI.repaint();
 	}
 
 	@Override

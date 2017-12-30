@@ -43,6 +43,19 @@ public class GraphicalGameAssets {
 	private static HashMap<Integer, BufferedImage> verticalWireHighlighted, horizontalWireHighlighted;
 
 	/**
+	 * The game rules explained.
+	 */
+	private static BufferedImage gameRules;
+	/**
+	 * The game controls explained.
+	 */
+	private static BufferedImage gameControls;
+	/**
+	 * The generator settings explained.
+	 */
+	private static BufferedImage generatorSettings;
+	
+	/**
 	 * Get the image for the node's pins in the given direction.
 	 * 
 	 * @param dir
@@ -145,6 +158,27 @@ public class GraphicalGameAssets {
 	public static BufferedImage getGoalImage(final int goal) {
 		return numbers.get(goal);
 	}
+	
+	/**
+	 * @return The image explaining the game rules.
+	 */
+	public static BufferedImage getGameRulesImage() {
+		return gameRules;
+	}
+	
+	/**
+	 * @return The image explaining the game controls.
+	 */
+	public static BufferedImage getGameControlsImage() {
+		return gameControls;
+	}
+	
+	/**
+	 * @return The image explaining the generator settings.
+	 */
+	public static BufferedImage getGeneratorSettingsImage() {
+		return generatorSettings;
+	}
 
 	/**
 	 * Load all the image files.
@@ -205,5 +239,9 @@ public class GraphicalGameAssets {
 		numbers.put(6, ImageIO.read(new File("assets/6.png")));
 		numbers.put(7, ImageIO.read(new File("assets/7.png")));
 		numbers.put(8, ImageIO.read(new File("assets/8.png")));
+		
+		gameRules = ImageIO.read(new File("assets/GameRules.png"));
+		gameControls = ImageIO.read(new File("assets/GameControls.png"));
+		generatorSettings = ImageIO.read(new File("assets/GeneratorSettings.png"));
 	}
 }
