@@ -202,9 +202,6 @@ public class MouseInputUser extends MouseAdapter {
 	private boolean processSingleClick(MouseEvent e) {
 		boolean gameStateChanged = false;
 		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
-		/*if (secondSelectedNode != node) {
-			secondSelectedNode = null;
-		}*/
 		if (node == null) {
 			resetLastSelectedNode();
 			// could still be a selected link
@@ -238,11 +235,10 @@ public class MouseInputUser extends MouseAdapter {
 			// could still be a selected link
 			gameStateChanged = tryDecreaseLink(gameBoardGUI.getNearestLink(e.getPoint()));
 		} else {
-			if (lastSelectedNode == node) { // the node has already been selected
+			if (lastSelectedNode == node) { // the node has already been selected as first node
 				// fill the whole node with connections
 				gameStateChanged = tryFillingNode(node);
-			}
-			else if (secondSelectedNode != node) {
+			} else if (secondSelectedNode != node) { // the second node in the last new connection was not this node
 				// fill the whole node with connections
 				gameStateChanged = tryFillingNode(node);
 			} else { // for improved double-click behavior
@@ -258,8 +254,8 @@ public class MouseInputUser extends MouseAdapter {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (gameHasEnded) { // do nothing
-			return;
+		if (gameHasEnded) {
+			return; // do nothing
 		}
 		boolean gameStateChanged = false;
 		if (e.getClickCount() == 2) {
