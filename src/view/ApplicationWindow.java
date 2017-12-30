@@ -2,16 +2,10 @@ package view;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelCross;
 
 import assets.SoundAssets;
 import control.title.KeyInputUser;
@@ -48,19 +42,18 @@ public class ApplicationWindow extends JFrame {
 	/**
 	 * The options screen.
 	 */
-	private HelpGUI optionsGUI;
+	private HelpGUI helpGUI;
 	/**
 	 * Listener that returns to the title screen when the Escape key is released.
 	 */
 	private KeyInputUser keyInput;
 
-	public ApplicationWindow()
-			throws ParseException, UnsupportedLookAndFeelException, MalformedURLException, IOException {
-
-		// SynthLookAndFeel laf = new SynthLookAndFeel();
-		// laf.load(new File("assets/laf.xml").toURI().toURL());
-		UIManager.setLookAndFeel(new BeautyEyeLookAndFeelCross());
-
+	/**
+	 * Create the main window of the program.
+	 * 
+	 * @throws IOException
+	 */
+	public ApplicationWindow() throws IOException {
 		setTitle("Hashiwokakero");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -69,15 +62,19 @@ public class ApplicationWindow extends JFrame {
 		keyInput = new KeyInputUser(this);
 		titleScreenGUI = new TitleScreenGUI(this);
 		generatorGUI = new GeneratorGUI(this, keyInput);
-		optionsGUI = new HelpGUI(this, keyInput);
+		helpGUI = new HelpGUI(this, keyInput);
 
 		this.setBackground(Color.WHITE);
 	}
 
+	/**
+	 * Switch to the title screen.
+	 */
 	public void showTitleWindow() {
 		if (gameBoardGUI != null) {
 			gameBoardGUI.stopMusic();
 		}
+		titleScreenGUI.resetButtonColors();
 		titleScreenGUI.loopMusic();
 
 		setContentPane(titleScreenGUI);
@@ -85,6 +82,9 @@ public class ApplicationWindow extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Switch to the game sceen and start a fixed game.
+	 */
 	public void showFixedGameWindow() {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.stopMusic();
@@ -100,6 +100,19 @@ public class ApplicationWindow extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Switch to the game screen and start a random game.
+	 * 
+	 * @param width
+	 *            The wanted width of the game grid.
+	 * @param height
+	 *            The wanted height of the game grid.
+	 * @param gridUsage
+	 *            The wanted percentage of the grid area to be filled with nodes.
+	 * @param pOuterExtension
+	 *            The probability for creating a new node instead of connecting to
+	 *            existing nodes during generation. Has to be > 0 and <= 1.
+	 */
 	public void showRandomGameWindow(int width, int height, double gridUsage, double pOuterExtension) {
 		if (titleScreenGUI != null) {
 			titleScreenGUI.stopMusic();
@@ -115,6 +128,9 @@ public class ApplicationWindow extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Switch to the game window of an already running game.
+	 */
 	public void showRunningGameWindow() {
 		if (gameBoardGUI == null) {
 			throw new RuntimeException("There is no currently running game");
@@ -130,24 +146,30 @@ public class ApplicationWindow extends JFrame {
 		setVisible(true);
 	}
 
-	public void showOptionsWindow() {
-		setContentPane(optionsGUI);
-		optionsGUI.requestFocus();
+	/**
+	 * Switch to the help instructions screen.
+	 */
+	public void showHelpWindow() {
+		setContentPane(helpGUI);
+		helpGUI.requestFocus();
 		setVisible(true);
 	}
 
+	/**
+	 * Finish a game: Inform the user that he, she, or it has won the game and switch back to the title screen.
+	 */
 	public void showGameFinishedWindow() {
 		SoundAssets.winningMusic.play();
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
-		JOptionPane.showMessageDialog(this, 
-                "You won the game!", 
-                "CONGRATULATIONS!", 
-                JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "You won the game!", "CONGRATULATIONS!", JOptionPane.PLAIN_MESSAGE);
 		this.showTitleWindow();
 	}
 
+	/**
+	 * Switch to the generator screen.
+	 */
 	public void showGeneratorWindow() {
 		setContentPane(generatorGUI);
 		generatorGUI.requestFocus();

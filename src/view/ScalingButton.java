@@ -26,6 +26,7 @@ public class ScalingButton extends JButton {
 	public ScalingButton(String text) {
 		super();
 		this.text = text;
+		this.addMouseListener(new OrangeButtonListener(this));
 	}
 
 	@Override

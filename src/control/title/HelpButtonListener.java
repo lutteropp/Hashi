@@ -19,6 +19,6 @@ public class HelpButtonListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		mainWindow.showOptionsWindow();
+		mainWindow.showHelpWindow();
 	}
 }

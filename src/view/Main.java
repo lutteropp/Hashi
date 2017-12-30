@@ -1,9 +1,6 @@
 package view;
 
 import java.io.IOException;
-import java.text.ParseException;
-
-import javax.swing.UnsupportedLookAndFeelException;
 
 import assets.GraphicalGameAssets;
 
@@ -15,6 +12,9 @@ import assets.GraphicalGameAssets;
  */
 public class Main {
 
+	/**
+	 * The main window of this program.
+	 */
 	private ApplicationWindow window;
 
 	/**
@@ -22,10 +22,8 @@ public class Main {
 	 * from the event-dispatching thread.
 	 * 
 	 * @throws IOException
-	 * @throws UnsupportedLookAndFeelException
-	 * @throws ParseException
 	 */
-	private void createAndShowGUI() throws IOException, ParseException, UnsupportedLookAndFeelException {
+	private void createAndShowGUI() throws IOException {
 		GraphicalGameAssets.loadAssets();
 		window = new ApplicationWindow();
 		window.showTitleWindow();
@@ -46,8 +44,7 @@ public class Main {
 			public void run() {
 				try {
 					new Main().createAndShowGUI();
-				} catch (IOException | ParseException | UnsupportedLookAndFeelException e) {
-					// TODO Auto-generated catch block
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}

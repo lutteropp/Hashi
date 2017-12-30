@@ -34,12 +34,12 @@ public class TitleScreenGUI extends JPanel {
 	/** The panel containing all the buttons on the title screen */
 	private JPanel buttonPane;
 
-	/** All buttons on the title screen in one list*/
+	/** All buttons on the title screen in one list */
 	private ArrayList<JButton> buttons;
 
 	/** The "continue game" button */
 	private ScalingButton continueGameButton;
-	/** The "new fixed game" button */ 
+	/** The "new fixed game" button */
 	private ScalingButton newFixedGameButton;
 	/** The "new random game" button */
 	private ScalingButton newRandomGameButton;
@@ -47,6 +47,9 @@ public class TitleScreenGUI extends JPanel {
 	private ScalingButton helpButton;
 	/** The "exit" button */
 	private ScalingButton exitButton;
+
+	/** The default color of the buttons */
+	private Color defaultEnabledButtonColor, defaultDisabledButtonColor;
 
 	/**
 	 * Has the music been stopped? This flag is used for avoiding interrupting an
@@ -81,6 +84,19 @@ public class TitleScreenGUI extends JPanel {
 	 */
 	public void setContinueGameButtonEnabled(boolean enabled) {
 		continueGameButton.setEnabled(enabled);
+	}
+	
+	/**
+	 * Reset the button colors to their default colors.
+	 */
+	public void resetButtonColors() {
+		for (JButton button : buttons) {
+			if (button.isEnabled()) {
+				button.setBackground(defaultEnabledButtonColor);
+			} else {
+				button.setBackground(defaultDisabledButtonColor);
+			}
+		}
 	}
 
 	/**
@@ -120,13 +136,13 @@ public class TitleScreenGUI extends JPanel {
 			button.setAlignmentX(Component.CENTER_ALIGNMENT);
 			buttonPane.add(button);
 		}
-		
+
 		this.setLayout(new GridBagLayout());
-		
+
 		ScalingImagePanel catPanel = new ScalingImagePanel(GraphicalGameAssets.getCatImage());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.ipady = 100;      //make this component tall
+		c.ipady = 100; // make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.3;
 		c.gridwidth = 1;
@@ -134,13 +150,12 @@ public class TitleScreenGUI extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		add(catPanel, c);
-		
-		
+
 		ScalingLabel titleLabel = new ScalingLabel("Hashiwokakero");
 		titleLabel.setBoldFont(true);
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.ipady = 100;      //make this component tall
+		c.ipady = 100; // make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.3;
 		c.gridwidth = 1;
@@ -148,11 +163,11 @@ public class TitleScreenGUI extends JPanel {
 		c.gridx = 1;
 		c.gridy = 0;
 		add(titleLabel, c);
-		
+
 		ScalingImagePanel catPanel2 = new ScalingImagePanel(GraphicalGameAssets.getCatImage());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.ipady = 100;      //make this component tall
+		c.ipady = 100; // make this component tall
 		c.weightx = 0.0;
 		c.weighty = 0.3;
 		c.gridwidth = 1;
@@ -160,7 +175,7 @@ public class TitleScreenGUI extends JPanel {
 		c.gridx = 2;
 		c.gridy = 0;
 		add(catPanel2, c);
-		
+
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -190,6 +205,9 @@ public class TitleScreenGUI extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weighty = 0.1;
 		add(bottomBorder, c);
+
+		defaultEnabledButtonColor = exitButton.getBackground();
+		defaultDisabledButtonColor = continueGameButton.getBackground();
 
 		Color background = new Color(90, 220, 220);
 		titleLabel.setBackground(background);
