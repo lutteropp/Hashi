@@ -64,6 +64,114 @@ public class MouseInputUser extends MouseAdapter {
 	}
 
 	/**
+	 * Try to remove a connection wire from a link
+	 * 
+	 * @param link
+	 *            The link, can be null
+	 * @return {@value true}, if and only if the link was not null and has been
+	 *         successfully decreased
+	 */
+	private boolean tryDecreaseLink(VisualLink link) {
+		boolean disconnected = false;
+		if (link != null) {
+			disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
+					link.getMyLink().getNode2());
+			if (disconnected) {
+				SoundAssets.disconnectSound.play();
+				gameBoardGUI.repaint();
+			}
+		}
+		return disconnected;
+	}
+
+	/**
+	 * Try to fully connect the node with all its reachable neighbors
+	 * 
+	 * @param node
+	 *            The node, can be null
+	 * @return {@value true}, if and only if the node was not null and has been
+	 *         connected to more neighbors than before
+	 */
+	private boolean tryFillingNode(VisualGridNode node) {
+		boolean connected = false;
+		if (node != null) {
+			connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
+			if (connected) {
+				SoundAssets.connectSound.play();
+				gameBoardGUI.repaint();
+			}
+		}
+		return connected;
+	}
+
+	/**
+	 * Try to connect two nodes
+	 * 
+	 * @param node1
+	 *            The first node, can be null
+	 * @param node2
+	 *            The second node, can be null
+	 * @return {@value true}, if and only if the nodes were not null and have been
+	 *         successfully connected
+	 */
+	private boolean tryConnectingNodes(VisualGridNode node1, VisualGridNode node2) {
+		boolean connected = false;
+		if (node1 != null && node2 != null && node1 != node2) {
+			if (node1.getMyGridNode().isNeighborOf(node2.getMyGridNode())) {
+				// increase the connection
+				connected = gameBoardGUI.getMyBoard().increaseConnection(node1.getMyGridNode(), node2.getMyGridNode());
+				if (connected) {
+					SoundAssets.connectSound.play();
+					gameBoardGUI.repaint();
+				}
+			}
+		}
+		return connected;
+	}
+	
+	/**
+	 * Since the game state has changed, check whether the player has won the game.
+	 */
+	private void processChangedGameState() {
+		gameBoardGUI.repaint();
+		if (gameBoardGUI.getMyBoard().hasWon()) {
+			gameHasEnded = true;
+			resetLastSelectedNode();
+			resetLastHighlighted();
+			secondSelectedNode = null;
+			mainWindow.showGameFinishedWindow();
+		}
+	}
+	
+	/**
+	 * Reset the last selected node.
+	 * @return {@value true}, if and only if the last selected node was not {@value null} before.
+	 */
+	private boolean resetLastSelectedNode() {
+		boolean changed = false;
+		if (lastSelectedNode != null) {
+			lastSelectedNode.setSelected(false);
+			lastSelectedNode = null;
+			changed = true;
+		}
+		return changed;
+	}
+	
+	/**
+	 * Reset the last highlighted drawable.
+	 * @return {@value true}, if and only if the last highlighted node was not {@value null} before.
+	 */
+	private boolean resetLastHighlighted() {
+		boolean changed = false;
+		if (lastHighlighted != null) {
+			lastHighlighted.setHighlighted(false);
+			lastHighlighted = null;
+			changed = true;
+		}
+		return changed;
+	}
+
+	/**
 	 * Process a single-click event
 	 * 
 	 * @param e
@@ -75,35 +183,17 @@ public class MouseInputUser extends MouseAdapter {
 		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
 		secondSelectedNode = null;
 		if (node == null) {
-			if (lastSelectedNode != null) {
-				lastSelectedNode.setSelected(false);
-				lastSelectedNode = null;
-			}
+			resetLastSelectedNode();
 			// could still be a selected link
-			VisualLink link = gameBoardGUI.getNearestLink(e.getPoint());
-			if (link != null) { // decrease the connection
-				boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
-						link.getMyLink().getNode2());
-				if (disconnected) {
-					SoundAssets.disconnectSound.play();
-					gameStateChanged = true;
-				}
-			}
+			gameStateChanged = tryDecreaseLink(gameBoardGUI.getNearestLink(e.getPoint()));
 		} else { // a node has been clicked
 			if (lastSelectedNode != null) { // this was the second node to be selected
-				if (lastSelectedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
-					// increase the connection
-					boolean increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
-							lastSelectedNode.getMyGridNode());
-					if (increased) {
-						SoundAssets.connectSound.play();
-						gameStateChanged = true;
-					}
+				gameStateChanged = tryConnectingNodes(lastSelectedNode, node);
+				if (gameStateChanged) {
 					// the second node has sucessfully been selected
 					secondSelectedNode = node;
 				}
-				lastSelectedNode.setSelected(false);
-				lastSelectedNode = null;
+				resetLastSelectedNode();
 			} else { // this was the first node to be selected
 				node.setSelected(true);
 				lastSelectedNode = node;
@@ -124,77 +214,32 @@ public class MouseInputUser extends MouseAdapter {
 		VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
 
 		if (node == null) {
-			if (lastSelectedNode != null) {
-				lastSelectedNode.setSelected(false);
-				lastSelectedNode = null;
-			}
+			resetLastSelectedNode();
 			// could still be a selected link
-			VisualLink link = gameBoardGUI.getNearestLink(e.getPoint());
-			if (link != null) { // decrease the connection
-				boolean disconnected = gameBoardGUI.getMyBoard().decreaseConnection(link.getMyLink().getNode1(),
-						link.getMyLink().getNode2());
-				if (disconnected) {
-					SoundAssets.disconnectSound.play();
-					gameStateChanged = true;
-				}
-			}
+			gameStateChanged = tryDecreaseLink(gameBoardGUI.getNearestLink(e.getPoint()));
 		} else {
 			if (lastSelectedNode == node) { // the node has already been selected
 				// fill the whole node with connections
-				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
-				if (connected) {
-					gameStateChanged = true;
-					SoundAssets.connectSound.play();
-				}
+				gameStateChanged = tryFillingNode(node);
 			}
 		}
-
 		if (lastSelectedNode != null) { // a node has been selected before
 			if (lastSelectedNode == node) { // ... and it was this node
 				// fill the whole node with connections
-				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
-				if (connected) {
-					gameStateChanged = true;
-					SoundAssets.connectSound.play();
-				}
+				gameStateChanged = tryFillingNode(node);
 			}
-			lastSelectedNode.setSelected(false);
-			lastSelectedNode = null;
+			resetLastSelectedNode();
 		} else { // no node has been selected before
 			if (node != null && secondSelectedNode != node) {
 				// fill the whole node with connections
-				boolean connected = gameBoardGUI.getMyBoard().fillNode(node.getMyGridNode());
-				if (connected) {
-					gameStateChanged = true;
-					SoundAssets.connectSound.play();
-				}
-				lastSelectedNode = null;
+				gameStateChanged = tryFillingNode(node);
+				resetLastSelectedNode();
 			} else if (node != null && secondSelectedNode == node) {
 				node.setSelected(true);
 				lastSelectedNode = node;
 			}
 		}
 		return gameStateChanged;
-	}
-
-	/**
-	 * Since the game state has changed, check whether the player has won the game.
-	 */
-	private void processChangedGameState() {
-		if (gameBoardGUI.getMyBoard().hasWon()) {
-			gameHasEnded = true;
-			if (lastSelectedNode != null) {
-				lastSelectedNode.setSelected(false);
-				lastSelectedNode = null;
-			}
-			if (lastHighlighted != null) {
-				lastHighlighted.setHighlighted(false);
-				lastHighlighted = null;
-			}
-			secondSelectedNode = null;
-			gameBoardGUI.repaint();
-			mainWindow.showGameFinishedWindow();
-		}
 	}
 
 	@Override
@@ -208,8 +253,6 @@ public class MouseInputUser extends MouseAdapter {
 		} else { // single-click... or the first click of a double-click
 			gameStateChanged = processSingleClick(e);
 		}
-		gameBoardGUI.repaint();
-
 		if (gameStateChanged) {
 			processChangedGameState();
 		}
@@ -220,18 +263,13 @@ public class MouseInputUser extends MouseAdapter {
 		if (gameHasEnded) {
 			return; // do nothing
 		}
-		boolean highlightingChanged = false;
-		AbstractDrawable drawable = null;
-		drawable = gameBoardGUI.getNearestDrawableItem(e.getPoint());
-		if (lastHighlighted != null) {
-			lastHighlighted.setHighlighted(false);
-			highlightingChanged = true;
-		}
+		boolean highlightingChanged = resetLastHighlighted();
+		AbstractDrawable drawable = gameBoardGUI.getNearestDrawableItem(e.getPoint());
 		if (drawable != null) {
 			drawable.setHighlighted(true);
+			lastHighlighted = drawable;
 			highlightingChanged = true;
 		}
-		lastHighlighted = drawable;
 		if (highlightingChanged) {
 			gameBoardGUI.repaint();
 		}
@@ -252,20 +290,9 @@ public class MouseInputUser extends MouseAdapter {
 		}
 		if (lastPressedNode != null) {
 			VisualGridNode node = gameBoardGUI.getNearestNode(e.getPoint());
-			if (node != null && node != lastPressedNode) {
-				boolean increased = false;
-				if (lastPressedNode.getMyGridNode().isNeighborOf(node.getMyGridNode())) {
-					// increase the connection
-					increased = gameBoardGUI.getMyBoard().increaseConnection(node.getMyGridNode(),
-							lastPressedNode.getMyGridNode());
-					if (increased) {
-						SoundAssets.connectSound.play();
-						gameBoardGUI.repaint();
-					}
-				}
-				if (increased) {
-					processChangedGameState();
-				}
+			boolean gameStateChanged = tryConnectingNodes(lastPressedNode, node);
+			if (gameStateChanged) {
+				processChangedGameState();
 			}
 		}
 		lastPressedNode = null;
