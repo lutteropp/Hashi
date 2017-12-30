@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import assets.GraphicalGameAssets;
 import assets.SoundAssets;
 import control.title.KeyInputUser;
 import model.base.GameBoard;
@@ -159,12 +160,16 @@ public class ApplicationWindow extends JFrame {
 	 * Finish a game: Inform the user that he, she, or it has won the game and switch back to the title screen.
 	 */
 	public void showGameFinishedWindow() {
+		gameBoardGUI.setBackgroundImage(GraphicalGameAssets.getBigCatImage());
+		gameBoardGUI.repaint();
 		SoundAssets.winningMusic.play();
 		if (titleScreenGUI != null) {
 			titleScreenGUI.setContinueGameButtonEnabled(false);
 		}
 		JOptionPane.showMessageDialog(null, "You won the game!", "Congrats!", JOptionPane.INFORMATION_MESSAGE);
 		this.showTitleWindow();
+		gameBoardGUI.setBackgroundImage(null);
+		gameBoardGUI.repaint();
 	}
 
 	/**

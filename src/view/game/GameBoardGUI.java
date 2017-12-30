@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ import model.base.GameBoard;
 import model.base.GridNode;
 import model.base.Link;
 import view.ApplicationWindow;
+import view.ScalingPainter;
 
 /**
  * The visual representation of the board where the game is played.
@@ -40,7 +42,8 @@ public class GameBoardGUI extends JPanel {
 	private final boolean showGrid = false;
 	/** The actual size of a cell on the grid. */
 	private int cellSize;
-
+	/** The background image */
+	private BufferedImage backgroundImage;
 	/** The actual game logic. */
 	private GameBoard myBoard;
 
@@ -57,6 +60,10 @@ public class GameBoardGUI extends JPanel {
 	 */
 	public void stopMusic() {
 		SoundAssets.gameMusic.stop();
+	}
+	
+	public void setBackgroundImage(BufferedImage backgroundImage) {
+		this.backgroundImage = backgroundImage;
 	}
 	
 	/**
@@ -166,6 +173,9 @@ public class GameBoardGUI extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if (backgroundImage != null) {
+			ScalingPainter.paint(g, this, backgroundImage, 1.0);
+		}
 		cellSize = Math.min(this.getWidth() / cols, this.getHeight() / rows);
 		int xStart = 0;
 		int yStart = 0;

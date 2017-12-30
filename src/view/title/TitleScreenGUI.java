@@ -139,7 +139,7 @@ public class TitleScreenGUI extends JPanel {
 
 		this.setLayout(new GridBagLayout());
 
-		ScalingImagePanel catPanel = new ScalingImagePanel(GraphicalGameAssets.getCatImage());
+		ScalingImagePanel catPanel = new ScalingImagePanel(GraphicalGameAssets.getLuckyCatImage());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.ipady = 100; // make this component tall
@@ -164,7 +164,7 @@ public class TitleScreenGUI extends JPanel {
 		c.gridy = 0;
 		add(titleLabel, c);
 
-		ScalingImagePanel catPanel2 = new ScalingImagePanel(GraphicalGameAssets.getCatImage());
+		ScalingImagePanel catPanel2 = new ScalingImagePanel(GraphicalGameAssets.getLuckyCatImage());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.ipady = 100; // make this component tall

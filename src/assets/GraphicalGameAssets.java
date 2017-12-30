@@ -11,8 +11,10 @@ import model.base.Direction;
 
 /**
  * A class for managing the graphical assets of the Hashiwokakero game. Most
- * graphics are drawn by myself. Only exception: The cat image is from
- * https://en.wikipedia.org/wiki/File:Manekineko1003.jpg
+ * graphics are drawn by myself. Only exceptions: 
+ * - The lucky cat image is from https://en.wikipedia.org/wiki/File:Manekineko1003.jpg
+ * - The big cat image is from https://unsplash.com/photos/R26-yUBSgC0
+ * Both cat images are distributed under a Creative Commons License.
  * 
  * @author Sarah Lutteropp
  */
@@ -58,8 +60,12 @@ public class GraphicalGameAssets {
 	/**
 	 * A lucky cat.
 	 */
-	private static BufferedImage cat;
-
+	private static BufferedImage luckyCat;
+	/**
+	 * A big cat.
+	 */
+	private static BufferedImage bigCat;
+	
 	/**
 	 * Get the image for the node's pins in the given direction.
 	 * 
@@ -188,8 +194,15 @@ public class GraphicalGameAssets {
 	/**
 	 * @return An image of a lucky cat.
 	 */
-	public static BufferedImage getCatImage() {
-		return cat;
+	public static BufferedImage getLuckyCatImage() {
+		return luckyCat;
+	}
+	
+	/**
+	 * @return A big cat image.
+	 */
+	public static BufferedImage getBigCatImage() {
+		return bigCat;
 	}
 
 	/**
@@ -255,6 +268,7 @@ public class GraphicalGameAssets {
 		gameRules = ImageIO.read(new File("assets/GameRules.png"));
 		gameControls = ImageIO.read(new File("assets/GameControls.png"));
 		generatorSettings = ImageIO.read(new File("assets/GeneratorSettings.png"));
-		cat = ImageIO.read(new File("assets/cat.jpg"));
+		luckyCat = ImageIO.read(new File("assets/cat.jpg"));
+		bigCat = ImageIO.read(new File("assets/big_cat.jpg"));
 	}
 }
